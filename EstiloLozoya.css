@@ -1,0 +1,38 @@
+
+html,header, body{
+ height: 100%;
+ margin: 0%;
+}
+
+*{
+	background-color: #D8D8D8;
+	border: groove;
+}
+#Cabecera{
+	background-color: #999;
+	background-image: url(Imagenes/fondo.png);
+	width: 99%;
+	height:20%;
+}
+div{
+	background: transparent;
+	display: inline-block;
+	margin: 2px
+}
+p{
+	margin: 1px;
+}
+#Logo{
+}
+#PiePagina{
+	clear: both;
+}
+.AsideUser{
+	width: 25em;
+	height: 25em;
+	float: left;
+}
+.ImgAvatar{
+	width: 8em;
+	height: 8em;
+}
