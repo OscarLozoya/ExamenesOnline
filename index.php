@@ -56,6 +56,4 @@
 			<h1>Categorias</h1>
 		</article>
 
-	</section>
-
 <?php include("Footer.php");?>
