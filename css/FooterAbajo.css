@@ -9,5 +9,8 @@ html, body {
 	margin: 0 auto -60px;
 }
 #footer{
+	clear: left;
+	background-color: #58FAF4;
 	height: 60px;
+	width: 100%;
 }
