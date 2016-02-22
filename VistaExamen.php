@@ -42,4 +42,5 @@
 			</article>	
 		</section>
 	</div>
+	
 <?php include("Footer.php");?>
