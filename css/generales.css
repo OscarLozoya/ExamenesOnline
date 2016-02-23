@@ -13,3 +13,7 @@
 .footer{
 	background-color: #58FAF4;
 }
+
+.lines{
+    border: 1px groove white;
+}
