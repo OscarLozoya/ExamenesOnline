@@ -2,7 +2,7 @@
 
 <?php include("Slider.php"); ?>
 	<section class="container-fluid row">
-		<aside class="col-xs-12 col-sm-4 aside">
+		<aside class="col-xs-12 col-sm-4 aside lines">
 			<br>
 			<form action="" class="form-horizontal">
 				<div class="form-group row">
@@ -24,10 +24,10 @@
 				</div>
 
 				<div class="form-group container">
-					<button class="btn btn-link">¿Olvido su contraseña?</button>
+					<a href="">¿Olvido su contraseña?</button>
 				</div>
 
-				<div class="form-group">
+				<div class="form-group row">
 					<div class="col-xs-5">
 						<button class="btn">Registrarse</button>
 					</div>
@@ -52,7 +52,7 @@
 			</form>
 		</aside>
 
-		<article class="col-xs-12 col-sm-8 content">
+		<article class="col-xs-12 col-sm-8 content lines">
 			<h1>Categorias</h1>
 		</article>
 	</section>

@@ -1,7 +1,7 @@
 <?php include("Header.php"); ?>
 
 	<div class="container-fluid row">
-		<aside class="col-xs-12 col-sm-3 aside">
+		<aside class="col-xs-12 col-sm-3 aside lines">
 			<fieldset>
 				<legend>Tiempo Restante</legend>
 				<h1>00:00</h1>
@@ -25,11 +25,12 @@
 				</div>
 			</fieldset>
 		</aside>
-		<section class="col-xs-12 col-sm-8 content">
+		<section class="col-xs-12 col-sm-8 content lines">
 			<article>
-				<h1>Categoria	No. Pregunta/Total preguntas</h1>
-			</article>
-			<article>
+				<header>
+					<h1>Categoria	No. Pregunta/Total preguntas</h1>
+				</header>
+		
 				<div>
 					<p>Pregunta</p>
 				</div>
