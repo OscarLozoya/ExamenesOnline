@@ -40,6 +40,9 @@
 .buton{
   background-color: orange;
 }
+.buton:hover{
+  background-color: gray;
+}
 /*PAra formularios estilachos chidos liros :v*/
   input:required:invalid, input:focus:invalid {
     /*background-image: url(/images/invalid.png);
@@ -52,4 +55,11 @@
     background-position: right top;
     background-repeat: no-repeat;*/
     background-color: #BCF5A9;
+  }
+
+  @media (max-width: 990px){
+    #Logo{
+      display: none;
+
+    }
   }

@@ -39,4 +39,4 @@
     </aside>
 </section>
 <div class="clear-fix visible-sm-block"></div>
-<?php include("Footer.php"):?>
+<?php include("Footer.php");?>

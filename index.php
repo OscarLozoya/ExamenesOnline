@@ -2,7 +2,7 @@
 
 <?php include("Slider.php"); ?>
 	<section class="container-fluid row">
-		<aside class="col-xs-12 col-sm-4 aside lines">
+		<aside class="col-xs-12 col-sm-4 aside">
 			<br>
 			<form action="" class="form-horizontal">
 				<div class="form-group row">
@@ -52,7 +52,7 @@
 			</form>
 		</aside>
 
-		<article class="col-xs-12 col-sm-8 content lines">
+		<article class="col-xs-12 col-sm-8 content">
 			<h1>Categorias</h1>
 		</article>
 	</section>

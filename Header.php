@@ -18,7 +18,7 @@
 		<header class="header">
 			<div class="container-fluid">
 					<div class="col-xs-12 col-sm-6 col-mod-6 col-md-2 col-lg-2">
-						<img class="img-responsive" src="images/logo.jpg">
+						<img id="Logo" class="img-responsive" src="images/logo.jpg">
 					</div>
 					<div class="col-xs-12 col-sm-6 col-mod-6 col-md-10 col-lg-10">
 						<h1>Examenes en Linea</h1>
