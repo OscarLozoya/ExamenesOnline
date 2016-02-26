@@ -1,6 +1,6 @@
 <?php include("Header.php"); ?>
 
-	<section class="container-fluid row">
+	<section class="container-fluid">
 		<aside class="col-xs-12 col-sm-3 aside bloque">
 			<br>
 			<form action="" class="form-horizontal">

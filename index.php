@@ -1,7 +1,7 @@
 <?php include("Header.php"); ?>
 
 <?php include("Slider.php"); ?>
-	<section class="container-fluid row">
+	<section class="container-fluid">
 		<aside class="col-xs-12 col-sm-4 aside lines">
 			<br>
 			<form action="" class="form-horizontal">

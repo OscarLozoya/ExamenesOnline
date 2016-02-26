@@ -1,9 +1,20 @@
 .header{
 	background-color: #013ADF;
 }
-
 .aside{
-	background-color: #FF4000;
+  background-color: #FF4000;
+}
+
+.content{
+  background-color: #BDBDBD;
+}
+
+.footer{
+  background-color: #58FAF4;
+}
+
+.lines{
+    border: 7px solid white;
 }
 
 .content{
@@ -17,13 +28,11 @@
 .formulario{
 	background-color: #BDBDBD;
 }
-#formReg{
-	background-color: #086A87;
-  padding: 40px 40px;
-	height: 400px;
-	width: 300px;
+
+.formFlot{
+  padding: 3em 0em;
   text-align: center;
-  margin: 0% 44%;
+}
 }
 
 .DivPrin{

@@ -9,18 +9,16 @@
 							<img class="userLogo" src="images/logo_user.gif">
 						</figure>
 					</div>
-					<div class="form-group row">
-							<label class="label-control">Nombre de Usuario:</label>
-						<div class="col-md-8 col-md-offset-2">
-							<input id="NomUser" class="form-control" type="text" placeholder="NamUser" required autofocus>
-						</div>
+					<br>
+					<div class="form-group">
+							<label class="label-control">Proporcione un correo para enviar los pasos correspondientes.</label>
 					</div>
-					<div class="form-group row">
-							<label>Correo Electrónico</label>
+						<label class="label-control">Correo:</label>
+					<div class="form-group">
 						<div class="col-md-8 col-md-offset-2">
-							<input id="CorreoElc" class="form-control" type="email" required placeholder="correo@empresa.dom">
-						</div>
-					</div>					
+							<input id="NomUser" class="form-control" type="text" placeholder="correo@empresa.dom" required autofocus>
+						</div>	
+					</div>			
 					<div class="form-group">
 							<button type="button" class="btn btn-primary buton">REGISTRAR</button>
 					</di class="form-group">
@@ -31,6 +29,4 @@
 			</form>
 		</div>
 	</section>
-
 <?php include("Footer.php"); ?>
-	
