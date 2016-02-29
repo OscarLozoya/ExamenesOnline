@@ -1,28 +1,20 @@
 .header{
-	background-color: #013ADF;
+	background-color: #0066a1;
 }
 .aside{
-  background-color: #FF4000;
+  background-color: #204056;
 }
 
 .content{
-  background-color: #BDBDBD;
-}
-
-.footer{
-  background-color: #58FAF4;
+  background-color: #c0c0c8;
 }
 
 .lines{
     border: 7px solid white;
 }
 
-.content{
-	background-color: #BDBDBD;
-}
-
-.colorFooter{
-	background-color: #58FAF4;
+.Footer{
+	background-color: #0066a1;
 }
 
 .formulario{

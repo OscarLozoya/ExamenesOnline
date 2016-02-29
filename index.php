@@ -24,7 +24,7 @@
 				</div>
 
 				<div class="form-group container">
-					<a href="">¿Olvido su contraseña?</button>
+					<a href="">¿Olvido su contraseña?</a>
 				</div>
 
 				<div class="form-group row">

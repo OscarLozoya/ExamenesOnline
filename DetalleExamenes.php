@@ -1,7 +1,7 @@
 <?php include("Header.php"); ?>
 
 	<section class="container-fluid">
-		<aside class="col-xs-12 col-sm-3 aside bloque">
+		<aside class="col-xs-12 col-sm-3 aside lines">
 			<br>
 			<form action="" class="form-horizontal">
 				<div class="form-group">
@@ -38,7 +38,7 @@
 			</form>
 		</aside>
 
-		<article class="col-xs-12 col-sm-9 content bloque">
+		<article class="col-xs-12 col-sm-9 content lines">
 			<h1 class="text-center">Detalle Exámenes</h1>
 			<table class="table">
 				<tr>

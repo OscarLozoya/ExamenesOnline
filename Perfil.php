@@ -1,5 +1,5 @@
 <?php include("Header.php"); ?>
-	<section class="container-fluid">
+	<section class="container-fluid lines">
     <article class="col-xs-2 col-sm-2 col-md-2 col-lg-2 ">
       <div class="form-horizontal">
         <div class="form-group">

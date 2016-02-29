@@ -1,6 +1,6 @@
 <?php include("Header.php"); ?>
 <?php include("Slider.php"); ?>
-	<section class="container-fluid">
+	<section class="container-fluid lines">
 		<article class="col-xs-12 col-sm-12 col-md-12 col-lg-12 ">
 			<div class="jumbotron">
 				<div class="form-horizontal well">
