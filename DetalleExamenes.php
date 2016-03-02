@@ -10,21 +10,21 @@
 					</div>
 					<div class="col-md-6">
 						<label for="Nombre_completo" class="control-label">Nombre Completo</label><br>
-						<a href="" class="control-label">Ver Perfil</a>
+						<a href="Perfil.php" class="control-label">Ver Perfil</a>
 					</div>
 				</div>
 				<div class="form-group col-md-12">
 					<label for="Examenes_pendientes" class="control-label">Exámenes pendientes</label>
 					<select class="form-control input-sm">
-						<option>Categoria 1</option>
-						<option>Categoria 2</option>
-						<option>Categoria 3</option>
-						<option>Categoria 4</option>
+						<option>Categoría 1</option>
+						<option>Categoría 2</option>
+						<option>Categoría 3</option>
+						<option>Categoría 4</option>
 					</select>
 				</div>
 				<div class="form-group col-md-12">
 					<label for="Categoria" class="control-label text-center">Categoría</label><br>
-					<label for="Fecha_limite" class="control-label">Fecha Limite<label>
+					<label for="duracion" class="control-label">Duración<label>
 				</div>
 
 				<div class="form-group">

@@ -1,6 +1,6 @@
 <?php include("Header.php"); ?>
 	<section class="container-fluid lines">
-    <article class="col-xs-2 col-sm-2 col-md-2 col-lg-2 ">
+    <article class="col-xs-12 col-sm-2 col-md-2 col-lg-2 text-center">
       <div class="form-horizontal">
         <div class="form-group">
             <img src="" alt="Icon-user" class="form-control"></img>
@@ -16,126 +16,221 @@
         </div>
       </div>
     </article>
-		<article class="col-xs-10 col-sm-10 col-md-10 col-lg-10 ">
+		<article class="col-xs-12 col-sm-10 col-md-10 col-lg-10 ">
 			<div class="jumbotron">
 				<h2 class="text-center page-header">Nombre Del Usuario</h2>
+				<span class="help-block">* Campos necesarios.</span>
 				<form>
 					<div class="form-horizontal well">
 						<fieldset>
 							<legend>Datos Personales</legend>
-						<div class="form-group">
-								<label for="nombre" class="col-md-2">Nombre</label>
-								<label for="ape_paterno" class="col-md-2">Apellido Paterno</label>
-								<label for="ape_materno" class="col-md-2">Apellido Materno</label>
-								<label for="tel_fijo" class="col-md-2">Teléfono Fijo</label>
-								<label for="tel_celular" class="col-md-2">Teléfono Celular</label>
-						</div>
-						<div class="form-group">
-								<div class="col-md-2"><input type="text" class="form-control"></input></div>
-								<div class="col-md-2"><input type="text" class="form-control"></input></div>
-								<div class="col-md-2"><input type="text" class="form-control"></input></div>
-								<div class="col-md-2"><input type="tel" class="form-control"></input></div>
-								<div class="col-md-2"><input type="tel" class="form-control"></input></div>
-						</div>
-						<div class="form-group">
-								<label for="correo" class="col-md-2 control-label">Correo</label>
-								<div class="col-md-4"><input type="email" class="form-control"></input></div>
+							<div class="form-group">
+								<div class="col-sm-6 col-md-4 col-lg-3">
+									<label for="nombre">Nombre: *</label><br>
+									<input for="name" type="text" placeholder="Juan" class="form-control">
+								</div>
+								<div class="col-sm-6 col-md-4 col-lg-3">
+									<label for="ape_paterno">Apellido Paterno: *</label><br>
+									<input type="text" placeholder="Perez" class="form-control">
+								</div>
+								<div class="col-sm-6 col-md-4 col-lg-3"4
+									<label for="ape_materno">Apellido Materno</label><br>
+									<input type="text" placeholder="Suarez" class="form-control">
+								</div>
+								<div class="col-sm-6 col-md-4 col-lg-3">
+									<label for="tel_fijo">Teléfono Fijo: </label><br>
+									<input type="text" class="form-control">
+								</div>
+							</div>
+							<div class="form-group">
+								<div class="col-sm-6 col-md-5 col-lg-4">
+									<label for="tel_celular">Teléfono Celular: </label><br>
+									<input type="text" class="form-control">
+								</div>	
+								<div class="col-sm-6 col-md-5 col-lg-4">
+									<label for="correo">Correo: </label><br>
+									<input type="email" class="form-control">
+								</div>	
 						</div>
 						</fieldset>
 					</div>
 					<div class="form-horizontal well">
 						<fieldset>
 							<legend>Redes sociales</legend>
-						<div class="form-group">
-								<label class="col-md-2">Nombre</label>
-								<label class="col-md-2">Apellido Paterno</label>
-								<label class="col-md-2">Apellido Materno</label>
-								<label class="col-md-2">Teléfono Fijo</label>
-								<label class="col-md-2">Teléfono Celular</label>
-						</div>
-						<div class="form-group">
-								<div class="col-md-2"><input class="form-control"></input></div>
-								<div class="col-md-2"><input class="form-control"></input></div>
-								<div class="col-md-2"><input class="form-control"></input></div>
-								<div class="col-md-2"><input class="form-control"></input></div>
-								<div class="col-md-2"><input class="form-control"></input></div>
-						</div>
-						<div class="form-group">
-								<label class="col-md-2 control-label">Correo</label>
-								<div class="col-md-4"><input class="form-control"></input></div>
-						</div>
+							<div class="form-group col-xs-12	col-md-6">
+								<div class="col-xs-8	col-md-8">
+									<input class="form-control" id="rd" type="text">
+								</div>
+								<div class="col-xs-4	col-md-4 ">
+									<select class="form-control">
+									  	<option>Facebook</option>
+										  <option>Twitter</option>
+										  <option>Google+</option>
+										  <option>Skype</option>
+									</select>
+								</div>
+							</div>
+							<div class="form-group col-xs-12	col-md-6">
+								<div class="col-xs-8	col-md-8">
+									<input class="form-control" id="rd" type="text">
+								</div>
+								<div class="col-xs-4	col-md-4">
+									<select class="form-control">
+									  	<option>Facebook</option>
+										  <option>Twitter</option>
+										  <option>Google+</option>
+										  <option>Skype</option>
+									</select>
+								</div>
+							</div>
+							<div class="form-group col-xs-12	col-md-6">
+								<div class="col-xs-8	col-md-8">
+									<input class="form-control" id="rd" type="text">
+								</div>
+								<div class="col-xs-4	col-md-4">
+									<select class="form-control">
+									  	<option>Facebook</option>
+										  <option>Twitter</option>
+										  <option>Google+</option>
+										  <option>Skype</option>
+									</select>
+								</div>
+							</div>
+							<div class="form-group col-xs-12	col-md-6">
+								<div class="col-xs-8	col-md-8">
+									<input class="form-control" id="rd" type="text">
+								</div>
+								<div class="col-xs-4 col-md-4">
+									<select class="form-control">
+									  	<option>Facebook</option>
+										  <option>Twitter</option>
+										  <option>Google+</option>
+										  <option>Skype</option>
+									</select>								</div>
+							</div>
 						</fieldset>
 					</div>
 					<div class="form-horizontal well">
 						<fieldset>
 							<legend>Datos Académicos</legend>
-						<div class="form-group">
-								<label for="universidad" class="col-md-2 control-label">Universidad</label>
-								<div class="col-md-8"><input type="text" class="form-control"></input></div>
+							<div class="form-group">
+								<label for="universidad" class="col-md-2 control-label">Universidad: </label>
+								<div class="col-md-8">
+									<input type="text" class="form-control">
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="carrera" class="control-label col-xs-12 col-sm-2 col-md-2 control-label">Carrera: </label>
+								<div class="col-xs-12 col-sm-5  col-md-4">
+									<input type="text" class="form-control">
+								</div>
+								<label for="promedio" class="control-label col-xs-12 col-sm-2 col-md-2 control-label">Promedio: </label>
+								<div class="col-xs-12 col-sm-3 col-md-2">
+									<input type="number" class="form-control">
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="estado" class="col-xs-6 col-md-1 control-label">Estado: </label>
+								<div class="col-xs-6  col-md-2">
+									<select class="form-control">
+										<option>Terminada</option>
+										<option>En Proceso</option>
+									</select>
+								</div>
+								<label for="porcentaje" class="col-xs-6  col-md-2 control-label">Porcentaje: </label>
+								<div class="col-xs-6  col-md-2">
+									<select class="form-control">
+										<option value="10%">10%</option>
+										<option value="20%">20%</option>
+										<option value="30%">30%</option>
+										<option value="40%">40%</option>
+										<option value="50%">50%</option>
+										<option value="60%">60%</option>
+										<option value="70%">70%</option>
+										<option value="80%">80%</option>
+										<option value="90%">90%</option>
+										<option value="100%">100%</option>
+									</select>
+								</div>
+								<label for="tiempo_res" class="col-xs-6  col-md-1 control-label">Tiempo Restante: </label>
+								<div class="col-xs-3  col-md-2">
+									<select class="form-control"></select>
+								</div>
+								<div class="col-xs-3  col-md-2">
+									<select class="form-control">
+										<option value="Semestres">Semestres</option>
+										<option value="Años">Años</option>
+									</select>
+								</div>
+							</div>
+							<h3 class="text-center">Horarios Disponibles</h3>
+							<div class="col-xs-12 col-sm-12 col-lg-6">
+								<div class="form-group">
+									<label class=" col-xs-offset-2 col-xs-4 text-center">Desde</label>
+									<label class="col-xs-6 text-center">Hasta</label>
+									<label class="col-xs-2 control-label">Lunes</label>
+									<div class="col-xs-5"><select class="form-control"></select></div>
+									<div class="col-xs-5"><select class="form-control"></select></div>
+								</div>
+								<div class="form-group">
+									<label class=" col-xs-offset-2 col-xs-4 text-center">Desde</label>
+									<label class="col-xs-6 text-center">Hasta</label>
+									<label class="col-xs-2 control-label">Martes</label>
+									<div class="col-xs-5"><select class="form-control"></select></div>
+									<div class="col-xs-5"><select class="form-control"></select></div>
+								</div>
+								<div class="form-group">
+									<label class=" col-xs-offset-2 col-xs-4 text-center">Desde</label>
+									<label class="col-xs-6 text-center">Hasta</label>
+									<label class="col-xs-2 control-label">Miercoles</label>
+									<div class="col-xs-5"><select class="form-control"></select></div>
+									<div class="col-xs-5"><select class="form-control"></select></div>
+								</div>
+							</div>
+							<div class="col-xs-12 col-sm-12 col-lg-6">
+								<div class="form-group">
+									<label class=" col-xs-offset-2 col-xs-4 text-center">Desde</label>
+									<label class="col-xs-6 text-center">Hasta</label>
+									<label class="col-xs-2 control-label">Jueves</label>
+									<div class="col-xs-5"><select class="form-control"></select></div>
+									<div class="col-xs-5"><select class="form-control"></select></div>
+								</div>
+								<div class="form-group">
+									<label class=" col-xs-offset-2 col-xs-4 text-center">Desde</label>
+									<label class="col-xs-6 text-center">Hasta</label>
+									<label class="col-xs-2 control-label">Viernes</label>
+									<div class="col-xs-5"><select class="form-control"></select></div>
+									<div class="col-xs-5"><select class="form-control"></select></div>
+								</div>
+								<div class="form-group">
+									<label class=" col-xs-offset-2 col-xs-4 text-center">Desde</label>
+									<label class="col-xs-6 text-center">Hasta</label>
+									<label class="col-xs-2 control-label">Sabado</label>
+									<div class="col-xs-5"><select class="form-control"></select></div>
+									<div class="col-xs-5"><select class="form-control"></select></div>
+								</div>
+							</div>
+							</fieldset>
 						</div>
-						<div class="form-group">
-								<label for="carrera" class="col-md-2 control-label">Carrera</label>
-								<div class="col-md-4"><input type="text" class="form-control"></input></div>
-								<label for="promedio" class="col-md-2 control-label">Promedio</label>
-								<div class="col-md-2"><input type="number" class="form-control"></input></div>
-						</div>
-						<div class="form-group">
-								<label for="estado" class="col-md-2 control-label">Estado</label>
-								<div class="col-md-2"><select class="form-control"></select></div>
-								<label for="porcentaje" class="col-md-1 control-label">Porcentaje</label>
-								<div class="col-md-2"><select class="form-control"></select></div>
-								<label for="tiempo_res" class="col-md-2 control-label">Tiempo Restante</label>
-								<div class="col-md-1"><select class="form-control"></select></div>
-								<div class="col-md-2"><select class="form-control"></select></div>
-						</div>
-						<br><h3 class="text-center">Horarios Disponibles</h3><br>
-						<div class="form-group">
-								<label class=" col-md-offset-2 col-md-2">Desde</label>
-								<label class="col-md-2">Hasta</label>
-								<label class="col-md-offset-2 col-md-2">Desde</label>
-								<label class="col-md-2">Hasta</label>
-						</div>
-						<div class="form-group">
-								<label class="col-md-2 control-label">Lunes</label>
-								<div class="col-md-2"><select class="form-control"></select></div>
-								<div class="col-md-2"><select class="form-control"></select></div>
-								<label class="col-md-2 control-label">Jueves</label>
-								<div class="col-md-2"><select class="form-control"></select></div>
-								<div class="col-md-2"><select class="form-control"></select></div>
-						</div>
-						<div class="form-group">
-								<label class="col-md-2 control-label">Martes</label>
-								<div class="col-md-2"><select class="form-control"></select></div>
-								<div class="col-md-2"><select class="form-control"></select></div>
-								<label class="col-md-2 control-label">Viernes</label>
-								<div class="col-md-2"><select class="form-control"></select></div>
-								<div class="col-md-2"><select class="form-control"></select></div>
-						</div>
-						<div class="form-group">
-								<label class="col-md-2 control-label">Miércoles</label>
-								<div class="col-md-2"><select class="form-control"></select></div>
-								<div class="col-md-2"><select class="form-control"></select></div>
-								<label class="col-md-2 control-label">Sabado</label>
-								<div class="col-md-2"><select class="form-control"></select></div>
-								<div class="col-md-2"><select class="form-control"></select></div>
-						</div>
-						</fieldset>
-					</div>
-					<div class="form-horizontal well ">
-						<fieldset>
+						<div class="form-horizontal well ">
+							<fieldset>
 							<legend>Cambiar Contraseña</legend>
-						<div class="form-group">
-								<label class="col-md-3">Contraseña Actual</label>
-								<label class="col-md-3">Nueva Contraseña</label>
-								<label class="col-md-3">Confirmar</label>
+							<div class="form-group">
+								<div class="col-sm-6 col-md-4 col-lg-3">
+									<label>Contraseña Actual</label><br>
+									<input type="password" class="form-control">
+								</div>
+								<div class="col-sm-6 col-md-4 col-lg-3">
+									<label>Nueva Contraseña</label><br>
+									<input type="password" class="form-control">
+								</div>
+								<div class="col-sm-6 col-md-4 col-lg-3">
+									<label>Confirmar</label><br>
+									<input type="password" class="form-control">
+								</div>
+							</div>
+							</fieldset>
 						</div>
-						<div class="form-group">
-								<div class="col-md-3"><input type="password" class="form-control"></input></div>
-								<div class="col-md-3"><input type="password" class="form-control"></input></div>
-								<div class="col-md-3"><input type="password" class="form-control"></input></div>
-						</div>
-						</fieldset>
-					</div>
 					<div class="col-md-offset-5 col-md-2">
 						<button class="btn btn-primary btn form-control">Actualizar</button>
 					</div>

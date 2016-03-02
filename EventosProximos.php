@@ -12,7 +12,6 @@
 							<button class="btn btn-danger">Reprobar</button>
 					</div>
 					<div class="form-group">
-							<label class="col-md-3">Fecha Limite</label>
 							<label class="col-md-3">Tiempo</label>
 					</div>
 				</div>
@@ -25,7 +24,6 @@
 							<button class="btn btn-danger">Reprobar</button>
 					</div>
 					<div class="form-group">
-							<label class="col-md-3">Fecha Limite</label>
 							<label class="col-md-3">Tiempo</label>
 					</div>
 				</div>
