@@ -40,7 +40,7 @@
 
 		<article class="col-xs-12 col-sm-9 content lines">
 			<h1 class="text-center">Detalle Exámenes</h1>
-			<table class="table">
+			<table class="table table-responsive">
 				<tr>
 					<th>Fecha</th>
 					<th>Categoría</th>
