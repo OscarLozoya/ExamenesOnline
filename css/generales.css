@@ -11,6 +11,7 @@
 
 .lines{
     border: 7px solid white;
+    border-radius: 10px;
 }
 
 .Footer{
@@ -64,3 +65,6 @@
 
     }
   }
+textarea{
+  resize:none;
+}

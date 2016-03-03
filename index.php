@@ -36,7 +36,7 @@
 					</div>
 				</div>
 
-				<div class="form-group">
+				<div class="form-group container">
 					<button class="btn"><i class="fa fa-facebook-official"></i> Registrarse con Facebook</button>
 					<br>
 					<br>

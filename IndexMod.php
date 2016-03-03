@@ -1,7 +1,9 @@
 <?php include("Header.php"); ?>
-<div class="form-group">
-	<label class="label-control">Historial de Navegación</label>
-</div>
+<ol class="breadcrumb">
+		  <li><a href="#">Home</a></li>
+		  <li><a href="#">Configuración</a></li>
+		  <li class="active">Slider</li>
+</ol>
 <?php include("MenuMod.php"); ?>
 	<section class="container-fluid">
 		<aside class="col-xs-12 col-sm-4 aside lines">

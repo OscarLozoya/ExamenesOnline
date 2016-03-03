@@ -15,31 +15,22 @@
             <ul class="dropdown-menu">
               <li><a href="#">Nuevo</a></li>
               <li><a href="#">Modificar</a></li>
-              <li><a href="#">Eliminar</a></li>
+              <li><a href="#">Dar de baja</a></li>
             </ul>
           </li>
-          <li class="dropdown">
-            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Categorias <span class="caret"></span></a>
-            <ul class="dropdown-menu">
-              <li><a href="#">Nueva</a></li>
-              <li><a href="#">Modificar</a></li>
-              <li><a href="#">Eliminar</a></li>
-            </ul>
-          </li>
+          <li><a href="#">Categorias </a></li> 
           <li class="dropdown">
             <a class="dropdown-toggle" data-toggle="dropdown" href="#">Preguntas <span class="caret"></span></a>
             <ul class="dropdown-menu">
               <li><a href="#">Nueva</a></li>
-              <li><a href="#">Modificar</a></li>
-              <li><a href="#">Eliminar</a></li>
+              <li><a href="#">Modificar/Eliminar</a></li>
             </ul>
           </li>
           <li class="dropdown">
             <a class="dropdown-toggle" data-toggle="dropdown" href="#">Examenes <span class="caret"></span></a>
             <ul class="dropdown-menu">
               <li><a href="#">Nuevo</a></li>
-              <li><a href="#">Modificar</a></li>
-              <li><a href="#">Eliminar</a></li>
+              <li><a href="#">Modificar/Eliminar</a></li>
             </ul>
           </li>
           <li><a href="#">Slide </a></li> 

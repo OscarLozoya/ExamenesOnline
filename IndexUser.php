@@ -23,7 +23,7 @@
                 <option value="">Opcion4</option>
             </select>
             <label class="control-label col-xs-12">Categoria</label>
-            <label class="control-label col-xs-12">Fecha Limite</label>
+            <label class="control-label col-xs-12">Duración del Examen</label>
         <div class="form-group">
             <button class="btn">Ir al Examen</button>
             <button class="btn">Salir</button>
