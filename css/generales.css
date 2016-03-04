@@ -11,7 +11,6 @@
 
 .lines{
     border: 7px solid white;
-    border-radius: 10px;
 }
 
 .Footer{
@@ -19,13 +18,10 @@
 }
 
 .formulario{
-	background-color: #BDBDBD;
-}
-
-.formFlot{
-  padding: 3em 0em;
+	background-color: #a5a9ab;
   text-align: center;
 }
+
 }
 
 .DivPrin{
@@ -45,26 +41,24 @@
 .buton:hover{
   background-color: gray;
 }
-/*PAra formularios estilachos chidos liros :v*/
+/*PAra formularios estilachos chidos liros :v
   input:required:invalid, input:focus:invalid {
     /*background-image: url(/images/invalid.png);
     background-position: right top;
-    background-repeat: no-repeat;*/
+    background-repeat: no-repeat;
     background-color: #F5A9A9;
+    
   }
   input:required:valid {
     /*background-image: url(/images/valid.png);
     background-position: right top;
-    background-repeat: no-repeat;*/
+    background-repeat: no-repeat;
     background-color: #BCF5A9;
   }
-
+*/
   @media (max-width: 990px){
     #Logo{
       display: none;
 
     }
   }
-textarea{
-  resize:none;
-}
