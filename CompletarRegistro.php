@@ -9,7 +9,7 @@
 					</figure>
 				</div>
 				<div class="form-group">
-					<button type="button" class="btn btn-primarybtn-small">Elejir Imagen</button>
+					<button type="button" class="btn btn-primarybtn-small">Elegir Imagen</button>
 				</div>
 			</div>
 		</section>
