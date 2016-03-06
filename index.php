@@ -24,7 +24,7 @@
 				</div>
 
 				<div class="form-group container">
-					<a href="">¿Olvido su contraseña?</a>
+					<a href="RestContrasena.php">¿Olvido su contraseña?</a>
 				</div>
 
 				<div class="form-group row">
@@ -38,22 +38,28 @@
 
 				<div class="form-group container">
 					<button class="btn"><i class="fa fa-facebook-official"></i> Registrarse con Facebook</button>
-					<br>
-					<br>
-					
-					<button class="btn"><i class="fa fa-twitter-square"></i> Registrarse con Twitter</button>
-					
-					<br>
-					<br>
-					
-						<button class="btn"><i class="fa fa-google-plus-square"></i> Registrarse con Google Plus</button>
-					
 				</div>
+				<div class="form-group container">
+					<button class="btn"><i class="fa fa-twitter-square"></i> Registrarse con Twitter</button>
+				</div>
+				<div class="form-group container">
+					<button class="btn"><i class="fa fa-google-plus-square"></i> Registrarse con Google Plus</button>
+				</div>
+					
+					
 			</form>
 		</aside>
 
-		<article class="col-xs-12 col-sm-8 content lines">
-			<h1>Categorias</h1>
-		</article>
+		<section class="col-xs-12 col-sm-8 content lines">
+			<div class="text-center">
+				<h1>Categorias</h1>
+			</div>
+			<a href=""><h3>Programación</h3></a>
+			<hr noshade="noshade" />
+			<a href=""><h3>Web</h3></a>
+			<hr noshade="noshade" />
+			<a href=""><h3>Algortimos</h3></a>
+			<hr noshade="noshade" />
+		</section>
 	</section>
 <?php include("Footer.php");?>

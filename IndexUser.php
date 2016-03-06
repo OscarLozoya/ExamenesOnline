@@ -6,12 +6,12 @@
             <br>
             <div class="col-xs-12 col-sm-6">
                 <figure>
-                    <img src="">
+                    <img class="img-responsive" src="images/logo_user.gif">
                 </figure>
             </div>
             <div class="col-xs-12 col-sm-6">
                 <label class="control-label">Nombre completo</label>
-                <a href="">Ver Perfil</a>
+                <a href="Perfil.php">Ver Perfil</a>
             </div>
         </div>
         <p>Examenes Pendietes</p>
@@ -32,17 +32,29 @@
     </aside>
 
 
-    <article class="col-xs-12 col-sm-6 content lines">
-            <h1>Categorias</h1>
-    </article>
+    <section class="col-xs-12 col-sm-6 content lines">
+            <div class="text-center">
+                <h1>Categorias</h1>
+            </div>
+            <a href=""><h3>Programación</h3></a>
+            <hr noshade="noshade" />
+            <a href=""><h3>Web</h3></a>
+            <hr noshade="noshade" />
+            <a href=""><h3>Algortimos</h3></a>
+            <hr noshade="noshade" />
+    </section>
 
     <aside class="col-xs-12 col-sm-3 lines aside">
         <br>
         <form action="">
             <div class="form-group">
                 <input class="form-control" type="date">
-                <a href="">Ver Eventos Proximos</a>
-                <a href="">Detalles Examenes</a>
+            </div>
+            <div class="form-group">
+                <a href="EventosProximos.php">Ver Eventos Proximos</a>
+            </div>
+            <div class="form-group">
+                <a href="DetalleExamenes.php">Detalles Examenes</a>
             </div>
         </form>
     </aside>

@@ -10,14 +10,14 @@
 			<div class="form-group">
 				<div class="col-xs-12">
 					<figure>
-	                    <img src="img">
+	                    <img class="img-responsive" src="images/logo_user.gif">
 	                </figure>
 				</div>
 				<div class="col-xs-12">
 					<label class="control-label">Nombre completo</label>
 				</div>
 				<div class="col-xs-12">
-					<a href="">Ver Perfil</a>
+					<a href="Perfil.php">Ver Perfil</a>
 				</div>
 			</div>
 		</aside>

@@ -17,11 +17,21 @@
 	<aside id="ContenedorPrincipal">
 		<header class="header">
 			<div class="container-fluid">
-					<div class="col-xs-12 col-sm-6 col-mod-6 col-md-2 col-lg-2">
-						<img id="Logo" class="img-responsive" src="images/Logo-verde.png">
+					<div class="col-xs-12 col-sm-1">
+						<img id="Logo" class="logo" src="images/Logo-verde.png">
 					</div>
-					<div class="col-xs-12 col-sm-6 col-mod-6 col-md-10 col-lg-10">
+					<div class="col-xs-12 col-sm-8">
 						<h1>Examenes en Linea</h1>
+					</div>
+					<div class="col-xs-12 col-sm-3">
+						<form class="form-search" method="get" id="s" action="/">
+						    <div class="input-group">
+						      <input type="text" class="form-control">
+						      <span class="input-group-btn">
+						        <button class="btn btn-default" type="button"><i class="glyphicon glyphicon-search"></i></button>
+						      </span>
+						    </div>
+						</form>
 					</div>
 			</div>
 		</header>
