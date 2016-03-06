@@ -27,29 +27,29 @@
 							<div class="form-group">
 								<div class="col-sm-6 col-md-4 col-lg-3">
 									<label for="nombre">Nombre: *</label><br>
-									<input for="name" type="text" placeholder="Juan" class="form-control">
+									<input id="nombre" type="text" placeholder="Juan" class="form-control">
 								</div>
 								<div class="col-sm-6 col-md-4 col-lg-3">
 									<label for="ape_paterno">Apellido Paterno: *</label><br>
-									<input type="text" placeholder="Perez" class="form-control">
+									<input id="ape_paterno" type="text" placeholder="Perez" class="form-control">
 								</div>
 								<div class="col-sm-6 col-md-4 col-lg-3"4
 									<label for="ape_materno">Apellido Materno</label><br>
-									<input type="text" placeholder="Suarez" class="form-control">
+									<input id="ape_materno" type="text" placeholder="Suarez" class="form-control">
 								</div>
 								<div class="col-sm-6 col-md-4 col-lg-3">
 									<label for="tel_fijo">Teléfono Fijo: </label><br>
-									<input type="text" class="form-control">
+									<input id="tel_fijo" type="text" placeholder="36259345" class="form-control">
 								</div>
 							</div>
 							<div class="form-group">
 								<div class="col-sm-6 col-md-5 col-lg-4">
 									<label for="tel_celular">Teléfono Celular: </label><br>
-									<input type="text" class="form-control">
+									<input id="tel_celular" type="text" placeholder="3315623412" class="form-control">
 								</div>	
 								<div class="col-sm-6 col-md-5 col-lg-4">
 									<label for="correo">Correo: </label><br>
-									<input type="email" class="form-control">
+									<input id="correo" type="email" placeholder="alguncorreo@mail.com" class="form-control">
 								</div>	
 						</div>
 						</fieldset>
@@ -116,17 +116,17 @@
 							<div class="form-group">
 								<label for="universidad" class="col-md-2 control-label">Universidad: </label>
 								<div class="col-md-8">
-									<input type="text" class="form-control">
+									<input id="universidad" type="text" placeholder="Centro Universitario De Las Ciencias" class="form-control">
 								</div>
 							</div>
 							<div class="form-group">
 								<label for="carrera" class="control-label col-xs-12 col-sm-2 col-md-2 control-label">Carrera: </label>
 								<div class="col-xs-12 col-sm-5  col-md-4">
-									<input type="text" class="form-control">
+									<input id="carrera" type="text" placeholder="Ing. Mecatronica" class="form-control">
 								</div>
 								<label for="promedio" class="control-label col-xs-12 col-sm-2 col-md-2 control-label">Promedio: </label>
 								<div class="col-xs-12 col-sm-3 col-md-2">
-									<input type="number" class="form-control">
+									<input id="promedio" type="number" placeholder="87" class="form-control">
 								</div>
 							</div>
 							<div class="form-group">
@@ -154,7 +154,7 @@
 								</div>
 								<label for="tiempo_res" class="col-xs-6  col-md-1 control-label">Tiempo Restante: </label>
 								<div class="col-xs-3  col-md-2">
-									<select class="form-control"></select>
+									<input id="tiempo_res" type="number" placeholder="2" class="form-control">
 								</div>
 								<div class="col-xs-3  col-md-2">
 									<select class="form-control">
@@ -217,22 +217,22 @@
 							<legend>Cambiar Contraseña</legend>
 							<div class="form-group">
 								<div class="col-sm-6 col-md-4 col-lg-3">
-									<label>Contraseña Actual</label><br>
-									<input type="password" class="form-control">
+									<label for="contrasena_actual">Contraseña Actual</label><br>
+									<input id="contrasena_actual" type="password"  class="form-control">
 								</div>
 								<div class="col-sm-6 col-md-4 col-lg-3">
-									<label>Nueva Contraseña</label><br>
-									<input type="password" class="form-control">
+									<label for="contrasena_nueva">Nueva Contraseña</label><br>
+									<input id="contrasena_nueva" type="password" class="form-control">
 								</div>
 								<div class="col-sm-6 col-md-4 col-lg-3">
-									<label>Confirmar</label><br>
-									<input type="password" class="form-control">
+									<label for="confirmacion">Confirmar</label><br>
+									<input id="confrimacion" type="password" class="form-control">
 								</div>
 							</div>
 							</fieldset>
 						</div>
 					<div class="col-md-offset-5 col-md-2">
-						<button class="btn btn-primary btn form-control">Actualizar</button>
+						<button type="submit" class="btn btn-primary btn form-control">Actualizar</button>
 					</div>
 				</form>
 			</div>
