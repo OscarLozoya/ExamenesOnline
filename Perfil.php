@@ -9,7 +9,7 @@
             <button class="btn btn-primary btn-small">Cambiar Imagen</button>
         </div>
         <div class="form-group">
-            <a href="">Cambio contraseña</a>
+            <a href="RestContrasena.php">Cambio contraseña</a>
         </div>
         <div class="form-group">
             <a href="DetalleExamenes.php">Detalle exámenes</a>
