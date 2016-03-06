@@ -10,13 +10,13 @@
 					<div class="form-group col-xs-12"><!--CAJA DE PREGUNTA-->
 						<label for="" class="control-label col-sm-2">Contiene:</label>
 						<div class="col-sm-10">
-							<input type="text" class="form-control">
+							<input type="text" class="form-control" placeholder="Pregunta o parte de la pregunta">
 						</div>
 					</div>
 					<div class="form-group col-xs-12"><!--CAJA DE PREGUNTA-->
 						<label for="" class="control-label col-sm-2">ID:</label>
 						<div class="col-sm-2">
-							<input type="text" class="form-control">
+							<input type="text" class="form-control" placeholder="265">
 						</div>
 						<label for="" class="control-label col-sm-2">Categoria:</label>
 						<div class="col-sm-6">

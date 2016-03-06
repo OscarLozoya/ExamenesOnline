@@ -13,17 +13,17 @@
 				<table class="table table-hover">
 					<tr>
 						<th>Nombre Imagen</th>
-						<th>Alt Nombre</th>
+						<th>Nombre Alternativo</th>
 						<th>Seleccionar</th>
 					</tr>
 					<tr>
 						<td>imagen.png</td>
-						<td>Slide 1</td>
+						<td>Diapositiva 1</td>
 						<td><input type="checkbox"></td>
 					</tr>
 					<tr>
 						<td>hola.png</td>
-						<td>Slide 2</td>
+						<td>Diapositiva 2</td>
 						<td><input type="checkbox"></td>
 					</tr>
 					<tr>
@@ -39,7 +39,7 @@
 				<div class="well form-horizontal col-md-9">
 					<div class="form-group">
 						<div class="col-md-8">
-							<input type="text" class="form-control">
+							<input type="text" class="form-control" placeholder="NuevoAviso.png">
 						</div>
 						<div class="col-md-4">
 							<button class="btn">Seleccionar Imagen</button>
@@ -48,7 +48,7 @@
 					<div class="form-group">
 						<label class="col-md-4 control-label">Nombre Alterno</label>
 						<div class="col-md-8">
-							<input type="text" class="form-control">
+							<input type="text" class="form-control" placeholder="Diapositiva Marzo">
 						</div>
 					</div>
 					<div class="form-group">

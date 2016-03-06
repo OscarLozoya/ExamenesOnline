@@ -8,7 +8,7 @@
 			<div class="form-group"><!--DIV BARRA DE BUSQUEDA INICIA-->
 				<div class="form-append col-xs-12 col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2">
 					<div class="col-xs-9 col-sm-10">
-						<input class="form-control" type="text">
+						<input class="form-control" type="text" placeholder="Maquetado Web">
 					</div>
 					<button class="btn btn-primary col-xs-3 col-sm-2" type="button">Buscar</button>
 				</div>
@@ -35,18 +35,18 @@
 				<div class="col-xs-12 col-sm-10 col-sm-offset-1">
 					<section class="well">
 						<fieldset>
-						<legend>Datos Categoria</legend>
+						<legend>Datos Categoría</legend>
 						<div class="form-group col-xs-12">
 							<div class="form-group col-xs-12 col-sm-6">
 								<label for="" class="control-label col-xs-2 col-sm-2">Nombre</label>
 								<div class="col-xs-10 col-sm-10">
-									<input class="form-control" type="text">
+									<input class="form-control" type="text" placeholder="Diseño Responsivo">
 								</div>
 							</div>
 							<div class="form-group col-xs-10 col-sm-5">
 								<label for="" class="control-label col-xs-2 col-sm-1">ID</label>
 								<div class="col-xs-8 col-sm-8">
-									<input class="form-control" type="text">
+									<input class="form-control" type="text" disabled>
 								</div>
 							</div>
 							<button class="btn btn-primary">Agregar</button>

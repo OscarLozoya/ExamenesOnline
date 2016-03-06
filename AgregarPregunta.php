@@ -8,7 +8,7 @@
 						<label for="descripcion" class="control-label">Descripción</label>
 					</div>
 					<div class="col-xs-12 col-md-9">
-					 	<textarea class="form-control noresize" rows="5" cols="20" id="descripcion" placeholder="Ingresa la descripción"></textarea>
+					 	<textarea class="form-control noresize" rows="5" cols="20" id="descripcion" placeholder="Ingresa la descripción de tu pregunta"></textarea>
 					</div>
 				
 					<div class="col-xs-12 col-md-2">
@@ -78,7 +78,7 @@
 					<label for="respuesta" class="control-label">Respuesta</label>
 				</div>
 				<div class="col-xs-12 col-md-6">
-					<input class="form-control" type="text"></input>
+					<input class="form-control" type="text" placeholder="Respuesta a la pregunta"></input>
 				</div>
 				<div class="col-xs-3 col-md-2">
 					<button class="btn btn-default">Agregar Respuesta</button>

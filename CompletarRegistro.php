@@ -25,17 +25,17 @@
 								<div class="col-sm-6 col-md-4 col-lg-3">
 									<label for="nom">Nombre: *</label>
 								<br>
-									<input for="name" type="text" placeholder="Fulano Fulanito" class="form-control">
+									<input for="name" type="text" placeholder="Juan" class="form-control">
 								</div>
 								<div class="col-sm-6 col-md-4 col-lg-3">
 									<label for="ApeP">Apellido Paterno: *</label>
 									<br>
-									<input name="apeP" type="text" placeholder="Ferez" class="form-control">
+									<input name="apeP" type="text" placeholder="Perez" class="form-control">
 								</div>
 								<div class="col-sm-6 col-md-4 col-lg-3">
 									<label for="ApeM">Apellido Materno:</label>
 									<br>
-									<input name="apeM" type="text" placeholder="Fuarez" class="form-control">
+									<input name="apeM" type="text" placeholder="Suarez" class="form-control">
 								</div>
 								<div class="col-sm-6 col-md-4 col-lg-3">
 									<label for="contra">Contraseña: *</label>
@@ -47,12 +47,12 @@
 								<div class="col-sm-6  col-lg-4 col-lg-offset-1">
 									<label for="fijo">Telefono Fijo:</label>
 									<br>
-									<input type="text" name="telfijo" class="form-control">
+									<input type="text" name="telfijo" placeholder="36259345" class="form-control">
 								</div>
 								<div class="col-sm-6  col-lg-4 col-lg-offset-1">
 									<label for="tcel">Telefono Celular:</label>
 									<br>
-									<input type="text" name="cel" class="form-control">
+									<input type="text" name="cel" placeholder="3315623412" class="form-control">
 								</div>
 							</div>
 						</fieldset>
@@ -123,17 +123,17 @@
 							<div class="form-group">
 									<label for="uni" class="col-md-2 control-label">Universidad</label>
 									<div class="col-md-8">
-										<input type="text" class="form-control" id="universidad">
+										<input type="text" class="form-control" placeholder="Centro Universitario De Las Ciencias" id="universidad">
 									</div>
 							</div>
 							<div class="form-group">	
 									<label for="car" class="control-label col-xs-12 col-sm-2 col-md-2">Carrera</label>
 									<div class="col-xs-12 col-sm-5  col-md-4">
-										<input type="text" class="form-control" id="carrera">
+										<input type="text" class="form-control" placeholder="Ing. Mecatronica" id="carrera">
 									</div>		
 									<label for="pro" class="control-label  col-xs-12 col-sm-2 col-md-2">Promedio</label>
 									<div class="col-xs-12 col-sm-3 col-md-2">
-										<input type="text" class="form-control" id="promedio">
+										<input type="text" class="form-control" placeholder="87" id="promedio">
 									</div>	
 							</div>
 							<div class="form-group">
@@ -161,7 +161,7 @@
 								</div>
 								<label for="tiempo_res" class="col-xs-12  col-md-1 control-label">Tiempo Restante</label>
 								<div class="col-xs-6  col-md-2">
-									<input type="number" class="form-control">
+									<input type="number" class="form-control" placeholder="2">
 								</div>
 								<div class="col-xs-6 col-sm-5 col-md-2">
 									<select class="form-control">

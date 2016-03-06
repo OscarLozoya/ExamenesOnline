@@ -13,13 +13,13 @@
 					<div class="form-group col-xs-12"><!--DIV DEL APARTADO USUARIO LABEL e INPUT-->
 							<label class="label-control col-xs-12">Nombre de Usuario:</label>
 						<div class="col-lg-8 col-lg-offset-2 form-group has-success has-feedback">
-							<input id="NomUser" class="form-control" type="text" placeholder="NamUser" required autofocus>
+							<input id="NomUser" class="form-control" type="text" placeholder="Usuario" required autofocus>
 						</div>
 					</div>
 					<div class="form-group col-xs-12"><!--DIV DEL APARTADO CORREO LABEL e  INPUT-->
 							<label class="label-control col-xs-12">Correo Electrónico</label>
 						<div class="col-lg-8 col-lg-offset-2">
-							<input id="CorreoElc" class="form-control" type="email" required placeholder="correo@empresa.dom">
+							<input id="CorreoElc" class="form-control" type="email" required placeholder="alguncorreo@mail.com">
 						</div>
 					</div>	
 					<div class="col-xs-10 col-xs-offset-1 form-group"><!--DIV DE LOS BOTONES-->

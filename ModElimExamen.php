@@ -7,13 +7,13 @@
 				<label for="id" class="control-label">ID</label>
 			</div>
 			<div class="col-xs-12 col-md-3">
-				<input type="text" class="form-control" id="id" placeholder="ID">
+				<input type="text" class="form-control" id="id" placeholder="45">
 			</div>
 			<div class="col-xs-12 col-md-1">
 				<label for="nombre" class="control-label">Nombre</label>
 			</div>
 			<div class="col-xs-12 col-md-3">
-				<input type="text" class="form-control" id="nombre" placeholder="Nombre">
+				<input type="text" class="form-control" id="nombre" placeholder="CSS Avanzado">
 			</div>
 		    <div class="col-xs-12 col-md-1">
 				<label for="categoria" class="control-label">Categoria</label>
