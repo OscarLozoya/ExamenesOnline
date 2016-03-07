@@ -15,7 +15,7 @@
 * Servidor Web
 * PHP 5
 * MySQL
-*Licencias
+* Licencias  
 **"ExamenesOline"** está diseñado bajo software libre, por lo que cualquier persona podrá mejorar el diseño y desempeño que este tenga al termino de sus desarrollo ya que el código estará disponible para su posterior modificación y/o adaptación.  
 
 ##Descripción del proyecto:
