@@ -2,9 +2,9 @@
 ***
 ##Equipo de Desarrollo: 
 ###Dead Developers
--Lozoya Rodríguez Oscar Ivan
--Pérez Plascencia Gerardo Noé
--Suarez Carrillo Jose Alberto  
+* Lozoya Rodríguez Oscar Ivan
+* Pérez Plascencia Gerardo Noé
+* Suarez Carrillo Jose Alberto  
 
 ##Ámbito del Proyecto:
 ***
@@ -12,9 +12,9 @@
 
 ##Requerimientos:
 ***
-*Servidor Web
-*PHP 5
-*MySQL
+* Servidor Web
+* PHP 5
+* MySQL
 *Licencias
 **"ExamenesOline"** está diseñado bajo software libre, por lo que cualquier persona podrá mejorar el diseño y desempeño que este tenga al termino de sus desarrollo ya que el código estará disponible para su posterior modificación y/o adaptación.  
 
