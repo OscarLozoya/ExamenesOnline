@@ -41,6 +41,12 @@
 .buton:hover{
   background-color: gray;
 }
+.Formato-Footer{
+  text-align: center;
+  font-family: Century;
+  font-size: 14px;
+  color: #D7D7D8;
+}
 /*PAra formularios estilachos chidos liros :v
   input:required:invalid, input:focus:invalid {
     /*background-image: url(/images/invalid.png);
