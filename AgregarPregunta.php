@@ -36,7 +36,7 @@
 					</select>
 				</div>
 				<div class="col-xs-3 col-md-2">
-					<button class="btn btn-default">Agregar Categoria</button>
+					<button class="btn btn-primary">Agregar Categoria</button>
 				</div>
 
 		</div>
@@ -45,16 +45,22 @@
 
 				<div class="col-xs-12 col-md-9 col-md-offset-1">
 					<div class="table-responsive">
-						<table class="table table-bordered">
+						<table class="table table-hover">
 							<tr>
 								<th>ID</th>
 								<th>Nombre Categoria</th>
+								<th>Selección</th>
+							</tr>
+							<tr>
+								<td>01</td>
+								<td>Web</td>
+								<td><input type="checkbox"></td>
 							</tr>
 						</table>
 					</div>	
 				</div>
 				<div class="col-xs-3 col-md-2">
-					<button class="btn btn-default">Eliminar Categoria</button>
+					<button class="btn btn-primary">Eliminar Categoria</button>
 				</div>
 
 		</div>
@@ -81,7 +87,7 @@
 					<input class="form-control" type="text" placeholder="Respuesta a la pregunta"></input>
 				</div>
 				<div class="col-xs-3 col-md-2">
-					<button class="btn btn-default">Agregar Respuesta</button>
+					<button class="btn btn-primary">Agregar Respuesta</button>
 				</div>
 			
 		</div>
@@ -90,16 +96,22 @@
 
 				<div class="col-xs-12 col-md-9 col-md-offset-1">
 					<div class="table-responsive">
-						<table class="table table-bordered">
+						<table class="table table-hover">
 							<tr>
 								<th>Respuesta</th>
 								<th>Resultado</th>
+								<th>Selección</th>
+							</tr>
+							<tr>
+								<td>HTML</td>
+								<td><input type="radio"></td>
+								<td><input type="checkbox"></td>
 							</tr>
 						</table>
 					</div>	
 				</div>
 				<div class="col-xs-3 col-md-2">
-					<button class="btn btn-default">Eliminar Respuesta</button>
+					<button class="btn btn-primary">Eliminar Respuesta</button>
 				</div>
 
 		</div>

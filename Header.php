@@ -21,14 +21,15 @@
 						<img id="Logo" class="logo" src="images/Logo-verde.png">
 					</div>
 					<div class="col-xs-12 col-sm-8">
-						<h1>Examenes en Linea</h1>
+						<h1 class="text-center">Examenes en Linea</h1>
 					</div>
-					<div class="col-xs-12 col-sm-3">
+					<div class="col-xs-12 col-sm-3 form-group">
+						<br>
 						<form class="form-search" method="get" id="s" action="/">
 						    <div class="input-group">
 						      <input type="text" class="form-control">
 						      <span class="input-group-btn">
-						        <button class="btn btn-default" type="button"><i class="glyphicon glyphicon-search"></i></button>
+						        <button class="btn btn-default" type="search"><i class="glyphicon glyphicon-search"></i></button>
 						      </span>
 						    </div>
 						</form>

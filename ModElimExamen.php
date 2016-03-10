@@ -1,4 +1,5 @@
 <?php include("Header.php"); ?>
+<?php include("MenuAdmin.php"); ?>
 <section class="col-xs-12 col-md-10 col-md-offset-1 content lines">
 	<br>
 	<form action="" class="form-horizontal">
@@ -21,28 +22,34 @@
 			<div class="col-xs-12 col-md-3">
 				<select class="form-control" id="categoria">
 					<option>Categoria 1: POO</option>
-						<option>Categoria 2: Maquetado Web</option>
+					<option>Categoria 2: Maquetado Web</option>
 				</select>
 			</div>
 		</div>
 
 		<div class="form-group row">
 			<div class="col-xs-6 col-sm-2 col-sm-offset-8">
-				<button class="btn btn-default">Buscar</button>
+				<button class="btn btn-primary">Buscar</button>
 			</div>
 			<div class="col-xs-6 col-sm-2">
-				<button class="btn btn-default">Limpiar</button>
+				<button class="btn btn-primary">Limpiar</button>
 			</div>
 		</div>
 
 		<div class="form-group row">
 			<div class="table-responsive">
-				<table class="table table-bordered">
+				<table class="table table-hover">
 					<tr>
 						<th>ID</th>
 						<th>Categoria</th>
 						<th>Total Preguntas</th>
 						<th>Tiempo</th>
+					</tr>
+					<tr>
+						<td>01</td>
+						<td>Web</td>
+						<td>14</td>
+						<td>0:30</td>
 					</tr>
 				</table>
 			</div>
@@ -50,10 +57,10 @@
 
 		<div class="form-group row">
 			<div class="col-xs-6 col-sm-2 col-sm-offset-8">
-				<button class="btn btn-default">Eliminar</button>
+				<button class="btn btn-primary">Eliminar</button>
 			</div>
 			<div class="col-xs-6 col-sm-2">
-				<button class="btn btn-default">Modificar</button>
+				<button class="btn btn-primary">Modificar</button>
 			</div>
 		</div>
 	</form>

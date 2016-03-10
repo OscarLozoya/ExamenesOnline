@@ -25,16 +25,16 @@
 			<fieldset>
 				<legend>Panel Preguntas</legend>
 				<div class="table-responsive">
-					<table class="table table-bordered">
+					<table class="table table-hover">
 						<tr>
-							<td><h6>1</h6></td>
-							<td><h6>2</h6></td>
-							<td><h6>3</h6></td>
+							<td><h3>1</h3></td>
+							<td><h3>2</h3></td>
+							<td><h3>3</h3></td>
 						</tr>
 						<tr>
-							<td><h6>4</h6></td>
-							<td><h6>5</h6></td>
-							<td><h6>6</h6></td>
+							<td><h3>4</h3></td>
+							<td><h3>5</h3></td>
+							<td><h3>6</h3></td>
 						</tr>	
 					</table>
 				</div>
@@ -53,7 +53,7 @@
 					<p>Respuesta</p>
 				</div>
 				<footer>
-					<button class="btn btn-default">Siguiente</button>
+					<button class="btn btn-primary">Siguiente</button>
 				</footer>
 			</article>	
 		</section>

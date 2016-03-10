@@ -29,21 +29,27 @@
 
 				<div class="form-group row">
 					<div class="col-xs-5">
-						<button class="btn">Registrarse</button>
+						<button class="btn btn-primary">Registrarse</button>
 					</div>
 					<div class="col-xs-3">
-						<button class="btn">Ingresar</button>
+						<button class="btn btn-primary">Ingresar</button>
 					</div>
 				</div>
 
-				<div class="form-group container">
-					<button class="btn"><i class="fa fa-facebook-official"></i> Registrarse con Facebook</button>
+				<div class="form-group row">
+					<div class="col-xs-12">
+						<button class="btn btn-lg btn-block"><i class="fa fa-facebook-official"></i> Registrarse con Facebook</button>
+					</div>
 				</div>
-				<div class="form-group container">
-					<button class="btn"><i class="fa fa-twitter-square"></i> Registrarse con Twitter</button>
+				<div class="form-group row">
+					<div class="col-xs-12">
+						<button class="btn btn-lg btn-block"><i class="fa fa-twitter-square"></i> Registrarse con Twitter</button>
+					</div>
 				</div>
-				<div class="form-group container">
-					<button class="btn"><i class="fa fa-google-plus-square"></i> Registrarse con Google Plus</button>
+				<div class="form-group row">
+					<div class="col-xs-12">
+						<button class="btn btn-lg btn-block"><i class="fa fa-google-plus-square"></i> Registrarse con Google Plus</button>
+					</div>
 				</div>
 					
 					

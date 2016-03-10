@@ -25,8 +25,8 @@
             <label class="control-label col-xs-12">Categoria</label>
             <label class="control-label col-xs-12">Duración del Examen</label>
         <div class="form-group">
-            <button class="btn">Ir al Examen</button>
-            <button class="btn">Salir</button>
+            <button class="btn btn-primary">Ir al Examen</button>
+            <button class="btn btn-primary">Salir</button>
         </div>
         </form>
     </aside>
