@@ -21,13 +21,13 @@ new(function(){});var e={ed:function(a){return-c.cos(a*c.PI)/2+.5},dd:function(a
 </div>
 <div data-u="slides" style="cursor: default; position: relative; top: 0px; left: 0px; width: 1300px; height: 300px; overflow: hidden;">
 <div data-p="225.00" style="display: none;">
-<img data-u="image" src="images/1.png" />
+<img data-u="image" src="images/Slider1.jpg" />
 </div>
 <div data-p="225.00" style="display: none;">
-<img data-u="image" src="images/slider2.png" />
+<img data-u="image" src="images/Slider2.jpg" />
 </div>
 <div data-p="225.00" style="display: none;">
-<img data-u="image" src="images/slider3.png" />
+<img data-u="image" src="images/Slider3.jpg" />
 </div>
 </div>
 <!-- Bullet Navigator -->
