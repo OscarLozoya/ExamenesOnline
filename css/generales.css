@@ -41,12 +41,6 @@
 .buton:hover{
   background-color: gray;
 }
-.Formato-Footer{
-  text-align: center;
-  font-family: Century;
-  font-size: 14px;
-  color: #D7D7D8;
-}
 /*PAra formularios estilachos chidos liros :v
   input:required:invalid, input:focus:invalid {
     /*background-image: url(/images/invalid.png);
@@ -62,12 +56,50 @@
     background-color: #BCF5A9;
   }
 */
-  @media (max-width: 990px){
-    #Logo{
-      display: none;
+    /* Custom, iPhone Retina */ 
+    @media only screen and (min-width : 320px) {
 
     }
-  }
+
+    /* Extra Small Devices, Phones */ 
+    @media only screen and (min-width : 480px) {
+
+    }
+
+    /* Small Devices, Tablets */
+    @media only screen and (min-width : 768px) {
+      .aside{
+        min-height: 500px;
+      }
+      section .content{
+        min-height: 500px;
+      }
+    }
+
+    /* Medium Devices, Desktops */
+    @media only screen and (min-width : 992px) {
+      #Logo{
+      display: none;
+    }
+      .aside{
+        min-height: 500px;
+      }
+      section .content{
+        min-height: 500px;
+      }
+    }
+
+    /* Large Devices, Wide Screens */
+    @media only screen and (min-width : 1200px) {
+      .aside{
+        min-height: 600px;
+      }
+      section .content{
+        min-height: 600px;
+    }
+    }
+
+
 textarea{
   resize:none;
 }
