@@ -22,7 +22,6 @@
   text-align: center;
 }
 
-}
 
 .DivPrin{
   padding: 20px 44px 20px;
@@ -37,6 +36,7 @@
 }
 .buton{
   background-color: orange;
+  overflow: hidden;
 }
 .buton:hover{
   background-color: gray;
