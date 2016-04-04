@@ -10,7 +10,8 @@
 						<label for="usuario" class="control-label">Usuario:</label>
 					</div>
 					<div class="col-xs-12 col-md-8">
-						<input class="form-control" id="usuario" type="text" placeholder="Usuario">
+						<input class="form-control" id="usuario" type="text" placeholder="Usuario" onchange="CambioUsuario()">
+						<label id="MensajeUsuario" class="Warning">*Debes de ingresar tu usuario</label>
 					</div>					
 				</div>
 
@@ -19,7 +20,8 @@
 						<label for="contrasena" class="control-label">Contraseña:</label>
 					</div>	
 					<div class="col-xs-12 col-md-8">
-						<input class="form-control" id="contrasena" type="password" placeholder="Contraseña">
+						<input class="form-control" id="contrasena" type="password" placeholder="Contraseña" onchange="CambioContrasena()">
+						<label id="MensajeContrasena" class="Warning">*Debes de ingresar tu contraseña</label>
 					</div>
 				</div>
 
@@ -29,7 +31,7 @@
 
 				<div class="form-group row">
 					<div class="col-xs-5">
-						<button class="btn btn-primary">Registrarse</button>
+						<button class="btn btn-primary" type="button" onclick="location='Registro.php'">Registrarse</button>
 					</div>
 					<div class="col-xs-3">
 						<button class="btn btn-primary" type="submit" onclick="return ValidaLogin()">Ingresar</button>
@@ -69,3 +71,5 @@
 		</section>
 	</section>
 <?php include("Footer.php");?>
+<script type="text/javascript" src="js/ValidacionesLogin.js"></script>
+

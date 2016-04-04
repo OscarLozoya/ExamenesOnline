@@ -41,6 +41,11 @@
 .buton:hover{
   background-color: gray;
 }
+.Warning
+{
+  color: #f00;
+  display: none;
+}
 /*PAra formularios estilachos chidos liros :v
   input:required:invalid, input:focus:invalid {
     /*background-image: url(/images/invalid.png);
