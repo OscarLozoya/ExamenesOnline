@@ -47,26 +47,20 @@
   font-size: 14px;
   color: #D7D7D8;
 }
-/*PAra formularios estilachos chidos liros :v
-  input:required:invalid, input:focus:invalid {
-    /*background-image: url(/images/invalid.png);
-    background-position: right top;
-    background-repeat: no-repeat;
-    background-color: #F5A9A9;
-    
-  }
-  input:required:valid {
-    /*background-image: url(/images/valid.png);
-    background-position: right top;
-    background-repeat: no-repeat;
-    background-color: #BCF5A9;
-  }
-*/
-  @media (max-width: 990px){
+.Valuer{
+  display:block;
+  padding-top: 2.5em;
+  padding-bottom: 0em;
+}
+
+  @media (max-width: 990px){/*SIRVE PARA LOS HORARIOS DE */
     #Logo{
       display: none;
-
     }
+    .Valuer{
+      padding-top: 0.5em;
+    }
+
   }
 textarea{
   resize:none;

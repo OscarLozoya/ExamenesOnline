@@ -130,22 +130,24 @@
 									<label for="car" class="control-label col-xs-12 col-sm-2 col-md-2">Carrera</label>
 									<div class="col-xs-12 col-sm-5  col-md-4">
 										<input type="text" class="form-control" placeholder="Ing. Mecatronica" id="carrera">
-									</div>		
+									</div>	
 									<label for="pro" class="control-label  col-xs-12 col-sm-2 col-md-2">Promedio</label>
 									<div class="col-xs-12 col-sm-3 col-md-2">
 										<input type="text" class="form-control" placeholder="87" id="promedio">
 									</div>	
 							</div>
-							<div class="form-group">
-								<label for="estado" class="col-xs-6  col-md-1 control-label">Estado</label>
-								<div class="col-xs-6  col-md-2">
+							<div class="form-group col-md-3">
+								<label for="" class="control-label col-md-3">Estado</label>
+								<div class="col-md-9">
 									<select class="form-control">
 										<option>Terminada</option>
 										<option>En Proceso</option>
 									</select>
 								</div>
-								<label for="porcentaje" class="col-xs-6  col-md-2 control-label">Porcentaje</label>
-								<div class="col-xs-6  col-md-2">
+							</div>
+							<div class="form-group col-md-3">
+								<label for="" class="control-label col-md-5">Porcentaje</label>
+								<div class="col-md-7">
 									<select class="form-control">
 												<option value="10%">10%</option>
 												<option value="20%">20%</option>
@@ -159,68 +161,164 @@
 												<option value="100%">100%</option>
 									</select>
 								</div>
-								<label for="tiempo_res" class="col-xs-12  col-md-1 control-label">Tiempo Restante</label>
-								<div class="col-xs-6  col-md-2">
+							</div>
+							<div class="form-group col-md-6">
+								<label for="tiempo_res" class="control-label col-md-4">Tiempo Restante</label>
+								<div class="col-md-4">
 									<input type="number" class="form-control" placeholder="2">
 								</div>
-								<div class="col-xs-6 col-sm-5 col-md-2">
+								<div class="col-md-4">
 									<select class="form-control">
 										<option value="Semestres">Semestres</option>
 										<option value="Años">Años</option>	
 									</select>
 								</div>
 							</div>
+							<!--<div class="form-group">
+								<label for="" class="col-xs-6  col-md-2 col-lg-1 control-label">Estado</label>
+								<div class="col-xs-6  col-md-4 col-lg-2">
+									<select class="form-control">
+										<option>Terminada</option>
+										<option>En Proceso</option>
+									</select>
+								</div>
+								<label for="porcentaje" class="col-xs-6  col-md-2 control-label">Porcentaje</label>
+								<div class="col-xs-6  col-md-2 col-md-offset-1 col-lg-2">
+									<select class="form-control">
+												<option value="10%">10%</option>
+												<option value="20%">20%</option>
+												<option value="30%">30%</option>
+												<option value="40%">40%</option>
+												<option value="50%">50%</option>
+												<option value="60%">60%</option>
+												<option value="70%">70%</option>
+												<option value="80%">80%</option>
+												<option value="90%">90%</option>
+												<option value="100%">100%</option>
+									</select>
+								</div>
+								<label for="tiempo_res" class="col-xs-12 col-md-2 control-label">Tiempo Restante</label>
+								<div class="col-xs-6  col-md-2 col-md-2">
+									<input type="number" class="form-control" placeholder="2">
+								</div>
+								<div class="col-xs-6 col-sm-5 col-md-2 col-md-2">
+									<select class="form-control">
+										<option value="Semestres">Semestres</option>
+										<option value="Años">Años</option>	
+									</select>
+								</div>--
+							</div>-->
 							<div class="form-group col-xs-12">
-									<h3 class="text-center">Horarios Disponibles</h3>
-							  </div>
-							  <div class="col-xs-12">
-							  	<div class="col-xs-12 col-sm-12 col-lg-6">
-							  		<div class="form-group">
-								  		<label class=" col-xs-4 col-xs-offset-2 text-center">Desde</label>
-								  		<label class=" col-xs-6 text-center">Hasta</label>
-								  		<label for="" class="col-xs-2 control-label">Lunes</label>
-								  		<div class="col-xs-5"><select class="form-control"></select></div>
-											<div class="col-xs-5"><select class="form-control"></select></div>
-								  	</div>
-							  		<div class="form-group">
-								  		<label class=" col-xs-4 col-xs-offset-2 text-center">Desde</label>
-								  		<label class=" col-xs-6 text-center">Hasta</label>
-								  		<label for="" class="col-xs-2 control-label">Martes</label>
-								  		<div class="col-xs-5"><select class="form-control"></select></div>
-											<div class="col-xs-5"><select class="form-control"></select></div>
-								  	</div>
-							  		<div class="form-group">
-								  		<label class=" col-xs-4 col-xs-offset-2 text-center">Desde</label>
-								  		<label class=" col-xs-6 text-center">Hasta</label>
-								  		<label for="" class="col-xs-2 control-label">Miercoles</label>
-								  		<div class="col-xs-5"><select class="form-control"></select></div>
-											<div class="col-xs-5"><select class="form-control"></select></div>
-								  	</div>
+								<h3 class="text-center">Horarios Disponibles</h3>
+							</div>
+						  <div class="row"><!---->
+						  	<div class="col-xs-12 col-sm-6 col-lg-6">
+						  		<div class="row text-center"><!--BLOQUE LUNES-->
+						  			<div class="col-xs-12 col-md-3 col-lg-2 col-lg-offset-1">
+						  				<label class="Valuer">Lunes</label>
+						  			</div>
+						  			<div class="col-xs-6 col-md-4">
+					  					<label for="" class="control-label">Desde</label>
+					  					<select name="" id="" class="form-control">
+					  						<?php include("Valores00.php"); ?>
+					  					</select>
+						  			</div>
+						  			<div class="col-xs-6 col-md-4">
+						  				<label for="" class="control-label">Hasta</label>
+					  					<select name="" id="" class="form-control">
+					  						<?php include("Valores00.php"); ?>
+					  					</select>
+						  			</div>
 							  	</div>
-							  	<div class="col-xs-12 col-sm-12 col-lg-6">
-							  		<div class="form-group">
-								  		<label class=" col-xs-4 col-xs-offset-2 text-center">Desde</label>
-								  		<label class=" col-xs-6 text-center">Hasta</label>
-								  		<label for="" class="col-xs-2 control-label">Jueves</label>
-								  		<div class="col-xs-5"><select class="form-control"></select></div>
-											<div class="col-xs-5"><select class="form-control"></select></div>
-								  	</div>
-							  		<div class="form-group">
-								  		<label class=" col-xs-4 col-xs-offset-2 text-center">Desde</label>
-								  		<label class=" col-xs-6 text-center">Hasta</label>
-								  		<label for="" class="col-xs-2 control-label">Viernes</label>
-								  		<div class="col-xs-5"><select class="form-control"></select></div>
-											<div class="col-xs-5"><select class="form-control"></select></div>
-								  	</div>
-							  		<div class="form-group">
-								  		<label class=" col-xs-4 col-xs-offset-2 text-center">Desde</label>
-								  		<label class=" col-xs-6 text-center">Hasta</label>
-								  		<label for="" class="col-xs-2 control-label">Sabado</label>
-								  		<div class="col-xs-5"><select class="form-control"></select></div>
-											<div class="col-xs-5"><select class="form-control"></select></div>
-								  	</div>
-							  	</div>
-							  
+							  	<!--FIN BLOQUE LUNES-->
+						  		<div class="row text-center"><!--BLOQUE MARTES-->
+							  		<div class="col-xs-12 col-md-3 col-lg-2 col-lg-offset-1">
+						  				<label class="Valuer">Martes</label>
+						  			</div>
+						  			<div class="col-xs-6 col-md-4">
+						  				<label for="" class="control-label">Desde</label>
+					  					<select name="" id="" class="form-control">
+					  						<?php include("Valores00.php"); ?>
+					  					</select>
+						  			</div>
+						  			<div class="col-xs-6 col-md-4">
+						  				<label for="" class="control-label">Hasta</label>
+					  					<select name="" id="" class="form-control">
+					  						<?php include("Valores00.php"); ?>
+					  					</select>
+						  			</div>
+							  	</div><!--FIN BLOQUE MARTES-->
+						  		<div class="row text-center"><!--BLOQUE MIERCOLES-->
+						  			<div class="col-xs-12 col-md-3 col-lg-2 col-lg-offset-1">
+						  				<label class="Valuer">Miercoles</label>
+						  			</div>
+						  			<div class="col-xs-6 col-md-4">
+					  					<label for="" class="control-label">Desde</label>
+					  					<select name="" id="" class="form-control">
+					  						<?php include("Valores00.php"); ?>
+					  					</select>
+						  			</div>
+						  			<div class="col-xs-6 col-md-4">
+						  				<label for="" class="control-label">Hasta</label>
+					  					<select name="" id="" class="form-control">
+					  						<?php include("Valores00.php"); ?>
+					  					</select>
+						  			</div>
+							  	</div><!--FIN BLOQUE MIERCOLES-->
+						  	</div>
+						  	<div class="col-xs-12 col-sm-6 col-lg-6"><!--BLOQUE DE JUEV-SAB DE 6 COL-->
+							  	<div class="row text-center"><!--BLOQUE JUEVES-->
+						  			<div class="col-xs-12 col-md-2">
+						  				<label class="Valuer">Jueves</label>
+						  			</div>
+						  			<div class="col-xs-6 col-md-4">
+					  					<label for="" class="control-label">Desde</label>
+					  					<select name="" id="" class="form-control">
+					  						<?php include("Valores00.php"); ?>
+					  					</select>
+						  			</div>
+						  			<div class="col-xs-6 col-md-4">
+						  				<label for="" class="control-label">Hasta</label>
+					  					<select name="" id="" class="form-control">
+					  						<?php include("Valores00.php"); ?>
+					  					</select>
+						  			</div>
+							  	</div><!--FIN BLOQUE Jueves-->
+						  		<div class="row text-center"><!--BLOQUE Viernes-->
+						  			<div class="col-xs-12 col-md-2">
+						  				<label class="Valuer">Viernes</label>
+						  			</div>
+						  			<div class="col-xs-6 col-md-4">
+					  					<label for="" class="control-label">Desde</label>
+					  					<select name="" id="" class="form-control">
+					  						<?php include("Valores00.php"); ?>
+					  					</select>
+						  			</div>
+						  			<div class="col-xs-6 col-md-4">
+						  				<label for="" class="control-label">Hasta</label>
+					  					<select name="" id="" class="form-control">
+					  						<?php include("Valores00.php"); ?>
+					  					</select>
+						  			</div>
+							  	</div><!--FIN BLOQUE Viernes-->
+							  	<div class="row text-center"><!--BLOQUE Sabado-->
+						  			<div class="col-xs-12 col-md-2">
+						  				<label class="Valuer">Sabado</label>
+						  			</div>
+						  			<div class="col-xs-6 col-md-4">
+					  					<label for="" class="control-label">Desde</label>
+					  					<select name="" id="" class="form-control">
+					  						<?php include("Valores00.php"); ?>
+					  					</select>
+						  			</div>
+						  			<div class="col-xs-6 col-md-4">
+						  				<label for="" class="control-label">Hasta</label>
+					  					<select name="" id="" class="form-control">
+					  						<?php include("Valores00.php"); ?>
+					  					</select>
+						  			</div>
+							  	</div><!--FIN BLOQUE Sabado-->
+						  	</div><!--FIN BLOQUE JUEV-SAB-->
 							</div>
 						</fieldset>
 					</form>
@@ -229,3 +327,4 @@
 		</section>
 </div>
 <?php include("Footer.php"); ?>
+<!--RESPALDO ANTES DE CAGARLA-->
