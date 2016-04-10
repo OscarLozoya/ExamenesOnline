@@ -89,7 +89,7 @@
 					</div>
 					<div class="col-xs-12 col-md-6">
 						<input class="form-control" type="text" id="TextoRespuesta" placeholder="Respuesta a la pregunta" onchange="cambioContenidoRespuesta()"></input>
-						<label id="MensageContenidoRespuesta" class="Warning">*Debes de escribir la resupuesta</label>
+						<label id="MensageContenidoRespuesta" class="Warning">*Debes de escribir la respuesta</label>
 					</div>
 					<div class="col-xs-3 col-md-2">
 						<button class="btn btn-primary" type="button" onclick="valAgregarRespuesta()">Agregar Respuesta</button>

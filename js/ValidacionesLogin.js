@@ -1,3 +1,12 @@
+/**
+*@fileoverviewe Script para validar la parte de Modificar y Eliminar un Examen
+*@autor José Alberto Suárez Carrillo
+*@version 1.0
+*/
+
+/**
+*Verifica que el usuario y la contraseña esten escritos
+*/
 function ValidaLogin()
 {
 	var usuario=$('input#usuario');
@@ -22,14 +31,18 @@ function ValidaLogin()
 	}
 }
 
+/**
+*Oculta el mensaje de error de que no ingreso el usuario
+*/
 function CambioUsuario()
 {
-	var MensajeUsuario=$('#MensajeUsuario');
-	MensajeUsuario.css('display','none');
+	$('#MensajeUsuario').css('display','none');
 }
 
+/**
+*Oculta el mensaje de error cuando no ingreso la contraseña
+*/
 function CambioContrasena()
 {
-	var MensajeContrasena=$('#MensajeContrasena');
-	MensajeContrasena.css('display','none');
+	$('#MensajeContrasena').css('display','none');
 }
