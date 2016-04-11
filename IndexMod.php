@@ -6,7 +6,7 @@
 </ol>
 <?php include("MenuMod.php"); ?>
 	<section class="container-fluid">
-		<aside class="col-xs-12 col-sm-4 aside lines">
+		<aside class="col-xs-12 col-sm-3 aside lines">
 			<div class="form-group">
 				<div class="col-xs-12">
 					<figure>
@@ -22,8 +22,16 @@
 			</div>
 		</aside>
 
-		<article class="col-xs-12 col-sm-8 content lines">
-            <h1>Categorias</h1>
+		<article class="col-xs-12 col-sm-9 content lines">
+            <div class="text-center">
+				<h1>Notificaciones</h1>
+			</div>
+			<div class="container">
+				<p>ID del Examen</p>
+				<p>Pregunta</p>
+				<button class="btn btn-primary">Calificar</button>
+			</div>
+			<hr noshade="noshade" />
     </article>
 	</section>
 <?php include("Footer.php"); ?>

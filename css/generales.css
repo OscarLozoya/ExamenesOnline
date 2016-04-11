@@ -22,7 +22,6 @@
   text-align: center;
 }
 
-}
 
 .DivPrin{
   padding: 20px 44px 20px;
@@ -37,15 +36,15 @@
 }
 .buton{
   background-color: orange;
+  overflow: hidden;
 }
 .buton:hover{
   background-color: gray;
 }
-.Formato-Footer{
-  text-align: center;
-  font-family: Century;
-  font-size: 14px;
-  color: #D7D7D8;
+.Warning
+{
+  color: #f00;
+  display: none;
 }
 .Valuer{
   display:block;
@@ -62,6 +61,49 @@
     }
 
   }
+    /* Custom, iPhone Retina */ 
+    @media only screen and (min-width : 320px) {
+
+    }
+
+    /* Extra Small Devices, Phones */ 
+    @media only screen and (min-width : 480px) {
+
+    }
+
+    /* Small Devices, Tablets */
+    @media only screen and (min-width : 768px) {
+      .aside{
+        min-height: 500px;
+      }
+      section .content{
+        min-height: 500px;
+      }
+    }
+
+    /* Medium Devices, Desktops */
+    @media only screen and (min-width : 992px) {
+      #Logo{
+      display: none;
+    }
+      .aside{
+        min-height: 500px;
+      }
+      section .content{
+        min-height: 500px;
+      }
+    }
+
+    /* Large Devices, Wide Screens */
+    @media only screen and (min-width : 1200px) {
+      .aside{
+        min-height: 600px;
+      }
+      section .content{
+        min-height: 600px;
+    }
+    }
+
 textarea{
   resize:none;
 }
