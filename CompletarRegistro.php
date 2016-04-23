@@ -24,95 +24,63 @@
 							<div class="form-group">
 								<div class="col-sm-6 col-md-4 col-lg-3">
 									<label for="nom">Nombre: *</label>
-								<br>
-									<input for="name" type="text" placeholder="Juan" class="form-control">
+								  <br>
+									<input for="nam" id="Name" type="text" placeholder="Oscar" class="form-control" onchange="Elimina_Error('ErrorName')">
 								</div>
 								<div class="col-sm-6 col-md-4 col-lg-3">
 									<label for="ApeP">Apellido Paterno: *</label>
 									<br>
-									<input name="apeP" type="text" placeholder="Perez" class="form-control">
+									<input name="apeP" id="ApeP" type="text" placeholder="Perez" class="form-control" onchange="Elimina_Error('ErrorApeP')">
 								</div>
 								<div class="col-sm-6 col-md-4 col-lg-3">
 									<label for="ApeM">Apellido Materno:</label>
 									<br>
-									<input name="apeM" type="text" placeholder="Suarez" class="form-control">
+									<input name="apeM" id="ApeM" type="text" placeholder="Suarez" class="form-control" onchange="Elimina_Error('ErrorApeM')">
 								</div>
 								<div class="col-sm-6 col-md-4 col-lg-3">
 									<label for="contra">Contraseña: *</label>
 									<br>
-									<input name="pass" type="password" class="form-control">
+									<input id="passwordUser" name="pass" type="password" class="form-control">
 								</div>
 							</div>
 							<div class="form-group">
 								<div class="col-sm-6  col-lg-4 col-lg-offset-1">
-									<label for="fijo">Telefono Fijo:</label>
+									<label for="fijo">Telefono:</label>
 									<br>
 									<input type="text" name="telfijo" placeholder="36259345" class="form-control">
 								</div>
-								<div class="col-sm-6  col-lg-4 col-lg-offset-1">
-									<label for="tcel">Telefono Celular:</label>
-									<br>
-									<input type="text" name="cel" placeholder="3315623412" class="form-control">
-								</div>
+								
 							</div>
 						</fieldset>
 					</form>
 				</section>
-				<section class=" well">
+				<section class="form-horizontal well">
 					<form action="">
 						<fieldset>
-							<legend>Redes Sociales:</legend>
-							<div class="form-group col-xs-12	col-md-6">
-								<div class="col-xs-8	col-md-8">
-									<input class="form-control" id="rd" type="text">
+							<legend>
+								<div class="col-xs-12">
+									<label for="" class="col-xs-11">Redes Sociales:</label>
+								 <span class="input-group-btn col-xs-1">
+						        <button class="btn btn-default" type="search" data-tooltip="Agregar otra Red."><i class="glyphicon glyphicon-plus"></i></button>
+						     </span>
+						     </div>
+							</legend>
+							<div class="form-group col-xs-12 col-md-11">
+								<label for="" class="col-md-1 control-label">URL:</label>
+								<div class="col-md-6	col-lg-8">
+									<input class="form-control" id="URLred" placeholder="https://www.facebook.com/" type="text">
 								</div>
-								<div class="col-xs-4	col-md-4 ">
-									<select class="form-control">
-									  	<option>Facebook</option>
-										  <option>Twitter</option>
-										  <option>Google+</option>
-										  <option>Skype</option>
-									</select>
-								</div>
-							</div>
-							<div class="form-group col-xs-12	col-md-6">
-								<div class="col-xs-8	col-md-8">
-									<input class="form-control" id="rd" type="text">
-								</div>
-								<div class="col-xs-4	col-md-4">
-									<select class="form-control">
-									  	<option>Facebook</option>
-										  <option>Twitter</option>
-										  <option>Google+</option>
-										  <option>Skype</option>
-									</select>
+								<label for="" class="col-md-2 col-lg-1 control-label">Dominio</label>
+								<div class="col-md-3	col-lg-2">
+									<input class="form-control" id="Dominiored" placeholder="Facebook" type="text">
 								</div>
 							</div>
-							<div class="form-group col-xs-12	col-md-6">
-								<div class="col-xs-8	col-md-8">
-									<input class="form-control" id="rd" type="text">
-								</div>
-								<div class="col-xs-4	col-md-4">
-									<select class="form-control">
-									  	<option>Facebook</option>
-										  <option>Twitter</option>
-										  <option>Google+</option>
-										  <option>Skype</option>
-									</select>
-								</div>
+							<div class="col-md-1">
+								<span class="input-group-btn">
+						        <button class="btn btn-default" type="search" data-tooltip="Agregar otra Red."><i class="glyphicon glyphicon-plus"></i></button>
+						     </span>
 							</div>
-							<div class="form-group col-xs-12	col-md-6">
-								<div class="col-xs-8	col-md-8">
-									<input class="form-control" id="rd" type="text">
-								</div>
-								<div class="col-xs-4 col-md-4">
-									<select class="form-control">
-									  	<option>Facebook</option>
-										  <option>Twitter</option>
-										  <option>Google+</option>
-										  <option>Skype</option>
-									</select>								</div>
-							</div>
+							
 						</fieldset>
 					</form>
 				</section>
@@ -123,91 +91,53 @@
 							<div class="form-group">
 									<label for="uni" class="col-md-2 control-label">Universidad</label>
 									<div class="col-md-8">
-										<input type="text" class="form-control" placeholder="Centro Universitario De Las Ciencias" id="universidad">
+										<input type="text" id="Universidad" class="form-control" placeholder="Centro Universitario De Ciencias Exactas e Ingenierías" id="universidad">
 									</div>
 							</div>
 							<div class="form-group">	
 									<label for="car" class="control-label col-xs-12 col-sm-2 col-md-2">Carrera</label>
 									<div class="col-xs-12 col-sm-5  col-md-4">
-										<input type="text" class="form-control" placeholder="Ing. Mecatronica" id="carrera">
+										<input id="Carrera" type="text" class="form-control" placeholder="Ing. Mecatronica" id="carrera">
 									</div>	
 									<label for="pro" class="control-label  col-xs-12 col-sm-2 col-md-2">Promedio</label>
 									<div class="col-xs-12 col-sm-3 col-md-2">
-										<input type="text" class="form-control" placeholder="87" id="promedio">
+										<input id="Promedio" type="text" class="form-control" placeholder="87" id="promedio">
 									</div>	
 							</div>
-							<div class="form-group col-md-3">
-								<label for="" class="control-label col-md-3">Estado</label>
-								<div class="col-md-9">
+							<div class="form-group">
+								<label for="estado" class="col-xs-6 col-sm-2 col-lg-1 control-label">Estado: </label>
+								<div class="col-xs-6 col-sm-3 col-md-3 col-lg-2">
 									<select class="form-control">
 										<option>Terminada</option>
 										<option>En Proceso</option>
 									</select>
 								</div>
-							</div>
-							<div class="form-group col-md-3">
-								<label for="" class="control-label col-md-5">Porcentaje</label>
-								<div class="col-md-7">
+								<label for="porcentaje" class="col-xs-6  col-sm-4 col-md-3 col-lg-2 control-label">Porcentaje: </label>
+								<div class="col-xs-6  col-sm-3 col-lg-2">
 									<select class="form-control">
-												<option value="10%">10%</option>
-												<option value="20%">20%</option>
-												<option value="30%">30%</option>
-												<option value="40%">40%</option>
-												<option value="50%">50%</option>
-												<option value="60%">60%</option>
-												<option value="70%">70%</option>
-												<option value="80%">80%</option>
-												<option value="90%">90%</option>
-												<option value="100%">100%</option>
+										<option value="10%">10%</option>
+										<option value="20%">20%</option>
+										<option value="30%">30%</option>
+										<option value="40%">40%</option>
+										<option value="50%">50%</option>
+										<option value="60%">60%</option>
+										<option value="70%">70%</option>
+										<option value="80%">80%</option>
+										<option value="90%">90%</option>
+										<option value="100%">100%</option>
 									</select>
 								</div>
-							</div>
-							<div class="form-group col-md-6">
-								<label for="tiempo_res" class="control-label col-md-4">Tiempo Restante</label>
-								<div class="col-md-4">
-									<input type="number" class="form-control" placeholder="2">
+								<label for="tiempo_res" class="col-xs-6 col-sm-3  col-md-2 col-lg-1 control-label">Tiempo Restante: </label>
+								<div class="col-xs-3 col-lg-2">
+									<input id="tiempo_res" type="number" placeholder="2" class="form-control">
 								</div>
-								<div class="col-md-4">
+								<div class="col-xs-3  col-sm-4 col-md-3   col-lg-2">
 									<select class="form-control">
 										<option value="Semestres">Semestres</option>
-										<option value="Años">Años</option>	
+										<option value="Años">Años</option>
 									</select>
 								</div>
 							</div>
-							<!--<div class="form-group">
-								<label for="" class="col-xs-6  col-md-2 col-lg-1 control-label">Estado</label>
-								<div class="col-xs-6  col-md-4 col-lg-2">
-									<select class="form-control">
-										<option>Terminada</option>
-										<option>En Proceso</option>
-									</select>
-								</div>
-								<label for="porcentaje" class="col-xs-6  col-md-2 control-label">Porcentaje</label>
-								<div class="col-xs-6  col-md-2 col-md-offset-1 col-lg-2">
-									<select class="form-control">
-												<option value="10%">10%</option>
-												<option value="20%">20%</option>
-												<option value="30%">30%</option>
-												<option value="40%">40%</option>
-												<option value="50%">50%</option>
-												<option value="60%">60%</option>
-												<option value="70%">70%</option>
-												<option value="80%">80%</option>
-												<option value="90%">90%</option>
-												<option value="100%">100%</option>
-									</select>
-								</div>
-								<label for="tiempo_res" class="col-xs-12 col-md-2 control-label">Tiempo Restante</label>
-								<div class="col-xs-6  col-md-2 col-md-2">
-									<input type="number" class="form-control" placeholder="2">
-								</div>
-								<div class="col-xs-6 col-sm-5 col-md-2 col-md-2">
-									<select class="form-control">
-										<option value="Semestres">Semestres</option>
-										<option value="Años">Años</option>	
-									</select>
-								</div>--
-							</div>-->
 							<div class="form-group col-xs-12">
 								<h3 class="text-center">Horarios Disponibles</h3>
 							</div>
@@ -324,7 +254,11 @@
 					</form>
 				</section>
 			</div>
+			<button class="btn btn-primary" type="submit" onclick="return Valida_Campos_Nombres()">Ingresar</button>
+
 		</section>
+		
 </div>
+
 <?php include("Footer.php"); ?>
-<!--RESPALDO ANTES DE CAGARLA-->
+<script type="text/javascript" src="js/ValidacionesRegistro.js"></script>

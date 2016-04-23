@@ -1,11 +1,21 @@
+/**
+*@fileoverviewe Script para validar la parte de Modificar y Eliminar un Examen
+*@autor José Alberto Suárez Carrillo
+*@version 1.0
+*/
+
+/**
+*Verifica que se selecciono una categoria del select y lo agrega a la tabla
+*/
 function valAgregarCategoria()
 {
-	var categoria=$('select#categoria');
-	var mensajeCategoria=$('#MensageCategoria');
+	var categoria=$('select#categoria'),
+		mensajeCategoria=$('#MensageCategoria');
 	mensajeCategoria.css('display','none');
 	if(notEmpty(categoria[0].value))
 	{
-		$('table#Categorias').append(
+		$('table#Categorias').append
+		(
 			$('<tr>').append
 			(
 				$('<td>').append('02')
@@ -19,14 +29,18 @@ function valAgregarCategoria()
 	}
 }
 
+/**
+*Verifica que se escribio la respuesta y la agrega a la tabla
+*/
 function valAgregarRespuesta()
 {
-	var respuesta=$('input#TextoRespuesta');
-	var mensajeRespuesta=$('#MensageRespuestas');
+	var respuesta=$('input#TextoRespuesta'),
+		mensajeRespuesta=$('#MensageRespuestas');
 	mensajeRespuesta.css('display','none');
 	if(notEmpty(respuesta.val()))
 	{
-		$('table#Respuestas').append(
+		$('table#Respuestas').append
+		(
 			$('<tr>').append
 			(
 				$('<td>').append(respuesta.val())
@@ -40,12 +54,14 @@ function valAgregarRespuesta()
 	}
 	else
 	{
-		var contenidoRespuesta=$("#MensageContenidoRespuesta");
-		contenidoRespuesta.css('display','block');
+		$("#MensageContenidoRespuesta").css('display','block');;
 		respuesta.focus();
 	}
 }
 
+/**
+*Obtiene la categoria que esta seleccionada y la elimina
+*/
 function elminarCategoria()
 {
 	var categorias=$('table#Categorias tbody tr td input');
@@ -55,6 +71,9 @@ function elminarCategoria()
 	}
 }
 
+/**
+*Obtiene la respuesta que esta seleccionada y la elimina
+*/
 function eliminarRespuesta()
 {
 	var categorias=$('table#Respuestas tbody tr td input');
@@ -63,25 +82,32 @@ function eliminarRespuesta()
 			categorias.eq(i).parent().parent().remove();
 	}
 }
+
+/**
+*Oculta o muestra la opción de agregar respuestas de opción multiple. 
+*/
 function OpcionRespuesta()
 {
-	var option=$('select#tipo');
-	var respuestas=$('div#respuestaOpciones');
+	var option=$('select#tipo'),
+		respuestas=$('div#respuestaOpciones');
 	if(option[0].value=='Abierta')		
 		respuestas.css('display','none');
 	else
 		respuestas.css('display','block');
 }
 
+/**
+*Verifica que la pregunta este escrita, que tenga almenos una categoria y que si es de opción mulltiple, tenga almenos una respuesta correcta.
+*/
 function ValidaAgregarPregunta()
 {
 	var pregunta=$('textarea#Pregunta');
 	if(notEmpty(pregunta.val()))
 	{
-		var option=$('select#tipo');
-		var respuestas=$('table#Respuestas tbody tr td input');
-		var categorias=$('table#Categorias tbody tr td');
-		var CantRespuestas=0;
+		var option=$('select#tipo'),
+			respuestas=$('table#Respuestas tbody tr td input'),
+			categorias=$('table#Categorias tbody tr td'),
+			CantRespuestas=0;
 		if(categorias.size()>0)
 		{
 			if(option[0].value=='Opciones')
@@ -95,47 +121,49 @@ function ValidaAgregarPregunta()
 				}
 				else
 				{
-					var mensajeRespuesta=$('#MensageRespuestas');
-					mensajeRespuesta.css('display','block');
+					$('#MensageRespuestas').css('display','block');
 					respuestas.focus();
 				}
 				if(CantRespuestas==0)
 				{
-					var mensajeRespuestaCorrecta=$('#MensageRespuestaCorrecta');
-					mensajeRespuestaCorrecta.css('display','block');
+					$('#MensageRespuestaCorrecta').css('display','block');
 					respuesta.focus();
 				}
 			}
 		}
 		else
 		{
-			var mensajeCategoria=$('#MensageCategoria');
-			mensajeCategoria.css('display','block');
+			$('#MensageCategoria').css('display','block');
 			$('select#categoria').focus();
 		}
 	}
 	else
 	{
-		var mensajePregunta=$('#MensagePregunta');
+		$('#MensagePregunta').css('display','block');
 		pregunta.focus();
-		mensajePregunta.css('display','block');
 	}
 }
 
+/**
+*Oculta el mensaje de error cuando no se escribe la pregunta
+*/
 function CambioPregunta()
 {
-	var mensajePregunta=$('#MensagePregunta');
-	mensajePregunta.css('display','none');
+	$('#MensagePregunta').css('display','none');
 }
 
+/**
+*Oculta el mensaje de error cuando no tiene una respuesta correcta seleccionada
+*/
 function CambioRespuestaCorrecta()
 {
-	var mensajeRespuestaCorrecta=$('#MensageRespuestaCorrecta');
-	mensajeRespuestaCorrecta.css('display','none');
+	$('#MensageRespuestaCorrecta').css('display','none');
 }
 
+/**
+*Oculta el error cuando no se ha escrito la respuesta
+*/
 function cambioContenidoRespuesta()
 {
-	var contenidoRespuesta=$("#MensageContenidoRespuesta");
-	contenidoRespuesta.css('display','none');
+	$("#MensageContenidoRespuesta").css('display','none');
 }
