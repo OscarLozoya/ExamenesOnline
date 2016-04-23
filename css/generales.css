@@ -61,18 +61,28 @@
     }
 
   }
+.Formato-Footer{
+  text-align: center;
+  font-family: Century;
+  font-size: 14px;
+  color: #D7D7D8;
+}
+#Logo{
+      display: none;
+  }
     /* Custom, iPhone Retina */ 
     @media only screen and (min-width : 320px) {
-
     }
 
     /* Extra Small Devices, Phones */ 
     @media only screen and (min-width : 480px) {
-
     }
 
     /* Small Devices, Tablets */
     @media only screen and (min-width : 768px) {
+       #Logo{
+      display: inline;
+      }
       .aside{
         min-height: 500px;
       }
@@ -83,9 +93,6 @@
 
     /* Medium Devices, Desktops */
     @media only screen and (min-width : 992px) {
-      #Logo{
-      display: none;
-    }
       .aside{
         min-height: 500px;
       }
