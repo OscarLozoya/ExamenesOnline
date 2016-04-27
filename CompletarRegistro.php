@@ -43,44 +43,39 @@
 									<input id="passwordUser" name="pass" type="password" class="form-control">
 								</div>
 							</div>
-							<div class="form-group">
-								<div class="col-sm-6  col-lg-4 col-lg-offset-1">
-									<label for="fijo">Telefono:</label>
-									<br>
-									<input type="text" name="telfijo" placeholder="36259345" class="form-control">
+							<!---->
+							<div id="EspTelefono">
+								<div class="form-group col-xs-12 col-md-8 col-lg-6">
+									<label for="" class="col-xs-12 col-sm-4 control-label">Telefono*:</label>
+									<div id="InBtn"class="col-xs-12 col-sm-6	col-lg-8  input-group">
+										<input class="form-control" id="Telefono" placeholder="363636052" type="text" onkeypress="prueba(this)" onchange="Elimina_Error('ErrorTelefono')">
+										<span id="spanBtn" class="input-group-btn">
+							        <button  id="BtnMoreTel"class="btn btn-default" type="button" data-tooltip="Agregar otro Número" onclick="NuevoTelefono()">
+							        	<i  id="iconBtnMoreTel" class="glyphicon glyphicon-plus"></i></button>
+							      </span>
+									</div>
 								</div>
-								
 							</div>
+							<!---->
 						</fieldset>
 					</form>
 				</section>
 				<section class="form-horizontal well">
 					<form action="">
 						<fieldset>
-							<legend>
-								<div class="col-xs-12">
-									<label for="" class="col-xs-11">Redes Sociales:</label>
-								 <span class="input-group-btn col-xs-1">
-						        <button class="btn btn-default" type="search" data-tooltip="Agregar otra Red."><i class="glyphicon glyphicon-plus"></i></button>
-						     </span>
-						     </div>
-							</legend>
-							<div class="form-group col-xs-12 col-md-11">
-								<label for="" class="col-md-1 control-label">URL:</label>
-								<div class="col-md-6	col-lg-8">
-									<input class="form-control" id="URLred" placeholder="https://www.facebook.com/" type="text">
-								</div>
-								<label for="" class="col-md-2 col-lg-1 control-label">Dominio</label>
-								<div class="col-md-3	col-lg-2">
-									<input class="form-control" id="Dominiored" placeholder="Facebook" type="text">
+							<legend>Redes Sociales:</legend>
+							<div id="EspRedSocial">
+								<div class="form-group col-xs-12 col-md-11">
+									<label for="" class="col-xs-2 control-label">URL:</label>
+									<div class="col-xs-12 col-sm-10	col-lg-8  input-group">
+										<input class="form-control" id="URLred" placeholder="https://www.facebook.com/" type="text">
+										<span class="input-group-btn">
+							        <button  id="BtnMore"class="btn btn-default" type="button" data-tooltip="Agregar otra Red" onclick="NuevaRedSocial()">
+							        	<i  id="iconBtnMore" class="glyphicon glyphicon-plus"></i></button>
+							      </span>
+									</div>
 								</div>
 							</div>
-							<div class="col-md-1">
-								<span class="input-group-btn">
-						        <button class="btn btn-default" type="search" data-tooltip="Agregar otra Red."><i class="glyphicon glyphicon-plus"></i></button>
-						     </span>
-							</div>
-							
 						</fieldset>
 					</form>
 				</section>
@@ -254,11 +249,11 @@
 					</form>
 				</section>
 			</div>
-			<button class="btn btn-primary" type="submit" onclick="return Valida_Campos_Nombres()">Ingresar</button>
+			<button class="btn btn-primary" type="submit" onclick="return Valida_Campos()">Ingresar</button>
 
 		</section>
 		
 </div>
 
 <?php include("Footer.php"); ?>
-<script type="text/javascript" src="js/ValidacionesRegistro.js"></script>
+<script type="text/javascript" src="js/ValidacionesPerfilRegistro.js"></script>

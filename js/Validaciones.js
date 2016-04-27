@@ -71,12 +71,26 @@ function ValidaLetras(cadena)
 
 /**
 *Verifica que el parametro que recibe este entre el 0 y el 100
-*@param {Integer} numero
+*@param {Integer} Numero Entrada que se va a validar
+*@param {Integer} TopMax Valor maximo que puede tener la entrada
 *@return {Bool} Verdadero si esta en el rango, falso en otro caso
 */
-function ValidaUpDown(numero)
+function ValidaUpDown(Numero,TopMax)
 {
-	if(numero>=0 && numero<=100)
+	if(numero>=0 && numero<=TopMax)
+		return true;
+	else
+		return false;
+}
+
+/**
+*Verifica que el parametro que un campo sea solo numerico
+*
+*/
+function ValidaNumerico(cadena)
+{
+	var exp=/^[0-9]+$/;
+	if(exp.test(cadena))
 		return true;
 	else
 		return false;
