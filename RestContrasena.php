@@ -17,15 +17,16 @@
 					<div class="form-group col-xs-12"><!--DIV DEL APARTADO CORREO LABEL e  INPUT-->
 							<label class="label-control col-xs-12">Correo Electrónico</label>
 						<div class="col-lg-8 col-lg-offset-2">
-							<input id="CorreoElc" class="form-control" type="email" required placeholder="alguncorreo@mail.com">
+							<input id="CorreoElec" class="form-control" type="email" required placeholder="alguncorreo@mail.com" onclick="CambioCorreo()">
+							<label id="MensajeCorreo" class="Warning">*Debes ingresar un correo válido</label>
 						</div>
 					</div>	
 					<div class="col-xs-10 col-xs-offset-1 form-group"><!--DIV DE LOS BOTONES-->
 						<div class="col-xs-12 col-md-6 form-group">
-							<button type="button" class="btn btn-primary">ENVIAR</button>
+							<button type="submit" class="btn btn-primary" onclick="return ValidacionCorreo()">ENVIAR</button>
 						</div>
 						<div class="col-xs-12 col-md-6 form-group">
-							<button type="button" class="btn btn-primary">CANCELAR</button>
+							<button type="button" class="btn btn-primary" onclick="return Cancelar()">CANCELAR</button>
 						</div>
 					</div>		
 				</div>
@@ -33,3 +34,4 @@
 		</form>
 	</section>
 <?php include("Footer.php"); ?>
+<script type="text/javascript" src="js/ValidacionesRestContrasena.js"></script>
