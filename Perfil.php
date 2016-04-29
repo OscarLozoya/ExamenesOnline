@@ -25,21 +25,17 @@
 						<fieldset>
 							<legend>Datos Personales</legend>
 							<div class="form-group">
-								<div class="col-sm-6 col-md-4 col-lg-3">
+								<div class="col-sm-6 col-md-4 col-lg-4">
 									<label for="nombre">Nombre: *</label><br>
-									<input id="nombre" type="text" placeholder="Oscar" class="form-control">
+									<input id="Name"type="text" placeholder="Oscar" class="form-control" onchange="Elimina_Error('ErrorName')">
 								</div>
-								<div class="col-sm-6 col-md-4 col-lg-3">
+								<div class="col-sm-6 col-md-4 col-lg-4">
 									<label for="ape_paterno">Apellido Paterno: *</label><br>
-									<input id="ape_paterno" type="text" placeholder="Perez" class="form-control">
+									<input id="ApeP" type="text" placeholder="Perez" class="form-control" onchange="Elimina_Error('ErrorApeP')">
 								</div>
-								<div class="col-sm-6 col-md-4 col-lg-3">
+								<div class="col-sm-6 col-md-4 col-lg-4">
 									<label for="ape_materno">Apellido Materno: </label><br>
-									<input id="ape_materno" type="text" placeholder="Suarez" class="form-control">
-								</div>
-								<div class="col-sm-6 col-md-4 col-lg-3">
-									<label for="tel_fijo">Teléfono Fijo: </label><br>
-									<input id="tel_fijo" type="text" placeholder="36259345" class="form-control">
+									<input id="ApeM" type="text" placeholder="Suarez" class="form-control" onchange="Elimina_Error('ErrorApeM')">
 								</div>
 							</div>
 							<!---->
@@ -47,9 +43,9 @@
 								<div class="form-group col-xs-12 col-md-8 col-lg-6">
 									<label for="" class="col-xs-12 col-sm-4 control-label">Telefono*:</label>
 									<div id="InBtn"class="col-xs-12 col-sm-6	col-lg-8  input-group">
-										<input class="form-control" id="Telefono" placeholder="363636052" type="text">
+										<input class="form-control" id="Telefono" placeholder="363636052" type="text" onkeypress="prueba(this)" onchange="Elimina_Error('ErrorTelefono')">
 										<span id="spanBtn" class="input-group-btn">
-							        <button  id="BtnMoreTel"class="btn btn-default" type="button" data-tooltip="Agregar otro Número">
+							        <button  id="BtnMoreTel"class="btn btn-default" type="button" data-tooltip="Agregar otro Número" onclick="NuevoTelefono()">
 							        	<i  id="iconBtnMoreTel" class="glyphicon glyphicon-plus"></i></button>
 							      </span>
 									</div>
@@ -68,7 +64,7 @@
 									<div class="col-xs-12 col-sm-10	col-lg-8  input-group">
 										<input class="form-control" id="URLred" placeholder="https://www.facebook.com/" type="text">
 										<span class="input-group-btn">
-							        <button  id="BtnMore"class="btn btn-default" type="button" data-tooltip="Agregar otra Red">
+							        <button  id="BtnMore"class="btn btn-default" type="button" data-tooltip="Agregar otra Red" onclick="NuevaRedSocial()">
 							        	<i  id="iconBtnMore" class="glyphicon glyphicon-plus"></i></button>
 							      </span>
 									</div>
