@@ -95,3 +95,16 @@ function ValidaNumerico(cadena)
 	else
 		return false;
 }
+/**
+*Verifica que el parametro no contenga espacios 
+*@param {String} Nombre de usuario que se validara
+@return {Bool} Verdadero si el nombre de usuario es válido y falso en caso contrario
+*/
+function ValidaUsuario(nombreusuario)
+{
+	var exp = /^[a-zA-Z0-9]+([\-\_\.]?[a-zA-Z0-9])*$/;
+	if(!nombreusuario.search(exp))
+		return true;
+	else
+		return false;
+}

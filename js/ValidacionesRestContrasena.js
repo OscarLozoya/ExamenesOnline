@@ -1,5 +1,5 @@
 /**
-*Script para validar el formulario para restablecer contrasena
+*@fileoverview Script para validar el formulario para restablecer contrasena
 *@autor Pérez Plascencia Gerardo Noé
 *@version 1.0
 */

@@ -3,7 +3,7 @@
     <article class="col-xs-12 col-sm-2 col-md-2 col-lg-2 text-center">
       <div class="form-horizontal">
         <div class="form-group">
-            <img src="" alt="Icon-user" class="form-control"></img>
+            <img src="images/logo_user.gif" alt="Icon-user" class="userLogo"></img>
         </div>
         <div class="form-group">
             <button class="btn btn-primary btn-small">Cambiar Imagen</button>
@@ -18,7 +18,7 @@
     </article>
 		<article class="col-xs-12 col-sm-10 col-md-10 col-lg-10 ">
 			<div class="jumbotron">
-				<h2 class="text-center page-header">Nombre Del Usuario</h2>
+				<h2 class="text-center">Nombre Del Usuario</h2>
 				<span class="help-block">* Campos necesarios.</span>
 				<form>
 					<div class="form-horizontal well">
@@ -27,14 +27,14 @@
 							<div class="form-group">
 								<div class="col-sm-6 col-md-4 col-lg-3">
 									<label for="nombre">Nombre: *</label><br>
-									<input id="nombre" type="text" placeholder="Juan" class="form-control">
+									<input id="nombre" type="text" placeholder="Oscar" class="form-control">
 								</div>
 								<div class="col-sm-6 col-md-4 col-lg-3">
 									<label for="ape_paterno">Apellido Paterno: *</label><br>
 									<input id="ape_paterno" type="text" placeholder="Perez" class="form-control">
 								</div>
-								<div class="col-sm-6 col-md-4 col-lg-3"4
-									<label for="ape_materno">Apellido Materno</label><br>
+								<div class="col-sm-6 col-md-4 col-lg-3">
+									<label for="ape_materno">Apellido Materno: </label><br>
 									<input id="ape_materno" type="text" placeholder="Suarez" class="form-control">
 								</div>
 								<div class="col-sm-6 col-md-4 col-lg-3">
@@ -42,74 +42,41 @@
 									<input id="tel_fijo" type="text" placeholder="36259345" class="form-control">
 								</div>
 							</div>
-							<div class="form-group">
-								<div class="col-sm-6 col-md-5 col-lg-4">
-									<label for="tel_celular">Teléfono Celular: </label><br>
-									<input id="tel_celular" type="text" placeholder="3315623412" class="form-control">
-								</div>	
-								<div class="col-sm-6 col-md-5 col-lg-4">
-									<label for="correo">Correo: </label><br>
-									<input id="correo" type="email" placeholder="alguncorreo@mail.com" class="form-control">
-								</div>	
-						</div>
+							<!---->
+							<div id="EspTelefono">
+								<div class="form-group col-xs-12 col-md-8 col-lg-6">
+									<label for="" class="col-xs-12 col-sm-4 control-label">Telefono*:</label>
+									<div id="InBtn"class="col-xs-12 col-sm-6	col-lg-8  input-group">
+										<input class="form-control" id="Telefono" placeholder="363636052" type="text">
+										<span id="spanBtn" class="input-group-btn">
+							        <button  id="BtnMoreTel"class="btn btn-default" type="button" data-tooltip="Agregar otro Número">
+							        	<i  id="iconBtnMoreTel" class="glyphicon glyphicon-plus"></i></button>
+							      </span>
+									</div>
+								</div>
+							</div>
+							<!---->
 						</fieldset>
 					</div>
-					<div class="form-horizontal well">
+					<section class="form-horizontal well">
+					<form action="">
 						<fieldset>
-							<legend>Redes sociales</legend>
-							<div class="form-group col-xs-12	col-md-6">
-								<div class="col-xs-8	col-md-8">
-									<input class="form-control" id="rd" type="text">
+							<legend>Redes Sociales:</legend>
+							<div id="EspRedSocial">
+								<div class="form-group col-xs-12 col-md-11">
+									<label for="" class="col-xs-2 control-label">URL:</label>
+									<div class="col-xs-12 col-sm-10	col-lg-8  input-group">
+										<input class="form-control" id="URLred" placeholder="https://www.facebook.com/" type="text">
+										<span class="input-group-btn">
+							        <button  id="BtnMore"class="btn btn-default" type="button" data-tooltip="Agregar otra Red">
+							        	<i  id="iconBtnMore" class="glyphicon glyphicon-plus"></i></button>
+							      </span>
+									</div>
 								</div>
-								<div class="col-xs-4	col-md-4 ">
-									<select class="form-control">
-									  	<option>Facebook</option>
-										  <option>Twitter</option>
-										  <option>Google+</option>
-										  <option>Skype</option>
-									</select>
-								</div>
-							</div>
-							<div class="form-group col-xs-12	col-md-6">
-								<div class="col-xs-8	col-md-8">
-									<input class="form-control" id="rd" type="text">
-								</div>
-								<div class="col-xs-4	col-md-4">
-									<select class="form-control">
-									  	<option>Facebook</option>
-										  <option>Twitter</option>
-										  <option>Google+</option>
-										  <option>Skype</option>
-									</select>
-								</div>
-							</div>
-							<div class="form-group col-xs-12	col-md-6">
-								<div class="col-xs-8	col-md-8">
-									<input class="form-control" id="rd" type="text">
-								</div>
-								<div class="col-xs-4	col-md-4">
-									<select class="form-control">
-									  	<option>Facebook</option>
-										  <option>Twitter</option>
-										  <option>Google+</option>
-										  <option>Skype</option>
-									</select>
-								</div>
-							</div>
-							<div class="form-group col-xs-12	col-md-6">
-								<div class="col-xs-8	col-md-8">
-									<input class="form-control" id="rd" type="text">
-								</div>
-								<div class="col-xs-4 col-md-4">
-									<select class="form-control">
-									  	<option>Facebook</option>
-										  <option>Twitter</option>
-										  <option>Google+</option>
-										  <option>Skype</option>
-									</select>								</div>
 							</div>
 						</fieldset>
-					</div>
+					</form>
+				</section>
 					<div class="form-horizontal well">
 						<fieldset>
 							<legend>Datos Académicos</legend>
@@ -163,54 +130,119 @@
 									</select>
 								</div>
 							</div>
-							<h3 class="text-center">Horarios Disponibles</h3>
-							<div class="col-xs-12 col-sm-12 col-lg-6">
-								<div class="form-group">
-									<label class=" col-xs-offset-2 col-xs-4 text-center">Desde</label>
-									<label class="col-xs-6 text-center">Hasta</label>
-									<label class="col-xs-2 control-label">Lunes</label>
-									<div class="col-xs-5"><select class="form-control"></select></div>
-									<div class="col-xs-5"><select class="form-control"></select></div>
-								</div>
-								<div class="form-group">
-									<label class=" col-xs-offset-2 col-xs-4 text-center">Desde</label>
-									<label class="col-xs-6 text-center">Hasta</label>
-									<label class="col-xs-2 control-label">Martes</label>
-									<div class="col-xs-5"><select class="form-control"></select></div>
-									<div class="col-xs-5"><select class="form-control"></select></div>
-								</div>
-								<div class="form-group">
-									<label class=" col-xs-offset-2 col-xs-4 text-center">Desde</label>
-									<label class="col-xs-6 text-center">Hasta</label>
-									<label class="col-xs-2 control-label">Miercoles</label>
-									<div class="col-xs-5"><select class="form-control"></select></div>
-									<div class="col-xs-5"><select class="form-control"></select></div>
-								</div>
+							<div class="form-group col-xs-12">
+								<h3 class="text-center">Horarios Disponibles</h3>
 							</div>
-							<div class="col-xs-12 col-sm-12 col-lg-6">
-								<div class="form-group">
-									<label class=" col-xs-offset-2 col-xs-4 text-center">Desde</label>
-									<label class="col-xs-6 text-center">Hasta</label>
-									<label class="col-xs-2 control-label">Jueves</label>
-									<div class="col-xs-5"><select class="form-control"></select></div>
-									<div class="col-xs-5"><select class="form-control"></select></div>
-								</div>
-								<div class="form-group">
-									<label class=" col-xs-offset-2 col-xs-4 text-center">Desde</label>
-									<label class="col-xs-6 text-center">Hasta</label>
-									<label class="col-xs-2 control-label">Viernes</label>
-									<div class="col-xs-5"><select class="form-control"></select></div>
-									<div class="col-xs-5"><select class="form-control"></select></div>
-								</div>
-								<div class="form-group">
-									<label class=" col-xs-offset-2 col-xs-4 text-center">Desde</label>
-									<label class="col-xs-6 text-center">Hasta</label>
-									<label class="col-xs-2 control-label">Sabado</label>
-									<div class="col-xs-5"><select class="form-control"></select></div>
-									<div class="col-xs-5"><select class="form-control"></select></div>
-								</div>
+						  <div class="row"><!---->
+						  	<div class="col-xs-12 col-sm-6 col-lg-6">
+						  		<div class="row text-center"><!--BLOQUE LUNES-->
+						  			<div class="col-xs-12 col-md-3 col-lg-2 col-lg-offset-1">
+						  				<label class="Valuer">Lunes</label>
+						  			</div>
+						  			<div class="col-xs-6 col-md-4">
+					  					<label for="" class="control-label">Desde</label>
+					  					<select name="" id="" class="form-control">
+					  						<?php include("Valores00.php"); ?>
+					  					</select>
+						  			</div>
+						  			<div class="col-xs-6 col-md-4">
+						  				<label for="" class="control-label">Hasta</label>
+					  					<select name="" id="" class="form-control">
+					  						<?php include("Valores00.php"); ?>
+					  					</select>
+						  			</div>
+							  	</div>
+							  	<!--FIN BLOQUE LUNES-->
+						  		<div class="row text-center"><!--BLOQUE MARTES-->
+							  		<div class="col-xs-12 col-md-3 col-lg-2 col-lg-offset-1">
+						  				<label class="Valuer">Martes</label>
+						  			</div>
+						  			<div class="col-xs-6 col-md-4">
+						  				<label for="" class="control-label">Desde</label>
+					  					<select name="" id="" class="form-control">
+					  						<?php include("Valores00.php"); ?>
+					  					</select>
+						  			</div>
+						  			<div class="col-xs-6 col-md-4">
+						  				<label for="" class="control-label">Hasta</label>
+					  					<select name="" id="" class="form-control">
+					  						<?php include("Valores00.php"); ?>
+					  					</select>
+						  			</div>
+							  	</div><!--FIN BLOQUE MARTES-->
+						  		<div class="row text-center"><!--BLOQUE MIERCOLES-->
+						  			<div class="col-xs-12 col-md-3 col-lg-2 col-lg-offset-1">
+						  				<label class="Valuer">Miercoles</label>
+						  			</div>
+						  			<div class="col-xs-6 col-md-4">
+					  					<label for="" class="control-label">Desde</label>
+					  					<select name="" id="" class="form-control">
+					  						<?php include("Valores00.php"); ?>
+					  					</select>
+						  			</div>
+						  			<div class="col-xs-6 col-md-4">
+						  				<label for="" class="control-label">Hasta</label>
+					  					<select name="" id="" class="form-control">
+					  						<?php include("Valores00.php"); ?>
+					  					</select>
+						  			</div>
+							  	</div><!--FIN BLOQUE MIERCOLES-->
+						  	</div>
+						  	<div class="col-xs-12 col-sm-6 col-lg-6"><!--BLOQUE DE JUEV-SAB DE 6 COL-->
+							  	<div class="row text-center"><!--BLOQUE JUEVES-->
+						  			<div class="col-xs-12 col-md-2">
+						  				<label class="Valuer">Jueves</label>
+						  			</div>
+						  			<div class="col-xs-6 col-md-4">
+					  					<label for="" class="control-label">Desde</label>
+					  					<select name="" id="" class="form-control">
+					  						<?php include("Valores00.php"); ?>
+					  					</select>
+						  			</div>
+						  			<div class="col-xs-6 col-md-4">
+						  				<label for="" class="control-label">Hasta</label>
+					  					<select name="" id="" class="form-control">
+					  						<?php include("Valores00.php"); ?>
+					  					</select>
+						  			</div>
+							  	</div><!--FIN BLOQUE Jueves-->
+						  		<div class="row text-center"><!--BLOQUE Viernes-->
+						  			<div class="col-xs-12 col-md-2">
+						  				<label class="Valuer">Viernes</label>
+						  			</div>
+						  			<div class="col-xs-6 col-md-4">
+					  					<label for="" class="control-label">Desde</label>
+					  					<select name="" id="" class="form-control">
+					  						<?php include("Valores00.php"); ?>
+					  					</select>
+						  			</div>
+						  			<div class="col-xs-6 col-md-4">
+						  				<label for="" class="control-label">Hasta</label>
+					  					<select name="" id="" class="form-control">
+					  						<?php include("Valores00.php"); ?>
+					  					</select>
+						  			</div>
+							  	</div><!--FIN BLOQUE Viernes-->
+							  	<div class="row text-center"><!--BLOQUE Sabado-->
+						  			<div class="col-xs-12 col-md-2">
+						  				<label class="Valuer">Sabado</label>
+						  			</div>
+						  			<div class="col-xs-6 col-md-4">
+					  					<label for="" class="control-label">Desde</label>
+					  					<select name="" id="" class="form-control">
+					  						<?php include("Valores00.php"); ?>
+					  					</select>
+						  			</div>
+						  			<div class="col-xs-6 col-md-4">
+						  				<label for="" class="control-label">Hasta</label>
+					  					<select name="" id="" class="form-control">
+					  						<?php include("Valores00.php"); ?>
+					  					</select>
+						  			</div>
+							  	</div><!--FIN BLOQUE Sabado-->
+						  	</div><!--FIN BLOQUE JUEV-SAB-->
 							</div>
-							</fieldset>
+						</fieldset>
 						</div>
 						<div class="form-horizontal well ">
 							<fieldset>
@@ -232,10 +264,11 @@
 							</fieldset>
 						</div>
 					<div class="col-md-offset-5 col-md-2">
-						<button type="submit" class="btn btn-primary btn form-control">Actualizar</button>
+						<button type="submit" class="btn btn-primary form-control" onclick="return Valida_Campos()">Actualizar</button>
 					</div>
 				</form>
 			</div>
 		</article>
 	</section>
 <?php include("Footer.php");?>
+<script type="text/javascript" src="js/ValidacionesPerfilRegistro.js"></script>

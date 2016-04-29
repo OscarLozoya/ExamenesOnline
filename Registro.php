@@ -14,7 +14,7 @@
 							<label class="label-control col-xs-12">Nombre de Usuario:</label>
 						<div class="col-lg-8 col-lg-offset-2 form-group has-success has-feedback">
 							<input id="NomUser" class="form-control" type="text" placeholder="Usuario" onclick="CambioUsuario()" required autofocus>
-							<label id="MensajeUsuario" class="Warning">*Debes ingresar un nombre de usuario</label>
+							<label id="MensajeUsuario" class="Warning">*Escribe un nombre de usuario sin espacios</label>
 						</div>
 					</div>
 					<div class="form-group col-xs-12"><!--DIV DEL APARTADO CORREO LABEL e  INPUT-->

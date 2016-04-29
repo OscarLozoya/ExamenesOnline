@@ -1,5 +1,6 @@
 /**
-*Script para validar el formulario para restablecer contrasena
+*@fileoverview Script para validar el formulario para restablecer contrasena
+*
 *@autor Pérez Plascencia Gerardo Noé
 *@version 1.0
 */
@@ -18,26 +19,34 @@ function ValidaRegistro()
 	}
 	else
 	{
-		var correo=$('input#CorreoElec');
-		
-		if(!notEmpty(correo.val()))
+		if(ValidaUsuario(usuario.val()))
 		{
-			var MensajeContrasena=$('#MensajeCorreo');
-			MensajeContrasena.css('display','block');
-			return false;
-		}
-		else
-		{
-			if(ValidaCorreo(correo.val()))
+			var correo=$('input#CorreoElec');
+			if(!notEmpty(correo.val()))
 			{
-				return true;
+				var MensajeContrasena=$('#MensajeCorreo');
+				MensajeContrasena.css('display','block');
+				return false;
 			}
 			else
 			{
-				var MensajeCorreo=$("#MensajeCorreo");
-				MensajeCorreo.css('display','block');
-				return false;
+				if(ValidaCorreo(correo.val()))
+				{
+					return true;
+				}
+				else
+				{
+					var MensajeCorreo=$("#MensajeCorreo");
+					MensajeCorreo.css('display','block');
+					return false;
+				}
 			}
+		}
+		else
+		{
+			var MensajeUsuario=$('#MensajeUsuario');
+			MensajeUsuario.css('display','block');
+			return false;
 		}
 	}
 }
