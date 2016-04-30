@@ -3,7 +3,7 @@
 		<label class="label-control">Historial de Navegación</label>
 	</div>
 	<?php include("MenuAdmin.php"); ?>
-	<section class="form-horizontal col-xs-12 col-lg-10 col-lg-offset-1">
+	<section class="container-fluid lines form-horizontal col-xs-12 col-lg-10 col-lg-offset-1">
 		<div class="jumbotron">
 			<div class="form-group"><!--DIV BARRA DE BUSQUEDA INICIA-->
 				<div class="form-append col-xs-12 col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2">

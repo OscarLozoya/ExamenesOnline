@@ -6,7 +6,7 @@
 			<form action="" class="form-horizontal">
 				<div class="form-group">
 					<div class="col-md-6">
-						<img src="" alt="Icon-user" class="form-control"></img>
+						<img src="images/logo_user.gif" alt="Icon-user" class="userLogo"></img>
 					</div>
 					<div class="col-md-6">
 						<label for="Nombre_completo" class="control-label">Nombre Completo</label><br>
@@ -38,7 +38,7 @@
 			</form>
 		</aside>
 
-		<article class="col-xs-12 col-sm-9 content lines">
+		<article class="col-xs-12 col-sm-9 container-fluid content lines">
 			<h1 class="text-center">Detalle Exámenes</h1>
 			<table class="table table-responsive">
 				<tr>

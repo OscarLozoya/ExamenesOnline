@@ -1,6 +1,15 @@
 <?php include("Header.php"); ?>
-<section class="container-fluid col-xs-12 col-md-10 col-md-offset-1 content lines">
-	<form action="" class="form-horizontal">
+<div class="form-group">
+	<ol class="breadcrumb">
+	  <li><a href="#">Home</a></li>
+	  <li><a href="#">Configuración</a></li>
+	  <li class="active">Slider</li>
+	</ol>
+</div>
+<?php include("MenuAdmin.php"); ?>
+<section class="container-fluid lines col-xs-12 col-md-10 col-md-offset-1">
+	<div class="jumbotron">
+			<form action="" class="form-horizontal">
 		<br>
 		<div class="form-group row">
 
@@ -131,6 +140,7 @@
 			</div>
 		</div>
 	</form>
+	</div>
 </section>
 <script type="text/javascript" src="js/ValidacionesAgregarPregunta.js"></script>
 <?php include("Footer.php");?>

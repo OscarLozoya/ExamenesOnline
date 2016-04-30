@@ -7,10 +7,10 @@
 	</ol>
 </div>
 <?php include("MenuAdmin.php"); ?>
-	<section class="container-fluid">
-		<article class="content lines">
-			<div class="col-md-offset-1 col-md-10 col-xs-12 col-lg-offset-1 col-lg-10 col-sm-offset-1 col-sm-10">
-				<table class="table table-hover">
+	<section class="container-fluid lines form-horizontal col-xs-12 col-lg-10 col-lg-offset-1">
+			<div class="jumbotron">
+				<div> 
+					<table class="table table-hover">
 					<tr>
 						<th>Nombre Imagen</th>
 						<th>Nombre Alternativo</th>
@@ -32,11 +32,12 @@
 						<td><input type="checkbox"></td>
 					</tr>
 				</table>
-				<div class="form-group col-md-3">
+				</div>
+				<div class="form-group">
 					<button class="btn btn-danger">Borrar</button>
 					<button class="btn btn-warning">Modificar</button>
 				</div>
-				<div class="well form-horizontal col-md-9">
+				<div class="well form-horizontal">
 					<div class="form-group">
 						<div class="col-md-8">
 							<input type="text" class="form-control" placeholder="NuevoAviso.png">
@@ -66,6 +67,5 @@
 					</div>
 				</div>
 			</div>
-		</article>
 	</section>
 <?php include("Footer.php"); ?>

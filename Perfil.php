@@ -1,6 +1,6 @@
 <?php include("Header.php"); ?>
 	<section class="container-fluid lines">
-    <article class="col-xs-12 col-sm-2 col-md-2 col-lg-2 text-center">
+    <article class="col-xs-12 col-sm-2 col-md-2 col-lg-2 formulario text-center">
       <div class="form-horizontal">
         <div class="form-group">
             <img src="images/logo_user.gif" alt="Icon-user" class="userLogo"></img>
