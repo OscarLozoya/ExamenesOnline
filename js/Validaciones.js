@@ -70,14 +70,15 @@ function ValidaLetras(cadena)
 
 
 /**
-*Verifica que el parametro que recibe este entre el 0 y el 100
+*Verifica que el parametro que recibe este entre el numero especificado como Miny el numero especificado como Maximo
 *@param {Integer} Numero Entrada que se va a validar
+*@param {Integer} Min Valor minimo que puede tener la entrada
 *@param {Integer} TopMax Valor maximo que puede tener la entrada
 *@return {Bool} Verdadero si esta en el rango, falso en otro caso
 */
-function ValidaUpDown(Numero,TopMax)
+function ValidaUpDown(Numero,Min,TopMax)
 {
-	if(numero>=0 && numero<=TopMax)
+	if(Numero>=Min && Numero<=TopMax)
 		return true;
 	else
 		return false;

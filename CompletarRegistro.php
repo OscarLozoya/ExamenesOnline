@@ -43,12 +43,11 @@
 									<input id="passwordUser" name="pass" type="password" class="form-control">
 								</div>
 							</div>
-							<!---->
-							<div id="EspTelefono">
+						  <div id="EspTelefono">
 								<div class="form-group col-xs-12 col-md-8 col-lg-6">
 									<label for="" class="col-xs-12 col-sm-4 control-label">Telefono*:</label>
 									<div id="InBtn"class="col-xs-12 col-sm-6	col-lg-8  input-group">
-										<input class="form-control" id="Telefono" placeholder="363636052" type="text" onkeypress="prueba(this)" onchange="Elimina_Error('ErrorTelefono')">
+										<input class="form-control" id="Telefono" placeholder="363636052" type="text" onkeypress="campoNumerico(this)" onchange="Elimina_Error('ErrorTelefono')">
 										<span id="spanBtn" class="input-group-btn">
 							        <button  id="BtnMoreTel"class="btn btn-default" type="button" data-tooltip="Agregar otro Número" onclick="NuevoTelefono()">
 							        	<i  id="iconBtnMoreTel" class="glyphicon glyphicon-plus"></i></button>
@@ -56,7 +55,6 @@
 									</div>
 								</div>
 							</div>
-							<!---->
 						</fieldset>
 					</form>
 				</section>
@@ -68,7 +66,7 @@
 								<div class="form-group col-xs-12 col-md-11">
 									<label for="" class="col-xs-2 control-label">URL:</label>
 									<div class="col-xs-12 col-sm-10	col-lg-8  input-group">
-										<input class="form-control" id="URLred" placeholder="https://www.facebook.com/" type="text">
+										<input class="form-control" id="URLred" placeholder="https://www.facebook.com/" type="text" onchange="Elimina_Error('ErrorRed')">
 										<span class="input-group-btn">
 							        <button  id="BtnMore"class="btn btn-default" type="button" data-tooltip="Agregar otra Red" onclick="NuevaRedSocial()">
 							        	<i  id="iconBtnMore" class="glyphicon glyphicon-plus"></i></button>
@@ -86,17 +84,17 @@
 							<div class="form-group">
 									<label for="uni" class="col-md-2 control-label">Universidad</label>
 									<div class="col-md-8">
-										<input type="text" id="Universidad" class="form-control" placeholder="Centro Universitario De Ciencias Exactas e Ingenierías" id="universidad">
+										<input id="Universidad" name="Universidad" type="text" class="form-control" placeholder="Centro Universitario De Ciencias Exactas e Ingenierías" id="universidad" onchange="Elimina_Error('ErrorUniversidad')">
 									</div>
 							</div>
 							<div class="form-group">	
 									<label for="car" class="control-label col-xs-12 col-sm-2 col-md-2">Carrera</label>
 									<div class="col-xs-12 col-sm-5  col-md-4">
-										<input id="Carrera" type="text" class="form-control" placeholder="Ing. Mecatronica" id="carrera">
+										<input id="Carrera" name="Carrera" type="text" class="form-control" placeholder="Ing. Mecatronica" id="carrera" onchange="Elimina_Error('ErrorCarrera')">
 									</div>	
 									<label for="pro" class="control-label  col-xs-12 col-sm-2 col-md-2">Promedio</label>
 									<div class="col-xs-12 col-sm-3 col-md-2">
-										<input id="Promedio" type="text" class="form-control" placeholder="87" id="promedio">
+										<input id="Promedio" name="Promedio" type="number" class="form-control" placeholder="87" onchange="ValidaProm()">
 									</div>	
 							</div>
 							<div class="form-group">
@@ -122,12 +120,12 @@
 										<option value="100%">100%</option>
 									</select>
 								</div>
-								<label for="tiempo_res" class="col-xs-6 col-sm-3  col-md-2 col-lg-1 control-label">Tiempo Restante: </label>
+								<label for="T" class="col-xs-6 col-sm-3  col-md-2 col-lg-1 control-label">Tiempo Restante: </label>
 								<div class="col-xs-3 col-lg-2">
-									<input id="tiempo_res" type="number" placeholder="2" class="form-control">
+									<input id="Tiempo"name="TiempoRestante" type="number" placeholder="2" class="form-control" onchange="ValidaTiempo()">
 								</div>
 								<div class="col-xs-3  col-sm-4 col-md-3   col-lg-2">
-									<select class="form-control">
+									<select id="OpcTiempo" class="form-control" onchange="CambiaPeriodo()">
 										<option value="Semestres">Semestres</option>
 										<option value="Años">Años</option>
 									</select>
@@ -144,13 +142,13 @@
 						  			</div>
 						  			<div class="col-xs-6 col-md-4">
 					  					<label for="" class="control-label">Desde</label>
-					  					<select name="" id="" class="form-control">
+					  					<select name="LunesDesde" id="LunesDesde" class="form-control" onchange="Valida_Horario('LunesDesde','LunesHasta')">
 					  						<?php include("Valores00.php"); ?>
 					  					</select>
 						  			</div>
 						  			<div class="col-xs-6 col-md-4">
 						  				<label for="" class="control-label">Hasta</label>
-					  					<select name="" id="" class="form-control">
+					  					<select name="LunesHasta" id="LunesHasta" class="form-control" onchange="Valida_Horario('LunesDesde','LunesHasta')">
 					  						<?php include("Valores00.php"); ?>
 					  					</select>
 						  			</div>
@@ -162,13 +160,13 @@
 						  			</div>
 						  			<div class="col-xs-6 col-md-4">
 						  				<label for="" class="control-label">Desde</label>
-					  					<select name="" id="" class="form-control">
+					  					<select name="MartesDesde" id="MartesDesde" class="form-control" onchange="Valida_Horario('MartesDesde','MartesHasta')">
 					  						<?php include("Valores00.php"); ?>
 					  					</select>
 						  			</div>
 						  			<div class="col-xs-6 col-md-4">
 						  				<label for="" class="control-label">Hasta</label>
-					  					<select name="" id="" class="form-control">
+					  					<select name="MartesHasta" id="MartesHasta" class="form-control" onchange="Valida_Horario('MartesDesde','MartesHasta')">
 					  						<?php include("Valores00.php"); ?>
 					  					</select>
 						  			</div>
@@ -179,13 +177,13 @@
 						  			</div>
 						  			<div class="col-xs-6 col-md-4">
 					  					<label for="" class="control-label">Desde</label>
-					  					<select name="" id="" class="form-control">
+					  					<select name="MiercolesDesde" id="MiercolesDesde" class="form-control" onchange="Valida_Horario('MiercolesDesde','MiercolesHasta')">
 					  						<?php include("Valores00.php"); ?>
 					  					</select>
 						  			</div>
 						  			<div class="col-xs-6 col-md-4">
 						  				<label for="" class="control-label">Hasta</label>
-					  					<select name="" id="" class="form-control">
+					  					<select name="MiercolesHasta" id="MiercolesHasta" class="form-control" onchange="Valida_Horario('MiercolesDesde','MiercolesHasta')">
 					  						<?php include("Valores00.php"); ?>
 					  					</select>
 						  			</div>
@@ -198,13 +196,13 @@
 						  			</div>
 						  			<div class="col-xs-6 col-md-4">
 					  					<label for="" class="control-label">Desde</label>
-					  					<select name="" id="" class="form-control">
+					  					<select name="JuevesDesde" id="JuevesDesde" class="form-control" onchange="Valida_Horario('JuevesDesde','JuevesHasta')">
 					  						<?php include("Valores00.php"); ?>
 					  					</select>
 						  			</div>
 						  			<div class="col-xs-6 col-md-4">
 						  				<label for="" class="control-label">Hasta</label>
-					  					<select name="" id="" class="form-control">
+					  					<select name="JuevesHasta" id="JuevesHasta" class="form-control" onchange="Valida_Horario('JuevesDesde','JuevesHasta')">
 					  						<?php include("Valores00.php"); ?>
 					  					</select>
 						  			</div>
@@ -215,13 +213,13 @@
 						  			</div>
 						  			<div class="col-xs-6 col-md-4">
 					  					<label for="" class="control-label">Desde</label>
-					  					<select name="" id="" class="form-control">
+					  					<select name="ViernesDesde" id="ViernesDesde" class="form-control" onchange="Valida_Horario('ViernesDesde','ViernesHasta')">
 					  						<?php include("Valores00.php"); ?>
 					  					</select>
 						  			</div>
 						  			<div class="col-xs-6 col-md-4">
 						  				<label for="" class="control-label">Hasta</label>
-					  					<select name="" id="" class="form-control">
+					  					<select name="ViernesHasta" id="ViernesHasta" class="form-control" onchange="Valida_Horario('ViernesDesde','ViernesHasta')">
 					  						<?php include("Valores00.php"); ?>
 					  					</select>
 						  			</div>
@@ -232,13 +230,13 @@
 						  			</div>
 						  			<div class="col-xs-6 col-md-4">
 					  					<label for="" class="control-label">Desde</label>
-					  					<select name="" id="" class="form-control">
+					  					<select name="SabadoDesde" id="SabadoDesde" class="form-control" onchange="Valida_Horario('SabadadoDesde','SabadoHasta')">
 					  						<?php include("Valores00.php"); ?>
 					  					</select>
 						  			</div>
 						  			<div class="col-xs-6 col-md-4">
 						  				<label for="" class="control-label">Hasta</label>
-					  					<select name="" id="" class="form-control">
+					  					<select name="SabadoHasta" id="SabadoHasta" class="form-control" onchange="Valida_Horario('SabadadoDesde','SabadoHasta')">
 					  						<?php include("Valores00.php"); ?>
 					  					</select>
 						  			</div>
