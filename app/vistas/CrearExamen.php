@@ -7,8 +7,8 @@
 	</ol>
 </div>
 <?php include("MenuAdmin.php"); ?>
-	<section class="container-fluid">
-		<article class="content lines">
+	<section class="container-fluid lines">
+		<article class="jumbotron">
 			<div class="form-horizontal well">
 				<fieldset>
 					<legend>Diseño Exámen</legend>

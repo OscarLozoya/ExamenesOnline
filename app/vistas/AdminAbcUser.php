@@ -18,13 +18,15 @@
 					<div class="form-group col-xs-12"><!--DIV DEL APARTADO USUARIO LABEL e INPUT-->
 							<label class="label-control col-xs-12">Nombre de Usuario:</label>
 						<div class="col-lg-8 col-lg-offset-2 form-group has-success has-feedback">
-							<input id="NomUser" class="form-control" type="text" placeholder="Usuario" required autofocus>
+							<input id="NomUser" class="form-control" type="text" placeholder="Usuario" onclick="CambioUsuario()" required autofocus>
+							<label id="MensajeUsuario" class="Warning">*Escribe un nombre de usuario sin espacios</label>
 						</div>
 					</div>
 					<div class="form-group col-xs-12"><!--DIV DEL APARTADO CORREO LABEL e  INPUT-->
 							<label class="label-control col-xs-12">Correo Electrónico</label>
 						<div class="col-lg-8 col-lg-offset-2">
-							<input id="CorreoElc" class="form-control" type="email" required placeholder="alguncorreo@mail.com">
+							<input id="CorreoElec" class="form-control" type="email" onclick="CambioCorreo()" required placeholder="alguncorreo@mail.com">
+							<label id="MensajeCorreo" class="Warning">*Debes ingresar un correo válido</label>
 						</div>
 					</div>	
 					<div class="form-group col-xs-12"><!--DIV DEL COMBOBOX Y level-->
@@ -39,10 +41,10 @@
 					</div>
 					<div class="col-xs-10 col-xs-offset-1 form-group"><!--DIV DE LOS BOTONES-->
 						<div class="col-xs-12 col-md-6 form-group">
-							<button type="button" class="btn btn-primary">Limpiar</button>
+							<button type="button" class="btn btn-primary" onclick="return Cancelar()">Limpiar</button>
 						</div>
 						<div class="col-xs-12 col-md-6 form-group">
-							<button type="button" class="btn btn-primary">Agregar/Buscar</button>
+							<button type="button" class="btn btn-primary" onclick="return ValidaRegistro()">Agregar/Buscar</button>
 						</div>
 					</div>		
 				</div>
@@ -50,3 +52,4 @@
 		</form>
 	</section>
 <?php include("Footer.php"); ?>
+<script type="text/javascript" src="js/ValidacionesAdminAbcUser.js"></script>

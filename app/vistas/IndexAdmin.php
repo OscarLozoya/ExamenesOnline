@@ -11,7 +11,7 @@
 			<div class="form-group">
 				<div class="col-xs-12">
 					<figure>
-	                    <img class="img-responsive" src="images/logo_user.gif">
+	                    <img src="images/logo_user.gif" alt="Icon-user" class="userLogo"></img>
 	                </figure>
 				</div>
 				<div class="col-xs-12">
