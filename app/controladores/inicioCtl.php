@@ -8,9 +8,10 @@
 		{
 		}
 		
-	function ejecutar(){
-					header('Location: /ExamenesOnline/index2.php');
-	}
+		function ejecutar()
+		{
+			require_once('app/vistas/index.php');
+		}
 	}
 
  ?>

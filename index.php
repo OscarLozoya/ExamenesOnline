@@ -1,31 +1,40 @@
 <?php 
-	switch ($_GET['controlador']) 
+	if(!empty($_GET))
 	{
-		case 'examen':
-			require ('examenCtl.php');
-			$controlador = new examenCtl();
-			break;
-		case 'pregunta':
-			require ('preguntaCtl.php');
-			$controlador = new preguntaCtl();
-			break;
-		case 'usuario':
-			require ('usuarioCtl.php');
-			$controlador = new usuarioCtl();
-			break;
-		case 'perfil':
-			require ('perfilCtl.php');
-			$controlador = new perfilCtl();
-			break;
-		case 'slider':
-			require ('sliderCtl.php');
-			$controlador = new sliderCtl();
-			break;
-		default:
-			require ('inicioCtl.php');
-			$controlador = new inicioCtl();
-			break;
-	}
+		switch ($_GET['controlador']) 
+		{
+			case 'examen':
+				require ('app/controladores/examenCtl.php');
+				$controlador = new examenCtl();
+				break;
+			case 'pregunta':
+				require ('app/controladores/preguntaCtl.php');
+				$controlador = new preguntaCtl();
+				break;
+			case 'usuario':
+				require ('app/controladores/usuarioCtl.php');
+				$controlador = new usuarioCtl();
+				break;
+			case 'slider':
+				require ('app/controladores/sliderCtl.php');
+				$controlador = new sliderCtl();
+				break;
+			case 'categoria':
+				require('app/controladores/categoriaCtl.php');
+				$controlador=new categoriaCtl();
+				break;
+			default:
+				require ('app/controladores/inicioCtl.php');
+				$controlador = new inicioCtl();
+				break;
+		}
 
-	$controlador->ejecutar(); 
+		$controlador->ejecutar(); 
+	}
+	else
+	{
+		require ('app/controladores/inicioCtl.php');
+		$controlador = new inicioCtl();
+		$controlador->ejecutar(); 
+	}
 ?>
