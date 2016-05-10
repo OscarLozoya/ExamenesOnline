@@ -8,7 +8,6 @@
 *Funcion principal para validar el submit
 */
 function Valida_Campos(){
-	alert("TROOO");
 	var error=true;
 	var errorD=true;//Variable para  Datos personales se inicia en true indicando que hay un error por seguridad
 	var errorT=true;//Variable para  Telefonos se inicia en true indicando que hay un error por seguridad
@@ -23,8 +22,6 @@ function Valida_Campos(){
 		error=true;
 	else
 		error=false;
-	alert("se encontro que error es :" + error);
-	alert("se encontro que error (con !)es :" + !error);
 	return !error;//Se devuelve lo contrario pues un error=true indica que se encontraron errores y para detener el submit se detiene con false
 }
 

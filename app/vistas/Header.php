@@ -27,7 +27,7 @@
 					</div>
 					<div class="col-xs-12 col-sm-3 form-group">
 						<br>
-						<form class="form-search" method="get" id="s" action="/">
+						<form class="form-search" method="get" id="s" action="">
 						    <div class="input-group">
 						      <input type="text" class="form-control">
 						      <span class="input-group-btn">
