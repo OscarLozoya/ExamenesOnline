@@ -1,14 +1,14 @@
 /**
 *@fileoverviewe Script para validar los formularios de Completar Registro y posible compatibilidad con Perfil
 *@autor Oscar Ivan Lozoya Rodriguez
-*@version 1.2
+*@version 1.3
 */
 
 /**
-*Verifica que los campos de Nombre, Apellido Paterno y Apellido Materno 
-*esten escritos y bajo formato solo letras y algun espacio
+*Funcion principal para validar el submit
 */
 function Valida_Campos(){
+	alert("TROOO");
 	var error=true;
 	var errorD=true;//Variable para  Datos personales se inicia en true indicando que hay un error por seguridad
 	var errorT=true;//Variable para  Telefonos se inicia en true indicando que hay un error por seguridad
@@ -28,100 +28,110 @@ function Valida_Campos(){
 	return !error;//Se devuelve lo contrario pues un error=true indica que se encontraron errores y para detener el submit se detiene con false
 }
 
+/**
+*Verifica que los campos de Nombre, Apellido Paterno y Apellido Materno y Contraseña
+*esten escritos y bajo formato aceptable.
+*/
 function Valida_Datos_Personales(){
 	var Nombre=$('input#Name');
 	var ApPat=$('input#ApeP');
 	var ApMat=$('input#ApeM');
-	var error=false;
+	var password = $('input#passwordUser');
+	//Se asume que existe algun error se inicializa en 4 pues son los campos a validar
+	var errores=4;
 	if(!notEmpty(Nombre.val()))
-	{
 		MuestraError('label',"*Debes de ingresar tu Nombre",Nombre,"ErrorName");
-		error=true;
-	}
-	else if(!ValidaLetras(Nombre.val())){
-			MuestraError('label',"*Caracter No Valido",Nombre,"ErrorName");
-			error=true;
-	}
-	if(!notEmpty(ApPat.val())){
-		MuestraError('label',"*Debes de ingresar tu Apellido Paterno",ApPat,"ErrorApeP");
-		error=true;
-	}
-	else if(!ValidaLetras(ApPat.val())){
-			MuestraError('label',"*Debes de ingresar tu Apellido Paterno",ApPat,"ErrorApeP");
-			error=true;
-	}
-	if(!notEmpty(ApMat.val()))
-	{
-		MuestraError('label',"*Debes de ingresar tu Apellido Materno",ApMat,"ErrorApeM");
-		error=true;
-	}
+	else if(!ValidaLetras(Nombre.val()))
+		MuestraError('label',"*Caracter No Valido",Nombre,"ErrorName");
 	else
-	{
-		if(!ValidaLetras(ApMat.val()))
-		{
-			MuestraError('label',"*Debes de ingresar tu Apellido Paterno",ApMat,"ErrorApeM");
-			error=true;
-		}
-
-	}
-	return (error)?false:true;//(error==true)?false:true;
+		errores--;//No error en este campo se resta la validacion de este.
+	if(!notEmpty(ApPat.val()))
+		MuestraError('label',"*Debes de ingresar tu Apellido Paterno",ApPat,"ErrorApeP");
+	else if(!ValidaLetras(ApPat.val()))
+			MuestraError('label',"*Debes de ingresar tu Apellido Paterno",ApPat,"ErrorApeP");
+	else
+		errores--;
+	if(!notEmpty(ApMat.val()))
+		MuestraError('label',"*Debes de ingresar tu Apellido Materno",ApMat,"ErrorApeM");
+	else if(!ValidaLetras(ApMat.val()))
+		MuestraError('label',"*Debes de ingresar tu Apellido Paterno",ApMat,"ErrorApeM");
+	else
+		errores--;
+	if(!notEmpty(password.val()))
+		 MuestraError('label','Falta Especificar contraseña',password,'ErrorPromedio');
+	else
+		 errores--;
+	return (errores==0)? false:true;//la bandera sera 0 si los campos no presentan error 
 }
 
 /**Falta Documentar
 **/
 function ValidaTelefono(){
-		var error=false;
+		var errores=0;//Esta bandera aumenta si encuentra algun error
 		var Telefono=$('input#Telefono');
 		for (var i = 0; i<= Telefono.size()-1; i++) {
 			if(!notEmpty(Telefono.eq(i).val())){
 				MuestraError('label','No puedes dejar este campo vacio',Telefono.eq(i).parent(),'ErrorTelefono');
-				error=true;
+				errores++;
 			}
 			else if(Telefono.eq(i).val().length<8){
 				MuestraError('label','Verifica el Telefono',Telefono.eq(i).parent(),'ErrorTelefono');
-				error=true;
+				errores++;
 			}
 		};
-		return error;
+
+		return (errores==0)? false:true;//Si la bandera no se modifico regresa false de error no encontrado
 }
 
 /* Falta Documentar
 */
 function ValidaRedSocial(){
-	var error=false;
+	var errores=0;//Esta bandera aumenta si encuentra algun error
 	var URL=$('input#URLred');
 	for (var i = 0; i<= URL.size() - 1;  i++) {
 		if(!notEmpty(URL.eq(i).val())){
 			 MuestraError('label','No puedes dejar este campo vacio',URL.eq(i).parent(),'ErrorRed')
-			 error=true;
+			 errores++;
 		}
-		else if(!ValidaUrl(URL.eq(i).val()))
-				error=true;			
+		else if(!ValidaUrl(URL.eq(i).val())){
+				errores++;	
+				MuestraError('label','Verifique Formato de la URL',URL.eq(i).parent(),'ErrorRed');
+		}		
 	};
-	return error;
+	return (errores==0)? false:true;//Si la bandera no se modifico regresa false de error no encontrado
 }
 
 function Valida_Datos_Academicos(){
-	var Universidad=$('input#Universidad');
-	var Carrera=$('input#Carrera');
-	var error=false;
+	var Universidad = $('input#Universidad');
+	var Carrera = $('input#Carrera');
+	var Promedio = $('input#Promedio');
+	var Tiempo = $('input#Tiempo');
+	var errores = 0;//Esta bandera aumenta si encuentra algun error
 	if(!notEmpty(Universidad.val())){
 		MuestraError('label','No puedes dejar este campo vacio',Universidad,'ErrorUniversidad');
-		error=true;
+		errores++;
 	}
 	else if(!ValidaLetras(Universidad.val())){
-		error=true;
+		errores++;
 		MuestraError('label','Solo se aceptan letras',Universidad,'ErrorUniversidad');
 	}
 	if(!notEmpty(Carrera.val())){
 		MuestraError('label','No puedes dejar este campo vacio',Carrera,'ErrorCarrera');
-		error=true;
+		errores++;
 	}
 	else if(!ValidaLetras(Carrera.val())){
-		error=true;
+		errores++;
 		MuestraError('label','Solo se aceptan letras',Carrera,'ErrorCarrera');
 	}
-	return error;
+	if(!notEmpty(Promedio.val())){
+		 MuestraError('label','Falta Promedio',Promedio,'ErrorPromedio');
+		 errores++;
+	}
+	if(!notEmpty(Tiempo.val())){
+		 MuestraError('label','Falta Especificar',Tiempo,'ErrorPromedio');
+		 errores++;
+	}
+	return (errores==0)?false:true;//Si la bandera no se modifico regresa false de error no encontrado
 }
 
 /**Falta documentar
@@ -134,16 +144,19 @@ function ValidaTiempo(){
 	if((Periodo[0].value=='Semestres' && !ValidaUpDown(Tiempo.val(),1,18)) || (Periodo[0].value=='Años' && !ValidaUpDown(Tiempo.val(),1,9)))
      Tiempo.val(1);
 }
+/*Falta documentar
+*/
 function CambiaPeriodo(){
 	var Tiempo=$('input#Tiempo');
 	var Periodo=$('select#OpcTiempo');
 	if(Periodo[0].value=='Semestres')
 		Tiempo.val(Tiempo.val()*2);
-	else//(Periodo[0].value=='Años')
+	else
 		Tiempo.val(Math.ceil(Tiempo.val()/2));
 }
 function ValidaProm(){
 	var Promedio=$('input#Promedio');
+	Elimina_Error('ErrorPromedio');
 	if(!ValidaUpDown(Promedio.val(),0,100))
 		Promedio.val('0');
 }
@@ -191,7 +204,6 @@ function MuestraError(TipoCont,Mensaje,DespuesDE,IdElement){
 function Elimina_Error(cad){
 	$('#'+cad).remove();
 }
-
 
 /**
 */
