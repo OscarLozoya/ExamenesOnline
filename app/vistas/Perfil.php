@@ -20,7 +20,7 @@
 			<div class="jumbotron">
 				<h2 class="text-center">Nombre Del Usuario</h2>
 				<span class="help-block">* Campos necesarios.</span>
-				<form name="" action="" method="POST">
+				<form name="creandoperfil" action="4040.php" method="POST">
 					<div class="form-horizontal well">
 						<fieldset>
 							<legend>Datos Personales</legend>
