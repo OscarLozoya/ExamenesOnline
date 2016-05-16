@@ -1,5 +1,5 @@
 <?php 
-	$con = new mysqli('localhost','root','lozoya94','ExamenesOnline');
+	$con = new mysqli('lugardonde esta','usuario','contraseña','BaseDeDAtos');
 	if($con->connect_error){
 		die('Ni pedo la vida sigue aqui ya no<div class="col-xs-12 col-md-6 col-md-offset-3">
 					<img src="image_404.png" alt="Ponga un 100 por favor">
