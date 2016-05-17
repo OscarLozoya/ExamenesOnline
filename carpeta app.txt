@@ -1,5 +1,0 @@
-carpeta app
-	carpeta controllers
-	carpeta config
-	carpeta models
-	

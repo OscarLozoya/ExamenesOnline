@@ -27,14 +27,9 @@
 				<div class="table-responsive">
 					<table class="table table-hover">
 						<tr>
-							<td><h3>1</h3></td>
-							<td><h3>2</h3></td>
-							<td><h3>3</h3></td>
-						</tr>
-						<tr>
-							<td><h3>4</h3></td>
-							<td><h3>5</h3></td>
-							<td><h3>6</h3></td>
+					    <td>{Pregunta 1}</td>
+					    <td>{Pregunta 2}</td>
+					    <td>{Pregunta 3}</td>
 						</tr>	
 					</table>
 				</div>
@@ -43,14 +38,14 @@
 		<section class="col-xs-12 col-sm-8 content lines">
 			<article>
 				<header>
-					<h1>Categoria	No. Pregunta/Total preguntas</h1>
+					<h1>{Categoria}	{No. Pregunta}/{Total preguntas}</h1>
 				</header>
 		
 				<div>
-					<p>Pregunta</p>
+					<p>{Pregunta}</p>
 				</div>
 				<div>
-					<p>Respuesta</p>
+					<p>{Respuesta}</p>
 				</div>
 				<footer>
 					<button class="btn btn-primary">Siguiente</button>
