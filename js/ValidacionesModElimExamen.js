@@ -23,13 +23,14 @@ function Buscar()
 		categoria=$('select#categoria');
 	if(notEmpty(id.val())||notEmpty(nombre.val())||notEmpty(categoria[0].value))
 	{
-		console.log("se puede buscar");
+		return true;
 	}
 	else
 	{
 		$('label#MensajeBuscar').css('display','block');
 		id.focus();
 	}
+	return false;
 }
 
 /**

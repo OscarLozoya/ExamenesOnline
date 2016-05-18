@@ -2,7 +2,7 @@
 <?php include("MenuAdmin.php"); ?>
 <section class="col-xs-12 col-md-10 col-md-offset-1 content lines">
 	<br>
-	<form action="index.php?controlador=examen&accion=eliminar&response=buscar" class="form-horizontal" method="POST">
+	<form action="index.php?controlador=examen&accion=eliminar&response=buscar" class="form-horizontal" method="POST" onsubmit="return Buscar()">
 		<div class="form-group row">
 			<div class="col-xs-12 col-md-1">
 				<label for="id" class="control-label">ID</label>
@@ -28,7 +28,7 @@
 		<label id="MensajeBuscar" class="Warning">*Debes de escribir el id, o el nombre o seleccionar una categoria</label>
 		<div class="form-group row">
 			<div class="col-xs-6 col-sm-2 col-sm-offset-8">
-				<button class="btn btn-primary" type="submit" onclick="Buscar()">Buscar</button>
+				<button class="btn btn-primary" type="submit">Buscar</button>
 			</div>
 			<div class="col-xs-6 col-sm-2">
 				<button class="btn btn-primary" type="button" onclick="Limpiar()">Limpiar</button>
@@ -58,7 +58,7 @@
 							<td>{Preguntas}</td>
 							<td>{Tiempo}</td>
 							<td>{Calificacion}</td>
-							<td><input type="checkbox"></td>
+							<td><input name="seleccion" type="checkbox"></td>
 						</tr>
 					</tbody>
 				</table>

@@ -112,10 +112,51 @@
 
 			echo $vista.$footer;	
 		}
+
 		function buscar()
 		{
 			if(empty($_POST))
 				require_once('app/vistas/ModElimExamen.php');
+			else
+			{
+				$vista=file_get_contents('app/vistas/ModElimExamen.php');
+				$header=file_get_contents('app/vistas/Header.php');
+				$footer=file_get_contents('app/vistas/Footer.php');
+				$ID = $_POST['id'];
+				$Nombre = $_POST['nombre'];
+				$Categoria = $_POST['categoria'];
+				$categorias = $this->modelo->obtenerCategorias();
+				$vista = $this->llenarCategoria($categorias,$vista);
+				$Examenes = $this->modelo->buscar($ID,$Nombre,$Categoria);
+				$inicio_fila = strrpos($vista,'<tr>');
+				$fin_fila = strrpos($vista, '</tr>')+5;
+				$fila = substr($vista,$inicio_fila,$fin_fila-$inicio_fila);
+				$filas = "";
+				if(isset($Examenes))
+				{
+					$new_fila="";
+					foreach ($Examenes as $row) {
+						$new_fila = $fila;
+						$diccionario = array('{ID}' => $row['ID'],
+											'{Nombre}' => $row['Nombre'],
+											'{Categoria}' => $row['Categoria'],
+											'{Preguntas}' => $row['Preguntas'],
+											'{Tiempo}' => $row['Duracion'],
+											'{Calificacion}' => $row['Calificacion']);
+						//var_dump($diccionario);
+						$new_fila = strtr($new_fila,$diccionario);
+						$filas .= $new_fila;
+					}
+					$vista = str_replace($fila, $filas, $vista);
+					$vista = $header.$vista.$footer;
+					echo $vista;
+				}
+				else
+				{
+					$vista = str_replace($fila, 'No se encontro el examen', subject)
+					echo "error";
+				}
+			}
 		}
 
 		function llenarCategoria($categoria,$vista)
