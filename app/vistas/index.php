@@ -4,13 +4,13 @@
 	<section class="container-fluid">
 		<aside class="col-xs-12 col-sm-4 aside lines">
 			<br>
-			<form action="" class="form-horizontal" onsubmit="return ValidaLogin()">
+			<form action="index.php?controlador=usuario&accion=ingresar" method="post" class="form-horizontal" onsubmit="return ValidaLogin()">
 				<div class="form-group row">
 					<div class="col-xs-12 col-md-4">
 						<label for="usuario" class="control-label">Usuario:</label>
 					</div>
 					<div class="col-xs-12 col-md-8">
-						<input class="form-control" id="usuario" type="text" placeholder="Usuario" onchange="CambioUsuario()">
+						<input class="form-control" id="usuario" name="usuario" type="text" placeholder="Usuario" onchange="CambioUsuario()">
 						<label id="MensajeUsuario" class="Warning">*Debes de ingresar tu usuario</label>
 					</div>					
 				</div>
@@ -20,7 +20,7 @@
 						<label for="contrasena" class="control-label">Contraseña:</label>
 					</div>	
 					<div class="col-xs-12 col-md-8">
-						<input class="form-control" id="contrasena" type="password" placeholder="Contraseña" onchange="CambioContrasena()">
+						<input class="form-control" id="contrasena" name="contrasena" type="password" placeholder="Contraseña" onchange="CambioContrasena()">
 						<label id="MensajeContrasena" class="Warning">*Debes de ingresar tu contraseña</label>
 					</div>
 				</div>
@@ -34,7 +34,7 @@
 						<button class="btn btn-primary" type="button" onclick="location='Registro.php'">Registrarse</button>
 					</div>
 					<div class="col-xs-3">
-						<button class="btn btn-primary" type="submit" onclick="return ValidaLogin()">Ingresar</button>
+						<button class="btn btn-primary" type="submit">Ingresar</button>
 					</div>
 				</div>
 
