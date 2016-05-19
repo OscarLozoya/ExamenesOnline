@@ -153,7 +153,7 @@
 				}
 				else
 				{
-					$vista = str_replace($fila, 'No se encontro el examen', subject)
+					$vista = str_replace($fila, 'No se encontro el examen', subject);
 					echo "error";
 				}
 			}
