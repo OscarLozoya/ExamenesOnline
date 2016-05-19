@@ -37,7 +37,7 @@
 					 	$this->detalleExamen();
 					 	break;
 					 default:
-						require_once('app/vistas/index.php');
+						require_once('app/vistas/IndexUser.php');
 						break;
 				}
 			}
