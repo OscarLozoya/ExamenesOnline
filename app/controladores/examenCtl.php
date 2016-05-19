@@ -181,6 +181,10 @@
 				{
 					//Si no mostramos un mensaje
 					$vista = str_replace($fila, 'No se encontro el examen', $vista);
+
+					$vista = str_replace($fila, 'No se encontro el examen', subject);
+					echo "error";
+
 				}
 				$vista = $header.$vista.$footer;
 				echo $vista;

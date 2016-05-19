@@ -1,6 +1,14 @@
 <?php 
-	class UsuarioCtl{
-
+	/**
+	* 
+	*/
+	class usuarioCtl{
+		public $modelo;
+		function __construct()
+		{
+			include_once('app/modelos/usuarioMdl.php');
+			$this->modelo=new usuarioMdl();
+		}
 		public function ejecutar()
 		{
 			if(isset($_GET['accion']))
@@ -19,10 +27,10 @@
 					    $this->ConsultarPerfil();
 					  break;
 					case 'Modificar'://Llamada al perfil del usuario que esta logeado
-					    $this->MostarPerfil();
+					    $this->MostrarPerfil();
 					  break;
 					 case 'MostarPerfil':
-					 	$this->MostarPerfil();
+					 	$this->MostrarPerfil();
 					 	break;
 					 case 'cambioContrasena':
 					 	$this->cambioContrasena();
@@ -36,8 +44,11 @@
 					 case 'detalleExamen':
 					 	$this->detalleExamen();
 					 	break;
+					 case 'ingresar':
+					 	$this->ingresar();
+					 	break;
 					 default:
-						require_once('app/vistas/index.php');
+						require_once('app/vistas/IndexUser.php');
 						break;
 				}
 			}
@@ -97,7 +108,7 @@
 			}
 
 		}
-		function MostarPerfil()
+		function MostrarPerfil()
 		{
 			if(empty($_POST))
 			{
@@ -166,6 +177,35 @@
 			else{
 				
 			}
+		}
+		function ingresar()
+		{
+			if(empty($_POST))
+			{
+				require_once('app/vistas/index.php');
+			}
+			else{
+				session_start();
+				$usuario = $_POST['usuario'];
+				$contrasena = $_POST['contrasena'];				
+				$registrado = $this->modelo->ingresar($usuario,$contrasena);
+				if($registrado)
+				{
+					require_once('app/vistas/IndexAdmin.php');
+				}
+				else
+				{
+					require_once('app/vistas/index.php');
+				}
+			}
+		}
+		function salir()
+		{
+			session_start();
+			session_unset();
+			session_destroy();
+			
+			setcookie(session_name(), '', time()-3600);
 		}
 	}
 
