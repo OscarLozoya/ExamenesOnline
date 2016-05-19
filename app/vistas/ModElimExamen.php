@@ -35,9 +35,10 @@
 			</div>
 		</div>
 	</form>
-	<form action="index.php?controlador=examen&accion=eliminar" class="form-horizontal" method="POST">
+	<form action="index.php?controlador=examen&accion=eliminar" class="form-horizontal" method="POST" onsubmit="return EliminarExamen()">
 		<div class="form-group row">
 			<div class="table-responsive">
+				<input type="hidden" name="id-eliminar" id="id-eliminar" value="{id}">
 				<table class="table table-hover" id="examen" onmouseup="CambioExamen()">
 					<thead>
 						<tr>
@@ -52,7 +53,7 @@
 					</thead>
 					<tbody>
 						<tr>
-							<td>{ID}<input type="hidden" name="id" id="id" value="{id}"></td>
+							<td>{ID}</td>
 							<td>{Nombre}</td>
 							<td>{Categoria}</td>
 							<td>{Preguntas}</td>
@@ -68,7 +69,7 @@
 		<div class="form-group row">
 			<label id="MensajeEliminar" class="Warning">*Debes de seleccionar un examen</label>
 			<div class="col-xs-6 col-sm-2 col-sm-offset-8">
-				<button class="btn btn-primary" type="submit" onclick="EliminarExamen()">Eliminar</button>
+				<button class="btn btn-primary" type="submit">Eliminar</button>
 			</div>
 			<div class="col-xs-6 col-sm-2">
 				<button class="btn btn-primary" type="button" onclick="ModificarExamen()">Modificar</button>

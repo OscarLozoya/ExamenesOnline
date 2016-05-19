@@ -39,13 +39,14 @@ function Buscar()
 function EliminarExamen()
 {
 	var examen=$('table#examen tbody tr td input'),
-		findExamen=false;
+		findExamen=false,
+		id='';
 	if(examen.size()>0)
 	{
 		for (var i = 0; i < examen.size(); i++) {
 			if(examen.eq(i).prop("checked"))
 			{
-				examen.eq(i).parent().parent().remove();
+				id+=examen.eq(i).parent().parent().children('td')[0].innerHTML+',';
 				findExamen=true;
 			}
 		}
@@ -53,12 +54,19 @@ function EliminarExamen()
 		{
 			$('label#MensajeEliminar').css('display','block');
 			examen.focus();
+			return false;
+		}
+		else
+		{
+			$('input#id-eliminar').val(id);
+			return true;
 		}
 	}
 	else
 	{
 		$('label#MensajeEliminar').css('display','block');
 		examen.focus();
+		return false;
 	}
 }
 
@@ -84,20 +92,15 @@ function CambioExamen()
 function ModificarExamen()
 {
 	var examen=$('table#examen tbody tr td input'),
-		findExamen=false;
+		findExamen=false,
+		ID='';
 	if(examen.size()>0)
 	{
 		for (var i = 0; i < examen.size(); i++) {
 			if(examen.eq(i).prop("checked"))
 			{
-				examen.eq(i).parent().siblings('td').children('span').text="hola";
-				console.log($('tr td')[0].innerHTML);
-				var params=examen.eq(i).parent().parent().children('td'),
-					url="?";
-				for (var j = 0; j <params.size()-1; j++) {
-					url+=params[j].innerHTML+"&";
-				};
-				window.location="CrearExamen.php"+url;
+				ID=examen.eq(i).parent().parent().children('td')[0].innerHTML;
+				window.location="index.php?controlador=examen&accion=crear&ID="+ID;
 				findExamen=true;
 			}
 		}
