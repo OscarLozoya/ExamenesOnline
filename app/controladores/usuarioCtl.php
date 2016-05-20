@@ -73,7 +73,7 @@
 				*/
 		public function Alta()
 		{
-			if((!isset($_POST['usuario'])||!isset($_POST['correo'])||!isset($_POST['tipo']))) //Comprobar si el formulario para dar de alta ya se lleno, si no es asi muestra la vista para ser completado
+			if(!isset($_POST['usuario'])||!isset($_POST['correo'])||!isset($_POST['tipo'])) //Comprobar si el formulario para dar de alta ya se lleno, si no es asi muestra la vista para ser completado
 			{
 				/*Requiere documentar
 				*/
@@ -87,8 +87,9 @@
 				$usuario = $_POST['correo'];
 				$tipo = $_POST['tipo'];
 				$estado = "0";
-				$consulta_exito = $this->modelo->alta($usuario,$correo,$token,$tipo,$estado);
-				echo '<p>Se agrego el usuario<p>';
+				$this->modelo->alta($usuario,$correo,$token,$tipo,$estado);
+
+				echo '<p>Se agrego Correctamente</p>';
 				require_once("app/vistas/AdminAbcUser.php");
 			}
 		} 
