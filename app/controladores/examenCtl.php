@@ -18,30 +18,37 @@
 		{
 			if(isset($_GET['accion']))
 			{
-				switch ($_GET['accion']) {
-					case 'crear':
-						$this->crear();
-						break;
-					case 'modificar':
-						$this->modificar();
-						break;
-					case 'eliminar':
-						if(isset($_GET['response'])=='buscar')
-							$this->buscar();
-						else
-							$this->eliminar();
-						break;
-					case 'vista':
-						$this->vista();
-						break;
-					default:
-						require_once('app/vistas/index.php');
-						break;
+				if(esAdmin()||esModerador())
+				{
+					switch ($_GET['accion']) {
+						case 'crear':
+							$this->crear();
+							break;
+						case 'modificar':
+							$this->modificar();
+							break;
+						case 'eliminar':
+							if(isset($_GET['response'])=='buscar')
+								$this->buscar();
+							else
+								$this->eliminar();
+							break;
+						case 'vista':
+							$this->vista();
+							break;
+						default:
+							carga_inicio();
+							break;
+					}
+				}
+				else
+				{
+					carga_inicio();
 				}
 			}
 			else
 			{
-				require_once('app/vistas/index.php');
+				carga_inicio();
 			}
 		}
 

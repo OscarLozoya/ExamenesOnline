@@ -14,26 +14,31 @@
 		{
 			if(isset($_GET['accion']))
 			{
-				switch ($_GET['accion']) {
-					case 'agregar':
-						$this->agregar();
-						break;
-					case 'buscar':
-						$this->buscar();
-						break;
-					case 'modificar':
-						$this->modificar();
-						break;
-					case 'eliminar':
-						$this->eliminar();
-						break;
-					default:
-						require_once('app/vistas/index.php');
-						break;
+				if(esAdmin()||esModerador())
+				{
+					switch ($_GET['accion']) {
+						case 'agregar':
+							$this->agregar();
+							break;
+						case 'buscar':
+							$this->buscar();
+							break;
+						case 'modificar':
+							$this->modificar();
+							break;
+						case 'eliminar':
+							$this->eliminar();
+							break;
+						default:
+							carga_inicio();
+							break;
+					}
 				}
+				else
+					carga_inicio();
 			}
 			else
-				require_once('app/vistas/index.php');
+				carga_inicio();
 		}
 
 		function agregar()

@@ -11,51 +11,63 @@
 		}
 		public function ejecutar()
 		{
-			if(isset($_GET['accion']))
+			if(inicioSesion())
 			{
-				switch($_GET['accion']){
-					case 'Alta'://Llamada del administrador para registrar en la plataforma
-						$this->Alta();
-					  break;
-					case 'Registro'://Llamada de un invitado para registrarse en la plataforma
-					    $this->Registrar();
-					  break;
-					case 'Baja'://Llamada del administrador para eliminar un usuario
-					  	$this->Baja();
-					  break;
-					case 'Perfil'://Llamada al perfil de otro usuario sin opcion a modificar
-					    $this->ConsultarPerfil();
-					  break;
-					case 'Modificar'://Llamada al perfil del usuario que esta logeado
-					    $this->MostrarPerfil();
-					  break;
-					 case 'MostarPerfil':
-					 	$this->MostrarPerfil();
-					 	break;
-					 case 'cambioContrasena':
-					 	$this->cambioContrasena();
-					 	break;
-					 case 'completarRegistro':
-					 	$this->completarRegistro();
-					 	break;
-					 case 'eventosProximos':
-					 	$this->eventosProximos();
-					 	break;
-					 case 'detalleExamen':
-					 	$this->detalleExamen();
-					 	break;
-					 case 'ingresar':
-					 	$this->ingresar();
-					 	break;
-					 default:
-						carga_inicio();
-						break;
+				if(isset($_GET['accion']))
+				{
+					if(esAdmin()||esModerador()||esUsuario())
+					{
+					switch($_GET['accion']){
+						case 'Alta'://Llamada del administrador para registrar en la plataforma
+							$this->Alta();
+						  break;
+						case 'Registro'://Llamada de un invitado para registrarse en la plataforma
+						    $this->Registrar();
+						  break;
+						case 'Baja'://Llamada del administrador para eliminar un usuario
+						  	$this->Baja();
+						  break;
+						case 'Perfil'://Llamada al perfil de otro usuario sin opcion a modificar
+						    $this->ConsultarPerfil();
+						  break;
+						case 'Modificar'://Llamada al perfil del usuario que esta logeado
+						    $this->MostrarPerfil();
+						  break;
+						 case 'MostarPerfil':
+						 	$this->MostrarPerfil();
+						 	break;
+						 case 'cambioContrasena':
+						 	$this->cambioContrasena();
+						 	break;
+						 case 'completarRegistro':
+						 	$this->completarRegistro();
+						 	break;
+						 case 'eventosProximos':
+						 	$this->eventosProximos();
+						 	break;
+						 case 'detalleExamen':
+						 	$this->detalleExamen();
+						 	break;
+						 case 'ingresar':
+						 	$this->ingresar();
+						 	break;
+						 case 'salir':
+						 	$this->salir();
+						 	carga_inicio();
+						 	break;
+						 default:
+							carga_inicio();
+							break;
+					}
 				}
+				else //Sentencia else en caso de que no sea un administrador, moderador o usuario, nos muestra la página de inicio segun sea el caso
+					carga_inicio();
+				}
+				else //Sentencia else en caso de que no se especifique una acción, nos muestra la página según seea el caso
+					carga_inicio();
 			}
-			else
-			{
-				carga_inicio();
-			}
+			else //Sentencia else en caso de que no haya una sesion iniciada, para comprobar los datos e iniciar su sesion
+				$this->ingresar();
 		}
 		/**Requiere documentar
 				*/
@@ -189,7 +201,6 @@
 				carga_inicio();
 			}
 			else{
-				
 				$usuario = $_POST['usuario'];
 				$contrasena = $_POST['contrasena'];				
 				$registrado = $this->modelo->ingresar($usuario,$contrasena);
@@ -198,7 +209,6 @@
 		}
 		function salir()
 		{
-			session_start();
 			session_unset();
 			session_destroy();
 			

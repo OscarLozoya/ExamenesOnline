@@ -56,7 +56,6 @@ class usuarioMdl
 			$stmt->execute();
 			$stmt->bind_result($usuario_consulta,$contrasena_consulta,$tipo_consulta);
 			while ($stmt->fetch()) {
-				session_start();
 				$_SESSION['usuario'] = $usuario_consulta;
 				$_SESSION['tipo'] = $tipo_consulta;
 				$existe = true;

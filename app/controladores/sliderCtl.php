@@ -14,21 +14,28 @@
 		{
 			if(isset($_GET['accion']))
 			{
-				switch ($_GET['accion']) {
-					case 'crear':
-						$this->crear();
-						break;
-					case 'eliminar':
-						$this->eliminar();
-						break;
-					case 'modificar':
-						$this->modificar();
-						break;
-					default:
-						require_once('app/vistas/index.php');
-						break;
+				if(esAdmin())
+				{
+					switch ($_GET['accion']) {
+						case 'crear':
+							$this->crear();
+							break;
+						case 'eliminar':
+							$this->eliminar();
+							break;
+						case 'modificar':
+							$this->modificar();
+							break;
+						default:
+							carga_inicio();
+							break;
+					}
 				}
+				else
+					carga_inicio();
 			}
+			else
+				carga_inicio();
 		}
 
 		function crear()
