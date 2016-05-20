@@ -73,15 +73,23 @@
 				*/
 		public function Alta()
 		{
-			if(empty($_POST))
+			if((!isset($_POST['usuario'])||!isset($_POST['correo'])||!isset($_POST['tipo']))) //Comprobar si el formulario para dar de alta ya se lleno, si no es asi muestra la vista para ser completado
 			{
 				/*Requiere documentar
 				*/
 				require_once("app/vistas/AdminAbcUser.php");
 			}
-			else
+			else // Si el formulario ya se lleno crea el token y guarda el registro en la base de datos
 			{
-
+				$correo = $_POST['usuario'];
+				$token = hash("sha256",$correo); //Hace un hash del correo mediante sha256 para genera el token
+				$token .= Time(); //Concatena el token con el tiempo al final de la cadena
+				$usuario = $_POST['correo'];
+				$tipo = $_POST['tipo'];
+				$estado = "0";
+				$consulta_exito = $this->modelo->alta($usuario,$correo,$token,$tipo,$estado);
+				echo '<p>Se agrego el usuario<p>';
+				require_once("app/vistas/AdminAbcUser.php");
 			}
 		} 
 
