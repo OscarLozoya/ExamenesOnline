@@ -11,7 +11,7 @@
             </div>
             <div class="col-xs-12 col-sm-6">
                 <label class="control-label">Nombre completo</label>
-                <a href="Perfil.php">Ver Perfil</a>
+                <a href="index.php?controlador=usuario&accion=Perfil">Ver Perfil</a>
             </div>
         </div>
         <p>Examenes Pendietes</p>
@@ -51,10 +51,10 @@
                 <input class="form-control" type="date">
             </div>
             <div class="form-group">
-                <a href="EventosProximos.php">Ver Eventos Proximos</a>
+                <a href="index.php?controlador=usuario&accion=eventosProximos">Ver Eventos Proximos</a>
             </div>
             <div class="form-group">
-                <a href="DetalleExamenes.php">Detalles Examenes</a>
+                <a href="index.php?controlador=usuario&accion=detalleExamen">Detalles Examenes</a>
             </div>
         </form>
     </aside>

@@ -9,19 +9,21 @@
       </div>
       <div class="collapse navbar-collapse" id="myNavbar">
         <ul class="nav navbar-nav">
-          <li><a href="IndexMod.php">Inicio</a></li>
+          <li><a href="index.php?controlador=usuario&accion.php">Inicio</a></li>
           <li class="dropdown">
             <a class="dropdown-toggle" data-toggle="dropdown" href="#">Preguntas <span class="caret"></span></a>
             <ul class="dropdown-menu">
-              <li><a href="AgregarPregunta.php">Nueva</a></li>
-              <li><a href="BuscarPregunta.php">Modificar/Eliminar</a></li>
+              <li><a href="index.php?controlador=pregunta&accion=agregar">Nueva</a></li>
+              <li><a href="index.php?controlador=pregunta&accion=modificar">Modificar</a></li>
+              <li><a href="index.php?controlador=pregunta&accion=eliminar">Eliminar</a></li>
             </ul>
           </li>
           <li class="dropdown">
             <a class="dropdown-toggle" data-toggle="dropdown" href="#">Examenes <span class="caret"></span></a>
             <ul class="dropdown-menu">
-              <li><a href="CrearExamen.php">Nuevo</a></li>
-              <li><a href="ModElimExamen.php">Modificar/Eliminar</a></li>
+              <li><a href="index.php?controlador=examen&accion=crear">Nuevo</a></li>
+              <li><a href="index.php?controlador=examen&accion=modificar">Modificar</a></li>
+              <li><a href="index.php?controlador=examen&accion=eliminar">Eliminar</a></li>
             </ul>
           </li>
         </ul>

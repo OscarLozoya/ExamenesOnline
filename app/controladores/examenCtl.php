@@ -64,6 +64,7 @@
 		{
 			//Cargamos los archivos necesarios para la vista 
 			$vista=file_get_contents('app/vistas/ModElimExamen.php');
+			$menu=file_get_contents('app/vistas/MenuAdmin.php');
 			$header=file_get_contents('app/vistas/Header.php');
 			$footer=file_get_contents('app/vistas/Footer.php');
 
@@ -93,7 +94,7 @@
 				else
 					$vista = str_replace($fila, $result, $vista);
 			}
-			$vista = $header . $vista . $footer;
+			$vista = $header . $menu . $vista . $footer;
 			echo $vista;
 		}
 		/*Vista del examen que esta realizando

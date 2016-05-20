@@ -26,12 +26,12 @@
 				</div>
 
 				<div class="form-group container">
-					<a href="RestContrasena.php">¿Olvido su contraseña?</a>
+					<a href="index.php?controlador=usuario&accion=cambioContrasena">¿Olvido su contraseña?</a>
 				</div>
 
 				<div class="form-group row">
 					<div class="col-xs-5">
-						<button class="btn btn-primary" type="button" onclick="location='Registro.php'">Registrarse</button>
+						<button class="btn btn-primary" type="button" onclick="location='index.php?controlador=usuario&accion=Registro'">Registrarse</button>
 					</div>
 					<div class="col-xs-3">
 						<button class="btn btn-primary" type="submit">Ingresar</button>

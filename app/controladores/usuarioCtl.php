@@ -48,9 +48,13 @@
 					 	$this->ingresar();
 					 	break;
 					 default:
-						require_once('app/vistas/IndexUser.php');
+						carga_inicio();
 						break;
 				}
+			}
+			else
+			{
+				carga_inicio();
 			}
 		}
 		/**Requiere documentar
@@ -182,21 +186,14 @@
 		{
 			if(empty($_POST))
 			{
-				require_once('app/vistas/index.php');
+				carga_inicio();
 			}
 			else{
-				session_start();
+				
 				$usuario = $_POST['usuario'];
 				$contrasena = $_POST['contrasena'];				
 				$registrado = $this->modelo->ingresar($usuario,$contrasena);
-				if($registrado)
-				{
-					require_once('app/vistas/IndexAdmin.php');
-				}
-				else
-				{
-					require_once('app/vistas/index.php');
-				}
+				carga_inicio();
 			}
 		}
 		function salir()

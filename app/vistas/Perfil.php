@@ -9,10 +9,10 @@
             <button class="btn btn-primary btn-small">Cambiar Imagen</button>
         </div>
         <div class="form-group">
-            <a href="RestContrasena.php">Cambio contraseña</a>
+            <a href="index.php?controlador=usuario&accion=cambioContrasena">Cambio contraseña</a>
         </div>
         <div class="form-group">
-            <a href="DetalleExamenes.php">Detalle exámenes</a>
+            <a href="index.php?controlador=usuario&accion=detalleExamen">Detalle exámenes</a>
         </div>
       </div>
     </article>
@@ -20,7 +20,7 @@
 			<div class="jumbotron">
 				<h2 class="text-center">Nombre Del Usuario</h2>
 				<span class="help-block">* Campos necesarios.</span>
-				<form name="creandoperfil" action="4040.php" method="POST">
+				<form name="creandoperfil" action="404.php" method="POST">
 					<div class="form-horizontal well">
 						<fieldset>
 							<legend>Datos Personales</legend>

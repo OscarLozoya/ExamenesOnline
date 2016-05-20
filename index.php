@@ -1,5 +1,5 @@
 <?php 
-
+	include_once('app/controladores/sesionCtl.php'); // Archivo con funciones para las sesiones (tipo de usuario)
 	if(!empty($_GET))
 	{
 		switch ($_GET['controlador']) 
