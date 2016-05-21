@@ -1,9 +1,5 @@
 <?php include("Header.php"); ?>
-		<ol class="breadcrumb">
-		  <li><a href="#">Home</a></li>
-		  <li><a href="#">Configuración</a></li>
-		  <li class="active">Slider</li>
-		</ol>
+<?= breadcrumbs();?>
 
 <?php include("MenuAdmin.php"); ?>
 	<section class="container-fluid">
