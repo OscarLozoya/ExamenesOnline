@@ -21,9 +21,9 @@
 						case 'Alta'://Llamada del administrador para registrar en la plataforma
 							$this->Alta();
 						  break;
-						case 'Registro'://Llamada de un invitado para registrarse en la plataforma
+					/*	case 'Registro'://Llamada de un invitado para registrarse en la plataforma
 						    $this->Registrar();
-						  break;
+						  break;*/
 						case 'Baja'://Llamada del administrador para eliminar un usuario
 						  	$this->Baja();
 						  break;
@@ -66,6 +66,8 @@
 				else //Sentencia else en caso de que no se especifique una acción, nos muestra la página según seea el caso
 					carga_inicio();
 			}
+			else if($_GET['accion']=='Registro')//Llamada de un invitado para registrarse en la plataforma
+						    $this->Registrar();
 			else //Sentencia else en caso de que no haya una sesion iniciada, para comprobar los datos e iniciar su sesion
 				$this->ingresar();
 		}
