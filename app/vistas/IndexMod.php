@@ -14,7 +14,7 @@
 	                </figure>
 				</div>
 				<div class="col-xs-12">
-					<label class="control-label">Nombre completo</label>
+					<label class="control-label">{Nombre_usuario}</label>
 				</div>
 				<div class="col-xs-12">
 					<a href="Perfil.php">Ver Perfil</a>
