@@ -21,9 +21,6 @@
 						case 'Alta'://Llamada del administrador para registrar en la plataforma
 							$this->Alta();
 						  break;
-					/*	case 'Registro'://Llamada de un invitado para registrarse en la plataforma
-						    $this->Registrar();
-						  break;*/
 						case 'Baja'://Llamada del administrador para eliminar un usuario
 						  	$this->Baja();
 						  break;
@@ -97,15 +94,28 @@
 
 		function Registrar()
 		{
-			if(empty($_POST))
+			$header = file_get_contents("app/vistas/Header.php");
+			$vista = file_get_contents("app/vistas/Registro.php");
+			$footer = file_get_contents("app/vistas/Footer.php");
+			if(!isset($_POST['Usuario']) || !isset($_POST['correoElectronico']))//Verificacion de que los campos no esten vacios
 			{
-				/*Requiere documentar
+				/*Si estan vacios los campos se muestra la vista y sus formularios en blanco
 				*/
-				require_once("app/vistas/Registro.php");
+				$Dic1 = array('{label_exito}' => '<label type="hidden"></label>');
 			}
-			else{
-				
+			else if(isset($_POST['Usuario']) || isset($_POST['correoElectronico'])){//Si se reciben datos por POST se ejecuta el proceso de registro recuperando los datos para enviar al modelo
+				$Usuario = $_POST['Usuario'];
+				$Correo = $_POST['correoElectronico'];
+				$Token = hash("sha256",$Correo);
+				$Token .=Time();
+				$Tipo = "0";
+				$Estado = "0";
+				$this->modelo->registrar($Usuario,$Correo,$Token,$Tipo,$Estado);
+			  $Dic1 = array('{label_exito}' => '<label class="col-xs-12"> Para completar tu Registro revisa tu correo electronico</label>');
 			}
+
+				$vista = strtr($vista, $Dic1);
+				echo $header.$vista.$footer;
 		}
 
 		function Baja()

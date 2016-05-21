@@ -27,8 +27,27 @@ class usuarioMdl
 			$stmt->close();
 		}
 	}
-	function registrar()
+	function registrar($Usuario,$Correo,$Contrasena,$Tipo,$Estado)
 	{
+		if($this->driver->connect_errno)
+			return false;
+	  if($stmt = $this->driver->prepare("INSERT INTO Usuario VALUES(?,?,?,?,?)")){
+	  	$Usuario = $this->driver->real_escape_string($Usuario);
+	  	$Correo = $this->driver->real_escape_string($Correo);
+	  	$Contrasena = $this->driver->real_escape_string($Contrasena);
+	  	$Tipo = $this->driver->real_escape_string($Tipo);
+	  	$Estado = $this->driver->real_escape_string($Estado);
+	  	$stmt->bind_param("sssii",$Usuario,$Correo,$Contrasena,$Tipo,$Estado);
+	  	if($stmt->execute())
+	  		$stmt->close();
+	  	$enlace = "http://examenesonline.no-ip.org/index.php?controlador=Usuario&accion=completarRegistro&response=".$Contrasena;
+	  	$asunto="Completar registro en ExamenesOnline";
+			$mensaje="Ya casi eres miembro de ExamenesOnline por favor completa tu registro en el siguiente enlace: \n\n".$enlace
+			         ."\n\n Si tu navegador no te redirecciona por favor copia elenlace en la barra de busqueda.".
+			         " \n\n Si no fuiste tu quien registro este correo contactanos a la direccion".
+			         " deaddavelopers@gmail.com con el asunto: 'Eiminar registro'";
+      mail($Correo,$asunto,$mensaje) or die ("El mensaje no se enviò");
+	  }
 
 	}
 	function baja()

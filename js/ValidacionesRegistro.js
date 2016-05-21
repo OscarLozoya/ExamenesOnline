@@ -49,6 +49,7 @@ function ValidaRegistro()
 			return false;
 		}
 	}
+	MuestraError("label","divbtn");
 }
 /**
 *Limpiar caja de texto del correo electronico y usuario
