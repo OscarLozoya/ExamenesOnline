@@ -9,7 +9,7 @@
 <?php include("MenuAdmin.php"); ?>
 <section class="container-fluid lines col-xs-12 col-md-10 col-md-offset-1">
 	<div class="jumbotron">
-			<form action="" class="form-horizontal">
+		<form action="{accion}" class="form-horizontal" method="POST" onsubmit="return ValidaAgregarPregunta()">
 		<br>
 		<div class="form-group row">
 
@@ -17,7 +17,7 @@
 						<label for="descripcion" class="control-label">Descripción</label>
 					</div>
 					<div class="col-xs-12 col-md-9">
-					 	<textarea class="form-control noresize" id="Pregunta" rows="5" cols="20" id="descripcion" placeholder="Ingresa la descripción de tu pregunta" onchange="CambioPregunta()"></textarea>
+					 	<textarea class="form-control noresize" id="Pregunta" name="Pregunta" rows="5" cols="20" id="descripcion" placeholder="Ingresa la descripción de tu pregunta" onchange="CambioPregunta()" >{Pregunta}</textarea>
 					 	<label id="MensagePregunta" class="Warning">*Debes de ingresar la pregunta</label>
 					</div>
 				
@@ -27,7 +27,7 @@
 								<label for="id-pregunta" class="control-label">ID Pregunta</label>
 							</div>
 							<div class="col-xs-12">
-								<input type="text" class="form-control" id="id-pregunta" disabled>
+								<input type="text" class="form-control" id="id-pregunta" disabled name="id-pregunta" value="{ID_Pregunta}">
 							</div>
 						</div>	
 					</div>
@@ -35,14 +35,13 @@
 		</div>
 
 		<div class="form-group row">
-
+				<input type='hidden' id="id_categorias" name="id_categorias" value='{id_categorias}'>
 				<div class="col-xs-12 col-md-1">
 					<label for="categoria" class="control-label">Categoria</label>
 				</div>
 				<div class="col-xs-12 col-md-6">
 					<select class="form-control" id="categoria">
-						<option>Categoria 1: POO</option>
-						<option>Categoria 2: Maquetado Web</option>
+						{inicio_catego}<option value="{id-categoria}">{nombre-categoria}</option>{fin_catego}
 					</select>
 				</div>
 				<div class="col-xs-3 col-md-2">
@@ -62,11 +61,13 @@
 									<th>Nombre Categoria</th>
 									<th>Selección</th>
 								</tr>
+								{inicia_Categoria}
 								<tr>
-									<td>01</td>
-									<td>Web</td>
+									<td>{ID_Categoria}</td>
+									<td>{Nombre}</td>
 									<td><input type="checkbox"></td>
 								</tr>
+								{fin_categoria}
 							</tbody>
 						</table>
 						<label id="MensageCategoria" class="Warning">*Debes de agregar por lo menos una categoria</label>
@@ -93,6 +94,7 @@
 		</div>
 		<div id="respuestaOpciones">
 			<div class="form-group row">
+					<input type='hidden' id="id_respuestas" name="id_respuestas" value='{id_respuestas}'>
 					<div class="col-xs-12 col-md-1">
 						<label for="respuesta" class="control-label">Respuesta</label>
 					</div>
@@ -117,11 +119,13 @@
 										<th>Resultado</th>
 										<th>Selección</th>
 									</tr>
+									{inicia_respuesta}
 									<tr>
-										<td>HTML</td>
-										<td><input type="checkbox"></td>
+										<td>{respuesta}</td>
+										<td><input type="checkbox" {correcto}></td>
 										<td><input type="checkbox"></td>
 									</tr>
+									{fin_respuesta}
 								</tbody>
 							</table>
 							<label id="MensageRespuestas" class="Warning">*Debes de agregar por lo menos una respuesta</label>
@@ -136,7 +140,8 @@
 		</div>
 		<div class="form-group row">
 			<div class="col-xs-5">
-				<button class="btn btn-primary" type="button" onclick="ValidaAgregarPregunta()">Agregar Pregunta</button>
+				<p>{ini_resultado}{fin_resultado}</p>
+				<button class="btn btn-primary" type="submit" >Agregar Pregunta</button>
 			</div>
 		</div>
 	</form>

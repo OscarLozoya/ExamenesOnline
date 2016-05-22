@@ -96,8 +96,8 @@
 				$ID = $_POST['id-eliminar'];
 				$result = $this->modelo->eliminar($ID);
 				//Si se regresa TRUE de la eliminación mostramos éxito, de lo contrario mostramos lo que nos regrese el modelo
-				if($result)
-					$vista = str_replace($fila, 'Se elimino correctamente', $vista);
+				if($result == 1)
+					$vista = str_replace($fila, '<p>Se elimino correctamente</p>', $vista);
 				else
 					$vista = str_replace($fila, $result, $vista);
 			}
@@ -188,11 +188,7 @@
 				else
 				{
 					//Si no mostramos un mensaje
-					$vista = str_replace($fila, 'No se encontro el examen', $vista);
-
-					$vista = str_replace($fila, 'No se encontro el examen', subject);
-					echo "error";
-
+					$vista = str_replace($fila, '<p>No se encontro el examen</p>', $vista);
 				}
 				$vista = $header.$vista.$footer;
 				echo $vista;

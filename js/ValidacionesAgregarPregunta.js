@@ -9,23 +9,28 @@
 */
 function valAgregarCategoria()
 {
-	var categoria=$('select#categoria'),
-		mensajeCategoria=$('#MensageCategoria');
+	var categoria=$('select#categoria option:selected'),
+		mensajeCategoria=$('#MensageCategoria'),
+		inputCategorias=$('input#id_categorias'),
+		id_categorias=inputCategorias.val();
 	mensajeCategoria.css('display','none');
+	if(id_categorias=='{id_categorias}')
+		id_categorias='';
 	if(notEmpty(categoria[0].value))
 	{
 		$('table#Categorias').append
 		(
 			$('<tr>').append
 			(
-				$('<td>').append('02')
-			).append(
 				$('<td>').append(categoria[0].value)
+			).append(
+				$('<td>').append(categoria[0].innerHTML)
 			).append(
 				$('<td>').append($('<input>').attr('type','checkbox'))
 			)
 		)
-		return false;
+		id_categorias+=categoria[0].value+',';
+		inputCategorias.val(id_categorias);
 	}
 }
 
@@ -64,11 +69,15 @@ function valAgregarRespuesta()
 */
 function elminarCategoria()
 {
-	var categorias=$('table#Categorias tbody tr td input');
+	var categorias=$('table#Categorias tbody tr td input'),
+		id_categorias='';
 	for (var i = 0; i < categorias.size(); i++) {
 		if(categorias.eq(i).prop("checked"))
 			categorias.eq(i).parent().parent().remove();
+		else
+			id_categorias+=categorias.eq(i).parent().parent().children('td')[0].innerHTML+','
 	}
+	$('input#id_categorias').val(id_categorias);
 }
 
 /**
@@ -76,10 +85,10 @@ function elminarCategoria()
 */
 function eliminarRespuesta()
 {
-	var categorias=$('table#Respuestas tbody tr td input');
-	for (var i = 1; i < categorias.size(); i=i+2) {
-		if(categorias.eq(i).prop("checked"))
-			categorias.eq(i).parent().parent().remove();
+	var respuesta=$('table#Respuestas tbody tr td input');
+	for (var i = 1; i < respuesta.size(); i=i+2) {
+		if(respuesta.eq(i).prop("checked"))
+			respuesta.eq(i).parent().parent().remove();
 	}
 }
 
@@ -89,9 +98,15 @@ function eliminarRespuesta()
 function OpcionRespuesta()
 {
 	var option=$('select#tipo'),
-		respuestas=$('div#respuestaOpciones');
-	if(option[0].value=='Abierta')		
+		respuestas=$('div#respuestaOpciones'),
+		id_respuestas=$('table#Respuestas tbody tr td input');
+	if(option[0].value=='Abierta'){		
 		respuestas.css('display','none');
+		for (var i = 0; i < id_respuestas.size(); i++) {
+			id_respuestas.eq(i).parent().parent().remove();
+		}
+		$('input#id_respuestas').val("Abierta");
+	}
 	else
 		respuestas.css('display','block');
 }
@@ -107,7 +122,8 @@ function ValidaAgregarPregunta()
 		var option=$('select#tipo'),
 			respuestas=$('table#Respuestas tbody tr td input'),
 			categorias=$('table#Categorias tbody tr td'),
-			CantRespuestas=0;
+			CantRespuestas=0,
+			id_respuestas='';
 		if(categorias.size()>0)
 		{
 			if(option[0].value=='Opciones')
@@ -115,19 +131,27 @@ function ValidaAgregarPregunta()
 				if(respuestas.size()>0)
 				{
 					for (var i = 0; i <respuestas.size(); i=i+2) {
-						if(respuestas.eq(i).prop("checked")==true)
+						id_respuestas+=respuestas.eq(i).parent().parent().children('td')[0].innerHTML+'|';
+						if(respuestas.eq(i).prop("checked")==true){
 							CantRespuestas=CantRespuestas+1;
+							id_respuestas+='1,'
+						}
+						else
+							id_respuestas+='0,'
 					}
+					$('input#id_respuestas').val(id_respuestas);
 				}
 				else
 				{
 					$('#MensageRespuestas').css('display','block');
 					respuestas.focus();
+					return false;
 				}
 				if(CantRespuestas==0)
 				{
 					$('#MensageRespuestaCorrecta').css('display','block');
 					respuesta.focus();
+					return false;
 				}
 			}
 		}
@@ -135,13 +159,16 @@ function ValidaAgregarPregunta()
 		{
 			$('#MensageCategoria').css('display','block');
 			$('select#categoria').focus();
+			return false;
 		}
 	}
 	else
 	{
 		$('#MensagePregunta').css('display','block');
 		pregunta.focus();
+		return false;
 	}
+	return true;
 }
 
 /**

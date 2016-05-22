@@ -77,7 +77,7 @@ class ExamenMdl
 		//Se prepara el Query, los signos ? se sustituyen por las variables
 		if($stmt = $this->driver->prepare("SELECT e.ID,e.Nombre, c.Nombre, e.Duracion, e.Num_Preguntas,e.Calificacion_Min 
 			FROM Examen e INNER JOIN Categoria c 
-			on e.ID = ? OR e.Nombre like ? AND c.Nombre=? and c.ID=e.ID_Categoria"))
+			on e.ID = ? OR e.Nombre like ? OR c.Nombre=? and c.ID=e.ID_Categoria"))
 		{
 			//Se limpian las variables para evitar inyecciones de SQL
 			$ID = $this->driver->real_escape_string($ID);
