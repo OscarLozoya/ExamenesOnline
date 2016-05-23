@@ -47,6 +47,7 @@ class usuarioMdl
 	  	if($stmt->execute())
 	  	{//Si la consulta se puede ejecutar envia un email al usuario para que complete su registro y cierra el query
 	  		$stmt->close();
+	  		date_default_timezone_set ('America/Mexico_City');//se establece la zona horaria para la funcion mail
 	  		//Se crea el enlace que guiara al usuario a  completar su registro
 		  	$enlace = "http://examenesonline.no-ip.org/index.php?controlador=Usuario&accion=completarRegistro&response=".$Contrasena;
 		  	//Las siguientes variables son parametros para la funcion mail() de php que permite enviar emails
@@ -56,7 +57,10 @@ class usuarioMdl
 				         .$enlace."\n\n Si tu navegador no te redirecciona por favor copia elenlace en la barra de busqueda."
 				         ." \n\n Si no fuiste tu quien registro este correo contactanos a la direccion"
 				         ." deaddevelopers@gmail.com con el asunto: 'Eiminar registro' y solucionaremos este error";
-	      mail($Correo,$asunto,$mensaje,$From) or return false; //Si el mensaje no se puede enviar se retorna un false para que elcontrolador muestre un mensaje
+	      if(mail($Correo,$asunto,$mensaje,$From))
+	        return true;
+	      else
+	        return false;//Si el mensaje no se puede enviar se retorna un false para que elcontrolador muestre un mensaje
 	    }
       else //Si la consulta no fue satisfactoria regresa falso para que el controlador maneje el error
       	return false;
