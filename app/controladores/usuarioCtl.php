@@ -91,31 +91,34 @@
 				require_once("app/vistas/AdminAbcUser.php");
 			}
 		} 
-
+    /**
+    *Este apartado pre-registra al usuario que lo solicita y envia un email para que termine de registrarse
+    *y cambie su estatus a activo pues si no lo esta no podra ingresar al sistema.
+    */
 		function Registrar()
 		{
 			$header = file_get_contents("app/vistas/Header.php");
 			$vista = file_get_contents("app/vistas/Registro.php");
 			$footer = file_get_contents("app/vistas/Footer.php");
-			if(!isset($_POST['Usuario']) || !isset($_POST['correoElectronico']))//Verificacion de que los campos no esten vacios
-			{
-				/*Si estan vacios los campos se muestra la vista y sus formularios en blanco
-				*/
-				$Dic1 = array('{label_exito}' => '<label type="hidden"></label>');
+			if(!isset($_POST['Usuario']) || !isset($_POST['correoElectronico']))
+			{//Verificacion de que los campos no esten vacios
+				$Dic1 = array('{label_exito}' => '<label type="hidden"></label>');//Si estan vacios los campos se muestra la vista y se oculta una label de control
 			}
 			else if(isset($_POST['Usuario']) || isset($_POST['correoElectronico'])){//Si se reciben datos por POST se ejecuta el proceso de registro recuperando los datos para enviar al modelo
 				$Usuario = $_POST['Usuario'];
 				$Correo = $_POST['correoElectronico'];
 				$Token = hash("sha256",$Correo);
-				$Token .=Time();
+				$Token .=Time();//Se crea el token para enviar por correo
 				$Tipo = "0";
 				$Estado = "0";
-				$this->modelo->registrar($Usuario,$Correo,$Token,$Tipo,$Estado);
-			  $Dic1 = array('{label_exito}' => '<label class="col-xs-12"> Para completar tu Registro revisa tu correo electronico</label>');
+				$result=$this->modelo->registrar($Usuario,$Correo,$Token,$Tipo,$Estado);//Se hace la peticion al modelo para que pre-registre y mande el mail al usuario
+			  if ($result)//Según sea el resultado se muestra una label para dar instrucciones al usuario
+			  	$Dic1 = array('{label_exito}' => '<label class="col-xs-12"> Para completar tu Registro revisa tu correo electronico</label>');
+			  else
+			  	$Dic1 = array('{label_exito}' => '<label class="col-xs-12"> El usuario ya fue registrado revisa tu correo o vuelve a intentarlo</label>');
 			}
-
-				$vista = strtr($vista, $Dic1);
-				echo $header.$vista.$footer;
+			$vista = strtr($vista, $Dic1);//se reemplaza el cambio en la etiqueta de control
+			echo $header.$vista.$footer;//Se muestra la vista
 		}
 
 		function Baja()
