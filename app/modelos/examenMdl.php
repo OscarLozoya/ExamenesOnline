@@ -15,9 +15,26 @@ class ExamenMdl
 	{
 
 	}
-	function crear()
+	function crear($categoria, $cantidadPreguntas, $tiempoLimite, $calificacionMinima, $nombreExamen)
 	{
+		if($this->driver->connect_errno)
+			return false;
 
+		if($stmt = $this->driver->prepare("INSERT INTO Examen (ID_Categoria, Nombre, Duracion, Num_Preguntas, Calificacion_Min ) VALUES(?,?,?,?,?)")) 
+		{
+			$categoria = $this->driver->real_escape_string($categoria); //Aegurarnos que el usuario no ingrese palabras reservadas
+			$nombreExamen = $this->driver->real_escape_string($nombreExamen);
+			$tiempoLimite = $this->driver->real_escape_string($tiempoLimite);
+			$cantidadPreguntas = $this->driver->real_escape_string($cantidadPreguntas);
+			$calificacionMinima = $this->driver->real_escape_string($calificacionMinima);
+
+			$stmt->bind_param("isiii",$categoria,$nombreExamen,$tiempoLimite,$cantidadPreguntas,$calificacionMinima);
+			if($stmt->execute())
+				return true;
+			$stmt->close();
+		}
+		else
+			return $stmt->error;
 	}
 
 	function modificar()
@@ -127,6 +144,26 @@ class ExamenMdl
 		}
 		//$this->driver->close();
 		return $array;
+	}
+	function buscarUltimo()
+	{
+		$ultimo = '';
+		if($this->driver->connect_errno)
+			return false;
+
+		if($stmt = $this->driver->prepare("SELECT MAX(ID) FROM Examen")) 
+		{
+			$stmt->execute();
+			$stmt->bind_result($ultimo);
+			while($stmt->fetch())
+			{
+				$ultimo = $ultimo;
+			}
+			return $ultimo;
+			$stmt->close();
+		}
+		else
+			return $ultimo;
 	}
 }
 ?>

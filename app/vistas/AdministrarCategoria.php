@@ -1,7 +1,4 @@
 <?php include("Header.php"); ?>
-	<div class="form-group">
-		<label class="label-control">Historial de Navegación</label>
-	</div>
 	<?php include("MenuAdmin.php"); ?>
 	<section class="container-fluid lines form-horizontal col-xs-12 col-lg-10 col-lg-offset-1">
 		<div class="jumbotron">

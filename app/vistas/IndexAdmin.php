@@ -1,5 +1,4 @@
 <?php include("Header.php"); ?>
-<?= breadcrumbs();?>
 
 <?php include("MenuAdmin.php"); ?>
 	<section class="container-fluid">

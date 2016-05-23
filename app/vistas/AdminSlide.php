@@ -1,11 +1,5 @@
 <?php include("Header.php"); ?>
-<div class="form-group">
-	<ol class="breadcrumb">
-	  <li><a href="#">Home</a></li>
-	  <li><a href="#">Configuración</a></li>
-	  <li class="active">Slider</li>
-	</ol>
-</div>
+
 <?php include("MenuAdmin.php"); ?>
 	<section class="container-fluid lines form-horizontal col-xs-12 col-lg-10 col-lg-offset-1">
 			<div class="jumbotron">
