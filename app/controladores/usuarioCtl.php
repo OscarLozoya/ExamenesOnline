@@ -31,13 +31,13 @@
 						    $this->MostrarPerfil();
 						  break;
 						 case 'MostarPerfil':
-						 	$this->MostrarPerfil();
+						 	$this->MostrarPerfil();//Guarda en la BD los campos del perfil modificados
 						 	break;
+						case 'actualizarPerfil':
+							$this->actualizarPerfil();
+							break;
 						 case 'cambioContrasena':
 						 	$this->cambioContrasena();
-						 	break;
-						 case 'completarRegistro':
-						 	$this->completarRegistro();
 						 	break;
 						 case 'eventosProximos':
 						 	$this->eventosProximos();
@@ -64,7 +64,10 @@
 					carga_inicio();
 			}
 			else if($_GET['accion']=='Registro')//Llamada de un invitado para registrarse en la plataforma
-						    $this->Registrar();
+				$this->Registrar();
+			else 
+				if($_GET['accion']=='completarRegistro' && isset($_GET['response']))
+				$this->completarRegistro();
 			else //Sentencia else en caso de que no haya una sesion iniciada, para comprobar los datos e iniciar su sesion
 				$this->ingresar();
 		}
@@ -109,7 +112,7 @@
 				$Correo = $_POST['correoElectronico'];
 				$Token = hash("sha256",$Correo);
 				$Token .=Time();//Se crea el token para enviar por correo
-				$Tipo = "0";
+				$Tipo = "2";
 				$Estado = "0";
 				$result=$this->modelo->registrar($Usuario,$Correo,$Token,$Tipo,$Estado);//Se hace la peticion al modelo para que pre-registre y mande el mail al usuario
 			  if ($result)//Según sea el resultado se muestra una label para dar instrucciones al usuario
@@ -147,6 +150,7 @@
 			}
 
 		}
+
 		function MostrarPerfil()
 		{
 			if(empty($_POST))
@@ -178,16 +182,65 @@
 
 		function completarRegistro()
 		{
-			if(empty($_POST))
-			{
-				/*
-				- Requiere documentar
-				*/
-				require_once("app/vistas/CompletarRegistro.php");
+			if(isset($_GET['response'])){
+				$Token = $_GET['response'];
+				$resultado = $this->modelo->comprobarRegistro($Token);
+				if(!$resultado){//Si el modelo nos devulve un false podra seguir el proceso de otra manera no sera posible
+					require_once("app/vistas/CompletarRegistro.php");
+				}
+				else
+					carga_inicio();
 			}
-			else{
-				
+		}
+		/**
+		*
+		*/
+		function actualizarPerfil(){
+			//Se toman todos los valores de los diferentes imputs de la vista completarRegistro/Perfil
+			$Usuario = $_SESSION['usuario'];
+			$Nombre = $_POST['Name'];
+			$ApellidoP = $_POST['ApellidoP'];
+			$ApellidoM = $_POST['ApellidoM'];
+			$Telefonos = $_POST['Telefonos'];
+			$Redes_Sociales = $_POST['RedSocial'];
+			$Universidad = $_POST['Universidad'];
+			$Carrera = $_POST['Carrera'];
+			$Promedio = $_POST['Promedio'];
+			$Estado = $_POST['Estado'];
+			$Porcentaje = $_POST['Porcentaje'];
+			$TiempoRestante = $_POST['TiempoRestante'];
+			$Lapso = $_POST['Lapso'];
+			$Lunesdesde = $_POST['Lunesdesde'];
+			$Luneshasta = $_POST['Luneshasta'];
+			$Martesdesde = $_POST['Martesdesde'];
+			$Marteshasta = $_POST['Marteshasta'];
+			$Miercolesdesde = $_POST['Miercolesdesde'];
+			$Miercoleshasta = $_POST['Miercoleshasta'];
+			$Juevesdesde = $_POST['Juevesdesde'];
+			$Jueveshasta = $_POST['Jueveshasta'];
+			$Viernesdesde = $_POST['Viernesdesde'];
+			$Vierneshasta = $_POST['Vierneshasta'];
+			$Sabadodesde = $_POST['Sabadodesde'];
+			$Sabadohasta = $_POST['Sabadohasta'];
+			//Ejecucion de Query de Datos Personales
+			$DatosPersonalesAcademicos = $this->modelo->datosPersonales($Usuario,$Nombre,$ApellidoP,$ApellidoM,$Universidad,$Carrera,$Promedio,$Estado,$Porcentaje,$TiempoRestante,$Lapso);
+			//Querys para guardar los horarios
+			$this->modelo->guardaHorario($Usuario,'Lunes',$Lunesdesde,$Luneshasta);
+			$this->modelo->guardaHorario($Usuario,'Martes',$Martesdesde,$Marteshasta);
+			$this->modelo->guardaHorario($Usuario,'Miercoles',$Miercolesdesde,$Miercoleshasta);
+			$this->modelo->guardaHorario($Usuario,'Jueves',$Juevesdesde,$Jueveshasta);
+			$this->modelo->guardaHorario($Usuario,'Viernes',$Viernesdesde,$Vierneshasta);
+			$this->modelo->guardaHorario($Usuario,'Sabado',$Sabadodesde,$Sabadohasta);
+			//Query para Guardar los Telefonos
+			$this->modelo->guardaTelefonos($Usuario,$Telefonos);
+			//Query para Guardar las Redes Sociales
+			$this->modelo->guardaRedes($Usuario,$Telefonos);
+			if ($DatosPersonalesAcademicos) {
+				$this->modelo->actualizaEstatus($Usuario,'1');
+				carga_inicio();
 			}
+			else
+				echo "VALIO VERGA ALGO ";
 		}
 
 		function eventosProximos()
@@ -234,7 +287,6 @@
 		{
 			session_unset();
 			session_destroy();
-			
 			setcookie(session_name(), '', time()-3600);
 		}
 	}
