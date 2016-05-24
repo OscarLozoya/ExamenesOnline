@@ -51,6 +51,10 @@
 		function agregar()
 		{
 			$vista = file_get_contents('app/vistas/AgregarPregunta.php');
+			if(esAdmin())
+				$menu=file_get_contents('app/vistas/MenuAdmin.php');
+			else if (esModerador())
+				$menu = file_get_contents('app/vistas/MenuMod.php');
 			$header=file_get_contents('app/vistas/Header.php');
 			$footer=file_get_contents('app/vistas/Footer.php');
 
@@ -89,13 +93,17 @@
 				$vista = str_replace($fila, '', $vista);
 				$vista = str_replace('{accion}', 'index.php?controlador=pregunta&accion=agregar', $vista);
 			}
-			$vista = $header .  $vista . $footer;
+			$vista = $header . $menu . $vista . $footer;
 			echo $vista;
 		}
 
 		function buscar()
 		{
 			$vista = file_get_contents('app/vistas/BuscarPregunta.php');
+			if(esAdmin())
+				$menu=file_get_contents('app/vistas/MenuAdmin.php');
+			else if (esModerador())
+				$menu = file_get_contents('app/vistas/MenuMod.php');
 			$header=file_get_contents('app/vistas/Header.php');
 			$footer=file_get_contents('app/vistas/Footer.php');
 
@@ -138,7 +146,7 @@
 			else
 				$vista = str_replace($fila, '', $vista);
 
-			$vista = $header.$vista.$footer;
+			$vista = $header.$menu.$vista.$footer;
 			echo $vista;
 		}
 
@@ -146,7 +154,10 @@
 		{
 			$header=file_get_contents('app/vistas/Header.php');
 			$footer=file_get_contents('app/vistas/Footer.php');
-
+			if(esAdmin())
+				$menu=file_get_contents('app/vistas/MenuAdmin.php');
+			else if (esModerador())
+				$menu = file_get_contents('app/vistas/MenuMod.php');
 			if(empty($_POST))
 			{
 				$vista = file_get_contents('app/vistas/AgregarPregunta.php');
@@ -240,13 +251,17 @@
 					$vista = str_replace($fila, $result, $vista);
 			}
 
-			$vista = $header.$vista.$footer;
+			$vista = $header.$menu.$vista.$footer;
 			echo $vista;
 		}
 
 		function eliminar()
 		{
 			$vista = file_get_contents('app/vistas/BuscarPregunta.php');
+			if(esAdmin())
+				$menu=file_get_contents('app/vistas/MenuAdmin.php');
+			else if (esModerador())
+				$menu = file_get_contents('app/vistas/MenuMod.php');
 			$header=file_get_contents('app/vistas/Header.php');
 			$footer=file_get_contents('app/vistas/Footer.php');
 
@@ -272,7 +287,7 @@
 			else
 				$vista = str_replace($fila, '', $vista);
 
-			$vista = $header.$vista.$footer;
+			$vista = $header.$menu.$vista.$footer;
 			echo $vista;
 		}
 

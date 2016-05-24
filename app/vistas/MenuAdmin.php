@@ -23,15 +23,15 @@
             <a class="dropdown-toggle" data-toggle="dropdown" href="#">Preguntas <span class="caret"></span></a>
             <ul class="dropdown-menu">
               <li><a href="index.php?controlador=pregunta&accion=agregar">Nueva</a></li>
-              <li><a href="index.php?controlador=pregunta&accion=modificar">Modificar</a></li>
-              <li><a href="index.php?controlador=pregunta&accion=eliminar">Eliminar</a></li>
+              <li><a href="index.php?controlador=pregunta&accion=buscar">Modificar</a></li>
+              <li><a href="index.php?controlador=pregunta&accion=buscar">Eliminar</a></li>
             </ul>
           </li>
           <li class="dropdown">
             <a class="dropdown-toggle" data-toggle="dropdown" href="#">Examenes <span class="caret"></span></a>
             <ul class="dropdown-menu">
               <li><a href="index.php?controlador=examen&accion=crear">Nuevo</a></li>
-              <li><a href="index.php?controlador=examen&accion=modificar">Modificar</a></li>
+              <li><a href="index.php?controlador=examen&accion=eliminar">Modificar</a></li>
               <li><a href="index.php?controlador=examen&accion=eliminar">Eliminar</a></li>
             </ul>
           </li>

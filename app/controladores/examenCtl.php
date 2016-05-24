@@ -33,9 +33,6 @@
 							else
 								$this->eliminar();
 							break;
-						case 'vista':
-							$this->vista();
-							break;
 						default:
 							carga_inicio();
 							break;
@@ -43,7 +40,10 @@
 				}
 				else
 				{
-					carga_inicio();
+					if($_GET['accion']=='vista')
+						$this->vista();
+					else
+						carga_inicio();
 				}
 			}
 			else
@@ -56,7 +56,10 @@
 		{
 			//Cargamos los archivos necesarios para la vista 
 			$vista=file_get_contents('app/vistas/CrearExamen.php');
-			$menu=file_get_contents('app/vistas/MenuAdmin.php');
+			if(esAdmin())
+				$menu=file_get_contents('app/vistas/MenuAdmin.php');
+			else if (esModerador())
+				$menu = file_get_contents('app/vistas/MenuMod.php');
 			$header=file_get_contents('app/vistas/Header.php');
 			$footer=file_get_contents('app/vistas/Footer.php');
 
@@ -89,7 +92,10 @@
 		{
 			//Cargamos los archivos necesarios para la vista 
 			$vista=file_get_contents('app/vistas/CrearExamen.php');
-			$menu=file_get_contents('app/vistas/MenuAdmin.php');
+			if(esAdmin())
+				$menu=file_get_contents('app/vistas/MenuAdmin.php');
+			else if (esModerador())
+				$menu = file_get_contents('app/vistas/MenuMod.php');
 			$header=file_get_contents('app/vistas/Header.php');
 			$footer=file_get_contents('app/vistas/Footer.php');
 
@@ -125,7 +131,10 @@
 		{
 			//Cargamos los archivos necesarios para la vista 
 			$vista=file_get_contents('app/vistas/ModElimExamen.php');
-			$menu=file_get_contents('app/vistas/MenuAdmin.php');
+			if(esAdmin())
+				$menu=file_get_contents('app/vistas/MenuAdmin.php');
+			else if (esModerador())
+				$menu = file_get_contents('app/vistas/MenuMod.php');
 			$header=file_get_contents('app/vistas/Header.php');
 			$footer=file_get_contents('app/vistas/Footer.php');
 
@@ -170,13 +179,13 @@
 			$inicia_fila = strrpos($vista,'<tr>');
 			$termina_fila = strrpos($vista,'</tr>')+5;
 			$fila = substr($vista,$inicia_fila,$termina_fila-$inicia_fila);
-
+			$filas='';
 			$Diccionario = array(
 				'{Categoria}' => 'POO',
 				'{No. Pregunta}' => '5',
 				'{Total preguntas}' => '8',
 				'{Pregunta}' => '¿Nos va a Pasar?',
-				'{Respuesta}' => '<form><input type="radio">Si<br><input type="radio">No<br></form>',
+				'{Respuesta}' => '<form><input type="radio"name="option">Si<br><input type="radio" name="option">No<br></form>',
 				 );
 			for ($i=1; $i <=9; $i+=3) { 
 				$new_fila = $fila;
@@ -205,6 +214,10 @@
 			{
 				//Cargamos los archivos necesarios para la vista 
 				$vista=file_get_contents('app/vistas/ModElimExamen.php');
+				if(esAdmin())
+					$menu=file_get_contents('app/vistas/MenuAdmin.php');
+				else if (esModerador())
+					$menu = file_get_contents('app/vistas/MenuMod.php');
 				$header=file_get_contents('app/vistas/Header.php');
 				$footer=file_get_contents('app/vistas/Footer.php');
 				//Guardamos los valores obtenidos por POST 
@@ -244,7 +257,7 @@
 					//Si no mostramos un mensaje
 					$vista = str_replace($fila, '<p>No se encontro el examen</p>', $vista);
 				}
-				$vista = $header.$vista.$footer;
+				$vista = $header.$menu.$vista.$footer;
 				echo $vista;
 			}
 		}
