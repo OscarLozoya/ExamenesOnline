@@ -54,14 +54,68 @@
 
 		function crear()
 		{
-			if(empty($_POST))
-				require_once('app/vistas/CrearExamen.php');
+			//Cargamos los archivos necesarios para la vista 
+			$vista=file_get_contents('app/vistas/CrearExamen.php');
+			$menu=file_get_contents('app/vistas/MenuAdmin.php');
+			$header=file_get_contents('app/vistas/Header.php');
+			$footer=file_get_contents('app/vistas/Footer.php');
+
+			//Mostramos las categorías que están registradas en la base de datos, esto se hace cada que ingresa a la pagina
+			$categoria = $this->modelo->obtenerCategorias();
+			$vista = $this->llenarCategoria($categoria,$vista);
+			$ultimo = $this->modelo->buscarUltimo();
+			$vista = $this->llenarID($ultimo,$vista);
+
+			if(!empty($_POST))
+			{
+				$categoria = $_POST['categoria'];
+				$cantidadPreguntas = $_POST['cantidadPreguntas'];
+				$tiempoLimite = $_POST['tiempoLimite'];
+				$calificacionMinima = $_POST['calificacionMinima'];
+				$nombreExamen = $_POST['nombreExamen'];
+
+				$result = $this->modelo->crear('4', $cantidadPreguntas, $tiempoLimite, $calificacionMinima, $nombreExamen);
+				//Si se regresa TRUE de la eliminación mostramos éxito, de lo contrario mostramos lo que nos regrese el modelo
+				if($result)
+					echo 'Se agrego correctamente';
+				else
+					echo $result;
+			}
+			$vista = $header . $menu . $vista . $footer;
+			echo $vista;
 		}
 
 		function modificar()
 		{
-			if(empty($_POST))
-				require_once('app/vistas/ModElimExamen.php');
+			//Cargamos los archivos necesarios para la vista 
+			$vista=file_get_contents('app/vistas/CrearExamen.php');
+			$menu=file_get_contents('app/vistas/MenuAdmin.php');
+			$header=file_get_contents('app/vistas/Header.php');
+			$footer=file_get_contents('app/vistas/Footer.php');
+
+			//Mostramos las categorías que están registradas en la base de datos, esto se hace cada que ingresa a la pagina
+			$categoria = $this->modelo->obtenerCategorias();
+			$vista = $this->llenarCategoria($categoria,$vista);
+			$ultimo = $this->modelo->buscarUltimo();
+			$vista = $this->llenarID($ultimo,$vista);
+
+			if(!empty($_POST))
+			{
+				$categoria = $_POST['categoria'];
+				$cantidadPreguntas = $_POST['cantidadPreguntas'];
+				$tiempoLimite = $_POST['tiempoLimite'];
+				$calificacionMinima = $_POST['calificacionMinima'];
+				$nombreExamen = $_POST['nombreExamen'];
+
+				$result = $this->modelo->crear('4', $cantidadPreguntas, $tiempoLimite, $calificacionMinima, $nombreExamen);
+				//Si se regresa TRUE de la eliminación mostramos éxito, de lo contrario mostramos lo que nos regrese el modelo
+				if($result)
+					echo 'Se agrego correctamente';
+				else
+					echo $result;
+			}
+			$vista = $header . $menu . $vista . $footer;
+			echo $vista;
 		}
 
 		/**
@@ -220,6 +274,26 @@
 			else
 			{
 				$vista = str_replace($option,'', $vista);
+			}
+			return $vista;
+		}
+		function llenarID($ID,$vista)
+		{
+			$inicio_ID= strrpos($vista, '<input id="id"');
+			$fin_ID = strrpos($vista, '</div>') + 7;
+			$input = substr($vista, $inicio_ID,$fin_ID-$inicio_ID);
+			if(isset($ID))
+			{
+				$nuevoInput = $input;
+				$diccionario = array('{ID}' => $ID);
+				$nuevoInput = strtr($nuevoInput,$diccionario);
+
+				$vista = str_replace($input, $nuevoInput, $vista);
+			}
+
+			else
+			{
+				$vista = str_replace($input,'', $vista);
 			}
 			return $vista;
 		}

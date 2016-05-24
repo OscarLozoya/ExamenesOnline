@@ -1,7 +1,4 @@
 <?php include("Header.php");?>
-<div class="form-group">
-	<label class="label-control">Historial de Navegación</label>
-</div>
 <?php include("MenuAdmin.php"); ?>
 
 <br>
