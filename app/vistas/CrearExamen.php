@@ -10,12 +10,12 @@
 					<div class="form-group">
 						<label for="id" class="col-md-1 control-label">ID: </label>
 						<div class="col-md-1">
-							<input id="id" name="ID" type="text" value="{ID}" disabled class="form-control" placeholder="18">
+							{inicio_idExamen}<input id="id" name="ID" type="text" value="{ID}" disabled class="form-control" placeholder="18">{fin_idExamen}
 						</div>
 						<label for="categoria" class="col-md-1 control-label">Categoría: </label>
 						<div class="col-md-2">
 							<select id="categoria" name="categoria" class="form-control" onchange="CambioAlgo('categoria')">
-								<option>{Categoria}</option>
+								{inicio_categoria}<option value="{ID_Categoria}">{Categoria}</option>{fin_categoria}
 							</select>
 						</div>
 						<label for="cantidad_preguntas" class="col-md-2 control-label">Cantidad Preguntas:</label>

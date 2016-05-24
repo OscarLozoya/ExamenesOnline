@@ -132,13 +132,14 @@ class ExamenMdl
 		$array = null;
 		if($this->driver->connect_errno)
 			return false;
-		if($stmt=$this->driver->prepare("SELECT Nombre FROM Categoria"))
+		if($stmt=$this->driver->prepare("SELECT ID,Nombre FROM Categoria"))
 		{
 			$stmt->execute();
-			$stmt->bind_result($Nombre);
+			$stmt->bind_result($ID_Categoria,$Nombre_Categoria);
 			while($stmt->fetch())
 			{
-				$array[] = $Nombre;
+				$array[] = array('ID_Categoria' => $ID_Categoria, 
+								'Nombre_Categoria' => $Nombre_Categoria);
 			}
 			$stmt->close();
 		}
