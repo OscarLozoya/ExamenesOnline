@@ -165,5 +165,95 @@ class ExamenMdl
 		else
 			return $ultimo;
 	}
+
+	function Examen($ID)
+	{
+		$array = null;
+		if($this->driver->connect_errno)
+			return false;
+		$DetalleExamen = null;
+		$Num_Preguntas = 0;
+		$ID_Categoria = 0;
+		if($stmt = $this->driver->prepare("SELECT ID_Categoria,Nombre,Duracion,Num_Preguntas,Calificacion_Min 
+										FROM Preguntas
+										WHERE ID=?"))
+		{
+			$ID = $this->driver->real_escape_string($ID);
+			$stmt->bind_param("i",$ID);
+			if(!$stmt->execute())
+				return $stmt->error;
+			$stmt->bind_result($ID_Categoria,$Nombre,$Duracion,$Num_Preguntas,$Calificacion_Min);
+			$stmt->fetch();
+			$DetalleExamen[] = array('Nombre' => $Nombre,
+							'Duracion' => $Duracion,
+							'Num_Preguntas' => $Num_Preguntas,
+							'Calificacion_Min' => $Calificacion_Min,
+							'ID_Categoria' => $ID_Categoria);
+			$stmt->close();
+		}
+
+		$Preguntas = null;
+		$MaxID = 0;
+		if($stmt = $this->driver->prepare("SELECT MAX(ID) FROM Pregunta"))
+		{
+			if(!$stmt->execute())
+				return $stmt->error;
+			$stmt->bind_result($MaxID);
+			$stmt->fetch();
+			$stmt->close();
+
+		}
+
+		for ($i=0; $i < $Num_Preguntas; $i++) 
+		{ 
+			$ID_Pregunta = rand(1,$MaxID);
+			if($stmt = $this->driver->prepare("SELECT p.Descripcion,p.Tipo 
+											FROM Pregunta p INNER JOIN Pregunta_Categoria c 
+											on c.Id_Pregunta=p.ID 
+											WHERE ID=? and c.ID_Categoria=?"))
+			{
+				$ID_Pregunta = $this->driver->real_escape_string($ID_Pregunta);
+				$ID_Categoria = $this->driver->real_escape_string($ID_Categoria);
+				$stmt->bind_param("ii",$ID_Pregunta,$ID_Categoria);
+				if(!$stmt->execute())
+					return $stmt->error;
+				$stmt->bind_result($Descripcion,$Tipo);
+				if($stmt->fetch())
+				{
+					if($Tipo==1)
+					{
+						$resp = "";
+						if($stmt2 = $this->driver->prepare("SELECT r.Descripcion 
+															FROM Detalle_Pregunta r INNER JOIN Pregunta p
+															ON r.ID_Pregunta=p.ID
+															WHERE r.ID_Pregunta=?"))
+						{
+							$ID_Pregunta = $this->driver->real_escape_string($ID_Pregunta);
+							$stmt2->bind_param("i",$bind_param);
+							if(!$stmt2->execute())
+								return $stmt2->error;
+							$stmt2->bind_result($DescripcionRespuesta);
+							while ($stmt2->fetch()) {
+								$resp .= '<input type="checkbox" name="'.$ID_Pregunta.'">'.$DescripcionRespuesta.'<br>';
+							}
+							$Preguntas[] = array('Descripcion' => $Descripcion,
+											'Respuesta' => $resp);
+						}
+					}
+					else
+						$Preguntas[] = array('Descripcion' => $Descripcion,
+											'Respuesta' => '<input name="'.$ID_Pregunta.'">');
+				}
+				else
+					$i--;
+				$stmt->close();
+			}
+			
+		}
+
+		$array[]=array('Examen' => $DetalleExamen,
+						'Preguntas' =>$Preguntas);
+		return $array;
+	}
 }
 ?>
