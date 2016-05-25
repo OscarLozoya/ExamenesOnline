@@ -33,6 +33,9 @@
 							else
 								$this->eliminar();
 							break;
+						case 'vista':
+							$this->vista();
+							break;
 						default:
 							carga_inicio();
 							break;
@@ -40,10 +43,7 @@
 				}
 				else
 				{
-					if($_GET['accion']=='vista')
-						$this->vista();
-					else
-						carga_inicio();
+					carga_inicio();
 				}
 			}
 			else
@@ -54,36 +54,46 @@
 
 		function crear()
 		{
-			//Cargamos los archivos necesarios para la vista 
-			$vista=file_get_contents('app/vistas/CrearExamen.php');
+			//Cargamos el menú según sea el tipo de usuario 
 			if(esAdmin())
 				$menu=file_get_contents('app/vistas/MenuAdmin.php');
-			else if (esModerador())
-				$menu = file_get_contents('app/vistas/MenuMod.php');
-			$header=file_get_contents('app/vistas/Header.php');
+			else 
+				$menu=file_get_contents('app/vistas/MenuMod.php');
+			//Cargamos los archivos necesarios para la vista
 			$footer=file_get_contents('app/vistas/Footer.php');
+			$header=file_get_contents('app/vistas/Header.php');
+			$vista=file_get_contents('app/vistas/CrearExamen.php');
 
 			//Mostramos las categorías que están registradas en la base de datos, esto se hace cada que ingresa a la pagina
 			$categoria = $this->modelo->obtenerCategorias();
 			$vista = $this->llenarCategoria($categoria,$vista);
+			//Buscamos el ID del ultimo elemento para mostrarlo en el campo ID
 			$ultimo = $this->modelo->buscarUltimo();
 			$vista = $this->llenarID($ultimo,$vista);
+			$vista=str_replace('{nombreExamen}', '', $vista);
+			$vista=str_replace('{inicio_idExamen}', '', $vista);
+			$vista=str_replace('{fin_idExamen}', '', $vista);
 
-			if(!empty($_POST))
+			//Si el usuario ha completado el formulario trabajamos con los datos que ingreso, en caso contrario mostramos el formulario para ser completado
+			if(!empty($_POST['nombreExamen']))
 			{
+				//Obtenemos los valores del formulario y los pasamos a la funcion del modelo para ser trabajados
 				$categoria = $_POST['categoria'];
 				$cantidadPreguntas = $_POST['cantidadPreguntas'];
 				$tiempoLimite = $_POST['tiempoLimite'];
 				$calificacionMinima = $_POST['calificacionMinima'];
 				$nombreExamen = $_POST['nombreExamen'];
 
-				$result = $this->modelo->crear('4', $cantidadPreguntas, $tiempoLimite, $calificacionMinima, $nombreExamen);
-				//Si se regresa TRUE de la eliminación mostramos éxito, de lo contrario mostramos lo que nos regrese el modelo
+				$result = $this->modelo->crear($categoria, $cantidadPreguntas, $tiempoLimite, $calificacionMinima, $nombreExamen);
+				//Si se regresa TRUE de la eliminación mostramos éxito, de lo contrario mostramos el error 
 				if($result)
+				{
 					echo 'Se agrego correctamente';
+				}
 				else
 					echo $result;
 			}
+			//Concatenamos los archivos necesarios para la ventana y mostramos la vista
 			$vista = $header . $menu . $vista . $footer;
 			echo $vista;
 		}
@@ -91,34 +101,36 @@
 		function modificar()
 		{
 			//Cargamos los archivos necesarios para la vista 
-			$vista=file_get_contents('app/vistas/CrearExamen.php');
-			if(esAdmin())
-				$menu=file_get_contents('app/vistas/MenuAdmin.php');
-			else if (esModerador())
-				$menu = file_get_contents('app/vistas/MenuMod.php');
+			$vista=file_get_contents('app/vistas/ModElimExamen.php');
+			$menu=file_get_contents('app/vistas/MenuAdmin.php');
 			$header=file_get_contents('app/vistas/Header.php');
 			$footer=file_get_contents('app/vistas/Footer.php');
 
 			//Mostramos las categorías que están registradas en la base de datos, esto se hace cada que ingresa a la pagina
 			$categoria = $this->modelo->obtenerCategorias();
 			$vista = $this->llenarCategoria($categoria,$vista);
-			$ultimo = $this->modelo->buscarUltimo();
-			$vista = $this->llenarID($ultimo,$vista);
 
-			if(!empty($_POST))
+			//Buscamos la fila en la tabla para mostrar posibles mensajes del modelo
+			$inicio_fila = strrpos($vista,'<tr>');
+			$fin_fila = strrpos($vista, '</tr>')+5;
+			$fila = substr($vista,$inicio_fila,$fin_fila-$inicio_fila);
+
+
+			if(empty($_POST))
 			{
-				$categoria = $_POST['categoria'];
-				$cantidadPreguntas = $_POST['cantidadPreguntas'];
-				$tiempoLimite = $_POST['tiempoLimite'];
-				$calificacionMinima = $_POST['calificacionMinima'];
-				$nombreExamen = $_POST['nombreExamen'];
-
-				$result = $this->modelo->crear('4', $cantidadPreguntas, $tiempoLimite, $calificacionMinima, $nombreExamen);
+				//Si no se recibió nada por POST borramos la fila con las llaves 
+				$vista = str_replace($fila, '', $vista);
+			}
+			else
+			{
+				$ID = '';
+				$ID = $_POST['id-eliminar'];
+				$result = $this->modelo->eliminar($ID);
 				//Si se regresa TRUE de la eliminación mostramos éxito, de lo contrario mostramos lo que nos regrese el modelo
-				if($result)
-					echo 'Se agrego correctamente';
+				if($result == 1)
+					$vista = str_replace($fila, '<p>Se elimino correctamente</p>', $vista);
 				else
-					echo $result;
+					$vista = str_replace($fila, $result, $vista);
 			}
 			$vista = $header . $menu . $vista . $footer;
 			echo $vista;
@@ -131,10 +143,7 @@
 		{
 			//Cargamos los archivos necesarios para la vista 
 			$vista=file_get_contents('app/vistas/ModElimExamen.php');
-			if(esAdmin())
-				$menu=file_get_contents('app/vistas/MenuAdmin.php');
-			else if (esModerador())
-				$menu = file_get_contents('app/vistas/MenuMod.php');
+			$menu=file_get_contents('app/vistas/MenuAdmin.php');
 			$header=file_get_contents('app/vistas/Header.php');
 			$footer=file_get_contents('app/vistas/Footer.php');
 
@@ -179,13 +188,13 @@
 			$inicia_fila = strrpos($vista,'<tr>');
 			$termina_fila = strrpos($vista,'</tr>')+5;
 			$fila = substr($vista,$inicia_fila,$termina_fila-$inicia_fila);
-			$filas='';
+
 			$Diccionario = array(
 				'{Categoria}' => 'POO',
 				'{No. Pregunta}' => '5',
 				'{Total preguntas}' => '8',
 				'{Pregunta}' => '¿Nos va a Pasar?',
-				'{Respuesta}' => '<form><input type="radio"name="option">Si<br><input type="radio" name="option">No<br></form>',
+				'{Respuesta}' => '<form><input type="radio">Si<br><input type="radio">No<br></form>',
 				 );
 			for ($i=1; $i <=9; $i+=3) { 
 				$new_fila = $fila;
@@ -214,10 +223,6 @@
 			{
 				//Cargamos los archivos necesarios para la vista 
 				$vista=file_get_contents('app/vistas/ModElimExamen.php');
-				if(esAdmin())
-					$menu=file_get_contents('app/vistas/MenuAdmin.php');
-				else if (esModerador())
-					$menu = file_get_contents('app/vistas/MenuMod.php');
 				$header=file_get_contents('app/vistas/Header.php');
 				$footer=file_get_contents('app/vistas/Footer.php');
 				//Guardamos los valores obtenidos por POST 
@@ -257,7 +262,7 @@
 					//Si no mostramos un mensaje
 					$vista = str_replace($fila, '<p>No se encontro el examen</p>', $vista);
 				}
-				$vista = $header.$menu.$vista.$footer;
+				$vista = $header.$vista.$footer;
 				echo $vista;
 			}
 		}
@@ -270,15 +275,16 @@
 		*/
 		function llenarCategoria($categoria,$vista)
 		{
-			$inicio_categoria = strrpos($vista, '<option>');
-			$fin_categoria = strrpos($vista, '</option>') + 9;
+			$inicio_categoria = strrpos($vista, '{inicio_categoria}');
+			$fin_categoria = strrpos($vista, '{fin_categoria}') + 14;
 			$option = substr($vista, $inicio_categoria,$fin_categoria-$inicio_categoria);
 			$options = '';
 			if(isset($categoria))
 			{
 				foreach ($categoria as $row) {
 					$newOption=$option;
-					$diccionario= array('{Categoria}' => $row);
+					$diccionario = array('{Categoria}' => $row['Nombre_Categoria'],
+											'{ID_Categoria}' => $row['ID_Categoria']);
 					$newOption=strtr($newOption,$diccionario);
 					$options .= $newOption;
 				}
@@ -292,8 +298,8 @@
 		}
 		function llenarID($ID,$vista)
 		{
-			$inicio_ID= strrpos($vista, '<input id="id"');
-			$fin_ID = strrpos($vista, '</div>') + 7;
+			$inicio_ID= strrpos($vista, '{inicio_idExamen}');
+			$fin_ID = strrpos($vista, '{fin_idExamen}') + 14;
 			$input = substr($vista, $inicio_ID,$fin_ID-$inicio_ID);
 			if(isset($ID))
 			{
@@ -312,3 +318,4 @@
 		}
 	}
  ?>
+

@@ -92,9 +92,9 @@ class ExamenMdl
 		if($this->driver->connect_errno)
 			return false;
 		//Se prepara el Query, los signos ? se sustituyen por las variables
-		if($stmt = $this->driver->prepare("SELECT e.ID,e.Nombre, c.Nombre, e.Duracion, e.Num_Preguntas,e.Calificacion_Min 
+		if($stmt = $this->driver->prepare("SELECT distinct e.ID,e.Nombre, c.Nombre, e.Duracion, e.Num_Preguntas,e.Calificacion_Min 
 			FROM Examen e INNER JOIN Categoria c 
-			on e.ID = ? OR e.Nombre like ? OR c.Nombre=? and c.ID=e.ID_Categoria"))
+			on c.ID = e.ID_Categoria WHERE e.Nombre like ? OR c.Nombre=? OR c.ID = ?;"))
 		{
 			//Se limpian las variables para evitar inyecciones de SQL
 			$ID = $this->driver->real_escape_string($ID);
@@ -103,7 +103,7 @@ class ExamenMdl
 			//se agrega los % para usar la función like de SQL
 			$parametroNombre='%'.$Nombre.'%';
 			//se sustituye los ? por las variables, especificando el tipo de dato, i=integer,s=string, etc.
-			$stmt->bind_param("iss",$ID,$parametroNombre,$Categoria);
+			$stmt->bind_param("iss",$parametroNombre,$Categoria,$ID);
 			//se ejecuta el query
 			$stmt->execute();
 			//se establecen las variables donde se guardan los resultados de la ejecución, deben de coincidir con el numero de columnas que te devuelve el query
@@ -132,13 +132,14 @@ class ExamenMdl
 		$array = null;
 		if($this->driver->connect_errno)
 			return false;
-		if($stmt=$this->driver->prepare("SELECT Nombre FROM Categoria"))
+		if($stmt=$this->driver->prepare("SELECT ID,Nombre FROM Categoria"))
 		{
 			$stmt->execute();
-			$stmt->bind_result($Nombre);
+			$stmt->bind_result($ID_Categoria,$Nombre_Categoria);
 			while($stmt->fetch())
 			{
-				$array[] = $Nombre;
+				$array[] = array('ID_Categoria' => $ID_Categoria, 
+								'Nombre_Categoria' => $Nombre_Categoria);
 			}
 			$stmt->close();
 		}
