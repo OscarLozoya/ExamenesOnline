@@ -1,7 +1,7 @@
 <?php include("Header.php"); ?>
 
 <?php include("MenuAdmin.php"); ?>
-	<form name="creandoexamen" action="index.php?controlador=examen&accion=crear" method="post">
+	<form name="creandoexamen" action="index.php?controlador=examen&accion=crear&response=buscar" method="post" onsubmit="return Buscar()">
 	<section class="container-fluid lines">
 		<article class="jumbotron">
 			<div class="form-horizontal well">
@@ -58,9 +58,55 @@
 						</div>
 					</div>
 				</fieldset>
+					<fieldset>
+					<legend>Asignación de Exámen</legend>
+					<div class="form-group">
+						<label for="nombreUsuario" class="col-md-5 control-label">Nombre Usuario:</label>
+						<div class="col-md-5">
+							<input id="nombreUsuario" name="nombreUsuario" type="text" class="form-control" placeholder="user56">
+						</div>
+						<label id="MensajeBuscar" class="Warning">*Debes de escribir un nombre de usuario</label>
+						<div class="col-md-2">
+							<button type="submit" class="btn btn-primary">Buscar</button>
+						</div>
+					</div>
+					<form action="index.php?controlador=examen&accion=crear" class="form-horizontal" method="POST" onsubmit="return asignarExamen()">
+					<div class="table-responsive">
+					<input type="hidden" name="id-usuario" id="id-usuario" value="{id-usuario}">
+					<table class="table table-hover" id="usuario" onmouseup="CambioExamen()">
+					<thead>
+						<tr>
+							<th>ID</th>
+							<th>Nombre</th>
+							<th>Categoria</th>
+							<th>Total Preguntas</th>
+							<th>Tiempo (min)</th>
+							<th>Calificación minima</th>
+							<th>Selección</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>{ID}</td>
+							<td>{Nombre}</td>
+							<td>{Categoria}</td>
+							<td>{Preguntas}</td>
+							<td>{Tiempo}</td>
+							<td>{Calificacion}</td>
+							<td><input name="seleccion" type="checkbox"></td>
+						</tr>
+					</tbody>
+				</table>
+				</div>
+				<div class="form-group row">
+					<label id="MensajeAsignar" class="Warning">*Debes de seleccionar un usuario</label>
+					<div class="col-xs-2 col-xs-offset-10">
+						<button class="btn btn-primary" type="submit">Asignar</button>
+					</div>
+				</div>
+				</fieldset>
 			</div>
 		</article>
 	</section>
-	</form>
 <script type="text/javascript" src="js/ValidacionesCrearExamen.js"></script>
 <?php include("Footer.php"); ?>

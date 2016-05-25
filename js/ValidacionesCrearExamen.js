@@ -144,3 +144,51 @@ function CambioAlgo(cambio)
 			break;	
 	}
 }
+function asignarExamen()
+{
+	var usuario=$('table#usuario tbody tr td input'),
+		findUsuario=false,
+		id='';
+	if(usuario.size()>0)
+	{
+		for (var i = 0; i < usuario.size(); i++) {
+			if(usuario.eq(i).prop("checked"))
+			{
+				id+=usuario.eq(i).parent().parent().children('td')[0].innerHTML+',';
+				findUsuario=true;
+			}
+		}
+		if(!findUsuario)
+		{
+			$('label#MensajeAsignar').css('display','block');
+			usuario.focus();
+			return false;
+		}
+		else
+		{
+			$('input#id-usuario').val(id);
+			return true;
+		}
+	}
+	else
+	{
+		$('label#MensajeAsignar').css('display','block');
+		usuario.focus();
+		return false;
+	}
+}
+/**
+*Oculta el mensaje de error cuando quiere buscar algun examen.
+*/
+function CambioControl()
+{
+	$('label#MensajeBuscar').css('display','none');
+}
+
+/**
+*Oculta el mensaje de error cuando quiere eliminar un examen.
+*/
+function CambioUsuario()
+{
+	$('label#MensajeAsignar').css('display','none');
+}

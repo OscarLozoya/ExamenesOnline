@@ -21,7 +21,7 @@
 			</div>
 			<div class="col-xs-12 col-md-3">
 				<select class="form-control" id="categoria" name="categoria" onchange="CambioControl()">
-					<option>{Categoria}</option>
+					{inicio_categoria}<option>{Categoria}</option>{fin_categoria}
 				</select>
 			</div>
 		</div>
