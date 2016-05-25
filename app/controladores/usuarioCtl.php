@@ -15,61 +15,105 @@
 			{
 				if(isset($_GET['accion']))
 				{
-					if(esAdmin()||esModerador()||esUsuario())
+					if(esAdmin())
 					{
-					switch($_GET['accion']){
-						case 'Alta'://Llamada del administrador para registrar en la plataforma
-							$this->Alta();
+						switch ($_GET['accion']) 
+						{
+							case 'Alta'://Llamada del administrador para registrar en la plataforma
+								$this->Alta();
 						  break;
-						case 'Baja'://Llamada del administrador para eliminar un usuario
-						  	$this->Baja();
-						  break;
-						case 'Perfil'://Llamada al perfil de otro usuario sin opcion a modificar
-						    $this->ConsultarPerfil();
-						  break;
-						case 'Modificar'://Llamada al perfil del usuario que esta logeado
-						    $this->MostrarPerfil();
-						  break;
-						 case 'MostarPerfil':
-						 	$this->MostrarPerfil();//Guarda en la BD los campos del perfil modificados
-						 	break;
-						case 'actualizarPerfil':
-							$this->actualizarPerfil();
-							break;
-						 case 'cambioContrasena':
-						 	$this->cambioContrasena();
-						 	break;
-						 case 'eventosProximos':
-						 	$this->eventosProximos();
-						 	break;
-						 case 'detalleExamen':
-						 	$this->detalleExamen();
-						 	break;
-						 case 'ingresar':
-						 	$this->ingresar();
-						 	break;
-						 case 'salir':
-						 	$this->salir();
-						 	carga_inicio();
-						 	break;
-						 default:
-							carga_inicio();
-							break;
+							case 'Baja'://Llamada del administrador para eliminar un usuario
+							  	$this->Baja();
+							  break;
+							case 'Modificar'://Llamada del administrador para modificar eltipo de un usuario
+							  	$this->Modificar();
+							  break;
+							case 'verPerfil'://Llamada al perfil de otro usuario sin opcion a modificar antes 'Perfil'
+							    $this->ConsultarPerfil();
+							  break;
+							case 'MostarPerfil'://Llamada al perfil del administrador
+							    $this->MostrarPerfil();
+							  break;
+							case 'ModificarPerfil':
+							 		$this->ModificarPerfil();//Guarda en la BD los campos del perfil modificados se acciona con el boton de actualizar campos
+							 	break;
+							case 'salir':
+								 	$this->salir();
+								 	carga_inicio();
+							 	break;
+							default://Si existe alguna incongruencia manda al inicio del usuario
+								carga_inicio();
+								break;
+						}
 					}
-				}
-				else //Sentencia else en caso de que no sea un administrador, moderador o usuario, nos muestra la página de inicio segun sea el caso
-					carga_inicio();
+					if(esModerador() || esUsuario())
+					{
+						switch ($_GET['accion']) 
+						{
+							case 'verPerfil'://Llamada al perfil de otro usuario sin opcion a modificar antes 'Perfil'
+						    $this->ConsultarPerfil();
+						    break;
+							case 'MostarPerfil'://Llamada al perfil del usuario
+							    $this->MostrarPerfil();
+							  break;
+							case 'ModificarPerfil':
+							 		$this->ModificarPerfil();//Guarda en la BD los campos del perfil modificados se acciona con el boton de actualizar campos
+							 	break;
+						  case 'detalleExamen'://Solo disponible para usuario normal
+						    if(esUsuario())
+						 			$this->detalleExamen();
+						 		else
+						 			carga_inicio();
+						 		break;
+							case 'salir':
+								 	$this->salir();
+								 	carga_inicio();
+							 	break;
+							default://Si existe alguna incongruencia manda al inicio del usuario
+								carga_inicio();
+								break;
+						}
+					}
 				}
 				else //Sentencia else en caso de que no se especifique una acción, nos muestra la página según seea el caso
 					carga_inicio();
 			}
-			else if($_GET['accion']=='Registro')//Llamada de un invitado para registrarse en la plataforma
-				$this->Registrar();
-			else 
-				if($_GET['accion']=='completarRegistro' && isset($_GET['response']))
-				$this->completarRegistro();
-			else //Sentencia else en caso de que no haya una sesion iniciada, para comprobar los datos e iniciar su sesion
-				$this->ingresar();
+			else
+			{//En caso de que no este logedo o sea un invitado o se un usuario no Activo
+				if(isset($_GET['accion']))
+				{
+					switch ($_GET['accion']) 
+					{
+						case 'ingresar':
+						 		$this->ingresar();
+						 	break;
+						case 'cambioContrasena':
+					 			$this->cambioContrasena();
+					 		break;
+					 	case 'Registro':
+					 			$this->Registrar();
+					 		break;
+					 	case 'completarRegistro':
+							 	if (isset($_GET['response'])) {
+							 		$this->completarRegistro();
+							 	}
+							 	else if (esNoActivo()){
+							 		$this->actualizarPerfil();
+							 	} 
+							 		
+							 	else
+							 		echo "Algo anda mal en usuarioCTL";
+							 	/*else
+							 		carga_inicio()*/
+					 		break;
+						default:
+								carga_inicio();
+							break;
+					}
+				}
+				else
+					carga_inicio();
+			}
 		}
 		/**Requiere documentar
 				*/
@@ -90,7 +134,7 @@
 				$tipo = $_POST['tipo'];
 				$estado = "0";
 				$this->modelo->alta($usuario,$correo,$token,$tipo,$estado);
-				echo '<p>Se agrego el usuario<p>';
+			//	echo '<p>Se agrego el usuario<p>';
 				require_once("app/vistas/AdminAbcUser.php");
 			}
 		} 
@@ -114,7 +158,7 @@
 				$Token .=Time();//Se crea el token para enviar por correo
 				$Tipo = "2";
 				$Estado = "0";
-				$result=$this->modelo->registrar($Usuario,$Correo,$Token,$Tipo,$Estado);//Se hace la peticion al modelo para que pre-registre y mande el mail al usuario
+				echo $result=$this->modelo->registrar($Usuario,$Correo,$Token,$Tipo,$Estado,'none');//Se hace la peticion al modelo para que pre-registre y mande el mail al usuario
 			  if ($result)//Según sea el resultado se muestra una label para dar instrucciones al usuario
 			  	$Dic1 = array('{label_exito}' => '<label class="col-xs-12"> Para completar tu Registro revisa tu correo electronico</label>');
 			  else
@@ -148,7 +192,6 @@
 			else{
 				
 			}
-
 		}
 
 		function MostrarPerfil()
@@ -191,26 +234,46 @@
 				else
 					carga_inicio();
 			}
+			else
+				carga_inicio();
 		}
 		/**
 		*
 		*/
-		function actualizarPerfil(){
+		function actualizarPerfil()
+		{
 			//Se toman todos los valores de los diferentes imputs de la vista completarRegistro/Perfil
 			$Usuario = $_SESSION['usuario'];
-			$Nombre = $_POST['Name'];
-			$ApellidoP = $_POST['ApellidoP'];
-			$ApellidoM = $_POST['ApellidoM'];
-			$Telefonos = $_POST['Telefonos'];
-			$Redes_Sociales = $_POST['RedSocial'];
-			$Universidad = $_POST['Universidad'];
-			$Carrera = $_POST['Carrera'];
-			$Promedio = $_POST['Promedio'];
-			$Estado = $_POST['Estado'];
-			$Porcentaje = $_POST['Porcentaje'];
-			$TiempoRestante = $_POST['TiempoRestante'];
-			$Lapso = $_POST['Lapso'];
-			$Lunesdesde = $_POST['Lunesdesde'];
+			if (!empty($_POST)) 
+			{
+				echo var_dump($_SESSION);
+				//Recuperacion de campos para la query de perfil
+				$Nombre = $_POST['Nombre'];
+				$ApellidoP = $_POST['ApellidoP'];
+				$ApellidoM = $_POST['ApellidoM'];
+				$Universidad = $_POST['Universidad'];
+				$Carrera = $_POST['Carrera'];
+				$Promedio = $_POST['Promedio'];
+				$Estado = $_POST['Estado'];
+				$Porcentaje = $_POST['Porcentaje'];
+				$TiempoRestante = $_POST['TiempoRestante'];
+				$Lapso = $_POST['Lapso'];
+				//Esta query solicita que se inserten los cambios que van en la tabla de  Perfil
+			  $DatosPersonalesAcademicos = $this->modelo->datosPersonales($Usuario,$Nombre,$ApellidoP,$ApellidoM,$Universidad,$Carrera,$Promedio,$Estado,$Porcentaje,$TiempoRestante,$Lapso);
+			  //Recuperacion de datos para la query de telefono y red social
+			  foreach ($_POST as $Tel ) {
+			  	$Telefonos = $Tel.',';
+			  }
+				//$Telefonos = $_POST['Telefonos'];
+				$Redes_Sociales = $_POST['RedSocial'];
+				//Query Telefono(s)
+				$this->modelo->guardaTelefonos($Usuario,$Telefonos);
+				//Query Red(es)
+				//Recuperacion de datos para las querys de los telefonos
+			  carga_inicio();
+			}
+			
+		/*$Lunesdesde = $_POST['Lunesdesde'];
 			$Luneshasta = $_POST['Luneshasta'];
 			$Martesdesde = $_POST['Martesdesde'];
 			$Marteshasta = $_POST['Marteshasta'];
@@ -221,26 +284,26 @@
 			$Viernesdesde = $_POST['Viernesdesde'];
 			$Vierneshasta = $_POST['Vierneshasta'];
 			$Sabadodesde = $_POST['Sabadodesde'];
-			$Sabadohasta = $_POST['Sabadohasta'];
+			$Sabadohasta = $_POST['Sabadohasta'];*/
 			//Ejecucion de Query de Datos Personales
-			$DatosPersonalesAcademicos = $this->modelo->datosPersonales($Usuario,$Nombre,$ApellidoP,$ApellidoM,$Universidad,$Carrera,$Promedio,$Estado,$Porcentaje,$TiempoRestante,$Lapso);
+			
 			//Querys para guardar los horarios
-			$this->modelo->guardaHorario($Usuario,'Lunes',$Lunesdesde,$Luneshasta);
+			/*$this->modelo->guardaHorario($Usuario,'Lunes',$Lunesdesde,$Luneshasta);
 			$this->modelo->guardaHorario($Usuario,'Martes',$Martesdesde,$Marteshasta);
 			$this->modelo->guardaHorario($Usuario,'Miercoles',$Miercolesdesde,$Miercoleshasta);
 			$this->modelo->guardaHorario($Usuario,'Jueves',$Juevesdesde,$Jueveshasta);
 			$this->modelo->guardaHorario($Usuario,'Viernes',$Viernesdesde,$Vierneshasta);
-			$this->modelo->guardaHorario($Usuario,'Sabado',$Sabadodesde,$Sabadohasta);
+			$this->modelo->guardaHorario($Usuario,'Sabado',$Sabadodesde,$Sabadohasta);*/
 			//Query para Guardar los Telefonos
-			$this->modelo->guardaTelefonos($Usuario,$Telefonos);
+		//	$this->modelo->guardaTelefonos($Usuario,$Telefonos);
 			//Query para Guardar las Redes Sociales
-			$this->modelo->guardaRedes($Usuario,$Telefonos);
-			if ($DatosPersonalesAcademicos) {
+		//	$this->modelo->guardaRedes($Usuario,$Telefonos);
+			/*if ($DatosPersonalesAcademicos) {
 				$this->modelo->actualizaEstatus($Usuario,'1');
-				carga_inicio();
+				//carga_inicio();
 			}
 			else
-				echo "VALIO VERGA ALGO ";
+				echo "VALIO VERGA ALGO ";*/
 		}
 
 		function eventosProximos()

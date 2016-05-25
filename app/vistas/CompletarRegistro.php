@@ -11,7 +11,7 @@
       </div>
     </article>
 		<article class="col-xs-12 col-sm-10 col-md-10 col-lg-10">
-			<form name="completarRegistro" action="index.php?controlador=Usuario&accion=actualizarPerfil" method="post">
+			<form name="completarRegistro" action="index.php?controlador=usuario&accion=completarRegistro" method="post">
 				<div class="jumbotron">
 					<h3 class="text-center">Complete el Registro</h3>
 					<span class="help-block">* Campos necesarios.</span>
@@ -22,7 +22,7 @@
 								<div class="col-sm-6 col-md-4">
 									<label for="nom">Nombre: *</label>
 								  <br>
-									<input for="nam" id="Name" name="Name" type="text" placeholder="Oscar" class="form-control" onchange="Elimina_Error('ErrorName')">
+									<input for="nam" id="Name" name="Nombre" type="text" placeholder="Oscar" class="form-control" onchange="Elimina_Error('ErrorName')">
 								</div>
 								<div class="col-sm-6 col-md-4">
 									<label for="ApeP">Apellido Paterno: *</label>
@@ -39,7 +39,7 @@
 								<div class="form-group col-xs-12 col-md-8 col-lg-6">
 									<label for="" class="col-xs-12 col-sm-4 control-label">Telefono*:</label>
 									<div id="InBtn"class="col-xs-12 col-sm-6	col-lg-8  input-group">
-										<input class="form-control" id="Telefono" name="Telefono" placeholder="363636052" type="text" onkeypress="campoNumerico(this)" onchange="Elimina_Error('ErrorTelefono')">
+										<input class="form-control" id="Telefono" name="Telefonos" placeholder="363636052" type="text" onkeypress="campoNumerico(this)" onchange="Elimina_Error('ErrorTelefono')">
 										<span id="spanBtn" class="input-group-btn">
 							        <button  id="BtnMoreTel"class="btn btn-default" type="button" data-tooltip="Agregar otro Número" onclick="NuevoTelefono()">
 							        	<i  id="iconBtnMoreTel" class="glyphicon glyphicon-plus"></i></button>
