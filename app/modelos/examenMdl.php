@@ -73,6 +73,35 @@ class ExamenMdl
 		//Si todo se ejecuto bien regresamos true
 		return True;
 	}
+	function asignar($ID_Usuario,$ID_Examen)
+	{
+		if($this->driver->connect_errno)
+			return false;
+		//Spliteamos el string
+		$arrayID = explode(',', $ID_Usuario);
+		//por cada id ejecutamos el query de eliminar
+		foreach ($arrayID as $id_asignar) {
+			//si el ID no esta vacio, ya que se concatena 1,2, quedaria un indice vacio
+			if($id_asignar != ''){
+				if($stmt=$this->driver->prepare("INSERT INTO Resultado_Examen (Usuario,ID_Examen,Calificacion) VALUES(?,?,?)"))
+				{
+					$id_asignar = $this->driver->real_escape_string($id_asignar);
+					$ID_Examen = $this->driver->real_escape_string($ID_Examen);
+					$calificacion = -1;
+					$stmt->bind_param("sii",$id_asignar,$ID_Examen,$calificacion);
+					//si  hubo un error lo regresa
+					if(!$stmt->execute())
+						return $stmt->error;
+					$stmt->close();
+				}
+				else
+					return $stmt->error;
+			}
+		}
+		
+		//Si todo se ejecuto bien regresamos true
+		return True;
+	}
 
 	function vista()
 	{
@@ -158,13 +187,52 @@ class ExamenMdl
 			$stmt->bind_result($ultimo);
 			while($stmt->fetch())
 			{
-				$ultimo = $ultimo;
+				$ultimo = $ultimo + 1;
 			}
 			return $ultimo;
 			$stmt->close();
 		}
 		else
 			return $ultimo;
+	}
+
+	/**
+	 *Busca un usuario en la base de datos conforme al nombre de usuario, nombre real o apellidos
+	 *@param Nombre de usuario
+	 *@return array
+	*/
+	function buscarUsuario($nombreUsuario)
+	{
+		$array=null;
+		if($this->driver->connect_errno)
+			return false;
+		//Se prepara el Query, los signos ? se sustituyen por las variables
+		if($stmt = $this->driver->prepare("SELECT distinct Usuario, Nombres, Apellido_P, Apellido_M, Universidad 
+			FROM Perfil WHERE Usuario like ? OR Nombres like ? OR Apellido_P like ? OR Apellido_M like ?;"))
+		{
+			//Se limpian las variables para evitar inyecciones de SQL
+			$nombreUsuario = $this->driver->real_escape_string($nombreUsuario);
+			//se agrega los % para usar la función like de SQL
+			$nombreUsuario='%'.$nombreUsuario.'%';
+			//se sustituye los ? por las variables, especificando el tipo de dato, i=integer,s=string, etc.
+			$stmt->bind_param("ssss",$nombreUsuario,$nombreUsuario,$nombreUsuario,$nombreUsuario);
+			//se ejecuta el query
+			$stmt->execute();
+			//se establecen las variables donde se guardan los resultados de la ejecución, deben de coincidir con el numero de columnas que te devuelve el query
+			$stmt->bind_result($Usuario, $Nombres, $Apellido_P, $Apellido_M, $Universidad);
+			//se setean las variables con los valores obtenidos, se hace fila por fila, si es que esperan mas
+			while ($stmt->fetch()) {
+				$array[]= array(
+							'Usuario' => $Usuario,
+							'Nombres' => $Nombres,
+							'Apellido_P' => $Apellido_P,
+							'Apellido_M' => $Apellido_M,
+							'Universidad' => $Universidad);
+			}
+			$stmt->close();
+		}
+		//$this->driver->close();
+		return $array;
 	}
 }
 ?>

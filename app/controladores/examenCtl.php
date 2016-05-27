@@ -22,7 +22,10 @@
 				{
 					switch ($_GET['accion']) {
 						case 'crear':
-							$this->crear();
+							if(isset($_GET['response'])=='buscar')
+								$this->buscarUsuario();
+							else
+								$this->crear();
 							break;
 						case 'modificar':
 							$this->modificar();
@@ -57,7 +60,7 @@
 			//Cargamos el menú según sea el tipo de usuario 
 			if(esAdmin())
 				$menu=file_get_contents('app/vistas/MenuAdmin.php');
-			else 
+			else if(esModerador())
 				$menu=file_get_contents('app/vistas/MenuMod.php');
 			//Cargamos los archivos necesarios para la vista
 			$footer=file_get_contents('app/vistas/Footer.php');
@@ -74,6 +77,11 @@
 			$vista=str_replace('{inicio_idExamen}', '', $vista);
 			$vista=str_replace('{fin_idExamen}', '', $vista);
 
+			//Buscamos la fila en la tabla para mostrar posibles mensajes del modelo
+			$inicio_fila = strrpos($vista,'<tr>');
+			$fin_fila = strrpos($vista, '</tr>')+5;
+			$fila = substr($vista,$inicio_fila,$fin_fila-$inicio_fila);
+
 			//Si el usuario ha completado el formulario trabajamos con los datos que ingreso, en caso contrario mostramos el formulario para ser completado
 			if(!empty($_POST['nombreExamen']))
 			{
@@ -86,12 +94,19 @@
 
 				$result = $this->modelo->crear($categoria, $cantidadPreguntas, $tiempoLimite, $calificacionMinima, $nombreExamen);
 				//Si se regresa TRUE de la eliminación mostramos éxito, de lo contrario mostramos el error 
-				if($result)
+
+				if(!empty($_POST['id-usuario']))
 				{
-					echo 'Se agrego correctamente';
+					$idUsuario = '';
+					$idUsuario = $_POST['id-usuario'];
+
+					$result = $this->modelo->asignar($idUsuario,$ultimo);
+					//Si se regresa TRUE de la eliminación mostramos éxito, de lo contrario mostramos lo que nos regrese el modelo
+					if($result)
+						$vista = str_replace($fila, '<p>Se creo y asigno correctamente</p>', $vista);
+					else
+						$vista = str_replace($fila, $result, $vista);
 				}
-				else
-					echo $result;
 			}
 			//Concatenamos los archivos necesarios para la ventana y mostramos la vista
 			$vista = $header . $menu . $vista . $footer;
@@ -266,7 +281,70 @@
 				echo $vista;
 			}
 		}
+		/**
+		 *Busca en la base de datos los usuarios que coincidan con los criterios de busqueda ingresados en los campos de usuario
+		*/
+		function buscarUsuario()
+		{
+			//Si no se recibe nada por POST mostramos solo la vista
+			if(empty($_POST))
+				require_once('app/vistas/CrearExamen.php');
+			else
+			{
+				//Cargamos el menú según sea el tipo de usuario 
+				if(esAdmin())
+					$menu=file_get_contents('app/vistas/MenuAdmin.php');
+				else if(esModerador())
+					$menu=file_get_contents('app/vistas/MenuMod.php');
+				//Cargamos los archivos necesarios para la vista 
+				$vista=file_get_contents('app/vistas/CrearExamen.php');
+				$header=file_get_contents('app/vistas/Header.php');
+				$footer=file_get_contents('app/vistas/Footer.php');
 
+				$categoria = $this->modelo->obtenerCategorias();
+				$vista = $this->llenarCategoria($categoria,$vista);
+				//Buscamos el ID del ultimo elemento para mostrarlo en el campo ID
+				$ultimo = $this->modelo->buscarUltimo();
+				$vista = $this->llenarID($ultimo,$vista);
+				$vista=str_replace('{nombreExamen}', '', $vista);
+				$vista=str_replace('{inicio_idExamen}', '', $vista);
+				$vista=str_replace('{fin_idExamen}', '', $vista);
+
+				//Guardamos los valores obtenidos por POST para el campo de búsqueda
+				$nombreUsuario = $_POST['nombreUsuario'];
+				//Guardamos lo que nos regresó el modelo
+				$Usuarios= $this->modelo->buscarUsuario($nombreUsuario);
+				//Buscamos la fila en la tabla para mostrar lo obtenido del modelo
+				$inicio_fila = strrpos($vista,'<tr>');
+				$fin_fila = strrpos($vista, '</tr>')+5;
+				$fila = substr($vista,$inicio_fila,$fin_fila-$inicio_fila);
+				$filas = "";
+				//Si nos regresó algo el modelo lo mostramos
+				if(isset($Usuarios))
+				{
+					$new_fila="";
+					foreach ($Usuarios as $row) {
+						$new_fila = $fila;
+						$diccionario = array('{Usuario}' => $row['Usuario'],
+											'{Nombre}' => $row['Nombres'],
+											'{Apellido Paterno}' => $row['Apellido_P'],
+											'{Apellido Materno}' => $row['Apellido_M'],
+											'{Universidad}' => $row['Universidad']);
+						//var_dump($diccionario);
+						$new_fila = strtr($new_fila,$diccionario);
+						$filas .= $new_fila;
+					}
+					$vista = str_replace($fila, $filas, $vista);
+				}
+				else
+				{
+					//Si no mostramos un mensaje
+					$vista = str_replace($fila, '<p>No se encontró el usuario</p>', $vista);
+				}
+				$vista = $header.$menu.$vista.$footer;
+				echo $vista;
+			}
+		}
 		/**
 		 *Llena la vista con las categorías obtenidas del modelo
 		 *@param $categoria Recibe lo obtenido de la consulta a la base de datos 
