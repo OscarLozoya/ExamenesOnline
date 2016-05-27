@@ -1,7 +1,7 @@
 <?php
 
 		function inicioSesion(){
-			if( isset($_SESSION['usuario']) )
+			if( isset($_SESSION['usuario']) && $_SESSION['estado']=='1' )
 				return true;
 			return false;
 		}
@@ -24,6 +24,12 @@
 			return false;
 		}
 
+		function esNoActivo(){
+			if( isset($_SESSION['estado']) && $_SESSION['estado']=='0')
+				return true;
+			return false;
+		}
+
 		function carga_inicio()
 		{
 			if(esAdmin())
@@ -32,12 +38,14 @@
 				require_once('app/vistas/IndexMod.php');
 			else if(esUsuario())
 				require_once('app/vistas/IndexUser.php');
-			else{
-				require_once('app/vistas/index.php');
+			else if(isset($_SESSION['usuario'])){
 				session_unset();
 				session_destroy();
 				//setcookie(session_name(), '', time()-3600);
+				require_once('app/vistas/index.php');
 			}	
+			else
+				require_once('app/vistas/index.php');
 		}
 
 		function mostrarUsuario($vista)
