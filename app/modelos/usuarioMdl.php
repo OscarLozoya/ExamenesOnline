@@ -112,6 +112,36 @@ class usuarioMdl
 	  }
 	}
 
+	/*
+	*
+	*/
+	function eliminaDatosPerfil($Usuario)
+	{
+		if($this->driver->connect_errno)//Se conecta con la BD si no hay error se prosigue
+			return false;
+     $Usuario = $this->driver->real_escape_string($Usuario);
+		if($stmt = $this->driver->prepare("DELETE FROM Perfil WHERE Usuario = ?"))
+		{
+			$stmt->bind_param("s",$Usuario);
+     if(!$stmt->execute())
+				return $stmt->errno;
+			$stmt->close();
+		}
+		if($stmt = $this->driver->prepare("DELETE FROM Telefono WHERE Usuario = ?"))
+		{
+			$stmt->bind_param("s",$Usuario);
+     if(!$stmt->execute())
+				return $stmt->errno;
+			$stmt->close();
+		}
+		if($stmt = $this->driver->prepare("DELETE FROM  Red_Social WHERE Usuario = ?"))
+		{
+			$stmt->bind_param("s",$Usuario);
+     if(!$stmt->execute())
+				return $stmt->errno;
+			$stmt->close();
+		}
+	}
 	/**
 	*
 	*/
@@ -150,36 +180,38 @@ class usuarioMdl
 	function guardaHorario($Usuario,$Dia,$desde,$hasta){
 		if($this->driver->connect_errno)//Se conecta con la BD si no hay error se prosigue
 			return false;
-		if($desde == $hasta)
-			return false;
+		if($desde == $hasta)//Para las variables de control si no se necesita guardar algo en la Bd regresa true purs no ha ocurrido error en la BD
+			return true;
 		if($stmt = $this->driver->prepare("INSERT INTO Horario VALUES(?,?,?,?)")){
 			$Usuario =  $this->driver->real_escape_string($Usuario);
 			$Dia = $this->driver->real_escape_string($Dia);
 			$desde = $this->driver->real_escape_string($desde);
 			$hasta = $this->driver->real_escape_string($hasta);
 			$stmt->bind_param("ssss",$Usuario,$Dia,$desde,$hasta);
-			if($stmt->execute()){
-				$stmt->close();
-				return true;
-			}
+			if(!$stmt->execute())
+				return $stmt->errno;
+			$stmt->close();
+			return true;
 		}
 	}
 	
 	/**
 	*
 	*/
-	function guardaTelefonos($Usuario,$Telefono){
+	function guardaTelefonos($Usuario,$Telefonos)
+	{
 		if($this->driver->connect_errno)//Se conecta con la BD si no hay error se prosigue
 			return false;
-		if(isset($Telefono)){
+		if(isset($Telefonos)){
 			$Usuario = $this->driver->real_escape_string($Usuario);
-			//var_dump($Telefono);
-		  $Telefonos = explode(',', $Telefono);
-			foreach ($Telefonos as $Tel){
-				if ($stmt = $this->driver->prepare("INSERT INTO Telefono VALUES(?,?)")) {
-					$Tel = $this->driver->real_escape_string($Tel);
+			for ($i=0; $i <count($Telefonos) ; $i++) //La variable Telefonos es un arreglo que contiene los numeros que el usuario puso
+			{ 
+				if ($stmt = $this->driver->prepare("INSERT INTO Telefono VALUES(?,?)")) //Se prepara la consulta
+				{
+					$Tel = $this->driver->real_escape_string($Telefonos[$i]);
+					var_dump($Tel);
 					$stmt->bind_param("ss",$Usuario,$Tel);
-					if(!$stmt->execute())
+					if(!$stmt->execute())//y se ejecuta
 						return $stmt->errno;
 					 $stmt->close();
 				}
@@ -191,21 +223,21 @@ class usuarioMdl
 	/**
 	*
 	*/
-	function guardaRedes($Usuario,$RedesSociales){
+	function guardaRedes($Usuario,$RedesSociales)
+	{
 		if($this->driver->connect_errno)//Se conecta con la BD si no hay error se prosigue
 			return false;
 		if(isset($RedesSociales)){
 			$Usuario = $this->driver->real_escape_string($Usuario);
-			foreach ($RedesSociales as $Red){
-				if ($stmt = $this->driver->prepare("INSERT INTO Telefono VALUES(?,?)")) {
-					$Red = $this->driver->real_escape_string($Red);
+			for ($i=0; $i <count($RedesSociales) ; $i++) //La variable RedesSociales es un arreglo que contiene los numeros que el usuario puso
+			{ 
+				if ($stmt = $this->driver->prepare("INSERT INTO Red_Social VALUES(?,?)")) //Se prepara la consulta
+				{
+					$Red = $this->driver->real_escape_string($RedesSociales[$i]);
 					$stmt->bind_param("ss",$Usuario,$Red);
-					if($stmt->execute())
-						$stmt->execute();
-					else{
-						echo "ERROR AL WARDAR Una RED";
-						return false;
-					}
+					if(!$stmt->execute())//y se ejecuta
+						return $stmt->errno;
+					 $stmt->close();
 				}
 			}
 			return true;
@@ -218,10 +250,11 @@ class usuarioMdl
 	function actualizaEstatus($Usuario,$Estado){
 		if($this->driver->connect_errno)//Se conecta con la BD si no hay error se prosigue
 			return false;
+			echo "string";
 		if($stmt = $this->driver->prepare("UPDATE Usuario SET Estado = ? WHERE Usuario = ?")){
 			$Usuario =  $this->driver->real_escape_string($Usuario);
 			$Estado = $this->driver->real_escape_string($Estado);
-			$stmt->bind_param('si',$Usuario,$Estado);
+			$stmt->bind_param('is',$Estado,$Usuario);
 			if($stmt->execute()){
 				$stmt->close();
 				return true;
@@ -229,7 +262,18 @@ class usuarioMdl
 		}
 
 	}
-
+	function NuevaContasena($Usuario,$Contrasena)
+	{
+		if($this->driver->connect_errno)
+			return false;
+		if($stmt = $this->driver->prepare("UPDATE Usuario SET Contrasena = ? WHERE Usuario=?")) 
+		{
+			$Contrasena = $this->driver->real_escape_string($Contrasena);
+			$Usuario = $this->driver->real_escape_string($Usuario);
+			$stmt->bind_param("ss",$Contrasena,$Usuario);
+			$stmt->execute();
+		}
+	}
 	//
 	function eventosProximos()
 	{
@@ -254,6 +298,7 @@ class usuarioMdl
 			while ($stmt->fetch()) {
 				$_SESSION['usuario'] = $usuario_consulta;
 				$_SESSION['tipo'] = $tipo_consulta;
+//falta un selec o algo para hacer este campo$_SESSION['nombre']=
 				$_SESSION['estado'] = $status_consulta;
 				$_SESSION['img_ruta'] = $Ruta_imagen;
 				$existe = true;

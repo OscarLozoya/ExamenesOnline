@@ -7,18 +7,20 @@
 /**
 *Funcion principal para validar el submit
 */
-function Valida_Campos(){
+function Valida_Campos(SetPass){
 	var error=true;
 	var errorD=true;//Variable para  Datos personales se inicia en true indicando que hay un error por seguridad
 	var errorT=true;//Variable para  Telefonos se inicia en true indicando que hay un error por seguridad
 	var errorR=true;//Variable para  Redes Sociales se inicia en true indicando que hay un error por seguridad
 	var errorA=true;//Variable para  Datos Academicos se inicia en true indicando que hay un error por seguridad
+	var errorC=true;//Variable para  La contraseña se inicia en true indicando que hay un error por seguridad
 	$('label.Warning').remove();
 	errorD = Valida_Datos_Personales();
 	errorT = ValidaTelefono();
 	errorR = ValidaRedSocial();
 	errorA = Valida_Datos_Academicos();
-	if(errorD || errorT || errorR || errorA)
+	errorC = ValidaPassword(SetPass);
+	if(errorD || errorT || errorR || errorA || errorC)
 		error=true;
 	else
 		error=false;
@@ -29,13 +31,13 @@ function Valida_Campos(){
 *Verifica que los campos de Nombre, Apellido Paterno y Apellido Materno y Contraseña
 *esten escritos y bajo formato aceptable.
 */
-function Valida_Datos_Personales(){
+function Valida_Datos_Personales()
+{
 	var Nombre=$('input#Name');
 	var ApPat=$('input#ApeP');
 	var ApMat=$('input#ApeM');
-	var password = $('input#passwordUser');
 	//Se asume que existe algun error se inicializa en 4 pues son los campos a validar
-	var errores=4;
+	var errores=3;
 	if(!notEmpty(Nombre.val()))
 		MuestraError('label',"*Debes de ingresar tu Nombre",Nombre,"ErrorName");
 	else if(!ValidaLetras(Nombre.val()))
@@ -54,16 +56,13 @@ function Valida_Datos_Personales(){
 		MuestraError('label',"*Debes de ingresar tu Apellido Paterno",ApMat,"ErrorApeM");
 	else
 		errores--;
-	if(!notEmpty(password.val()))
-		 MuestraError('label','Falta Especificar contraseña',password,'ErrorPromedio');
-	else
-		 errores--;
 	return (errores==0)? false:true;//la bandera sera 0 si los campos no presentan error 
 }
 
 /**Falta Documentar
 **/
-function ValidaTelefono(){
+function ValidaTelefono()
+{
 		var errores=0;//Esta bandera aumenta si encuentra algun error
 		var Telefono=$('input#Telefono');
 		for (var i = 0; i<= Telefono.size()-1; i++) {
@@ -82,7 +81,8 @@ function ValidaTelefono(){
 
 /* Falta Documentar
 */
-function ValidaRedSocial(){
+function ValidaRedSocial()
+{
 	var errores=0;//Esta bandera aumenta si encuentra algun error
 	var URL=$('input#URLred');
 	for (var i = 0; i<= URL.size() - 1;  i++) {
@@ -98,7 +98,8 @@ function ValidaRedSocial(){
 	return (errores==0)? false:true;//Si la bandera no se modifico regresa false de error no encontrado
 }
 
-function Valida_Datos_Academicos(){
+function Valida_Datos_Academicos()
+{
 	var Universidad = $('input#Universidad');
 	var Carrera = $('input#Carrera');
 	var Promedio = $('input#Promedio');
@@ -125,7 +126,7 @@ function Valida_Datos_Academicos(){
 		 errores++;
 	}
 	if(!notEmpty(Tiempo.val())){
-		 MuestraError('label','Falta Especificar',Tiempo,'ErrorPromedio');
+		 MuestraError('label','Falta Especificar',Tiempo,'ErrorTiempo');
 		 errores++;
 	}
 	return (errores==0)?false:true;//Si la bandera no se modifico regresa false de error no encontrado
@@ -135,15 +136,19 @@ function Valida_Datos_Academicos(){
 funcion para onchange
 */
 
-function ValidaTiempo(){
+function ValidaTiempo()
+{
 	var Tiempo=$('input#Tiempo');
 	var Periodo=$('select#OpcTiempo');
+	Elimina_Error('ErrorTiempo');
 	if((Periodo[0].value=='Semestres' && !ValidaUpDown(Tiempo.val(),1,18)) || (Periodo[0].value=='Años' && !ValidaUpDown(Tiempo.val(),1,9)))
      Tiempo.val(1);
 }
+
 /*Falta documentar
 */
-function CambiaPeriodo(){
+function CambiaPeriodo()
+{
 	var Tiempo=$('input#Tiempo');
 	var Periodo=$('select#OpcTiempo');
 	if(Periodo[0].value=='Semestres')
@@ -151,7 +156,9 @@ function CambiaPeriodo(){
 	else
 		Tiempo.val(Math.ceil(Tiempo.val()/2));
 }
-function ValidaProm(){
+
+function ValidaProm()
+{
 	var Promedio=$('input#Promedio');
 	Elimina_Error('ErrorPromedio');
 	if(!ValidaUpDown(Promedio.val(),0,100))
@@ -160,16 +167,18 @@ function ValidaProm(){
 
 /*Falta documentar
 */
-function Valida_Horario(Inicio,Fin){
+function Valida_Horario(Inicio,Fin)
+{
 	var desde=$('select#'+Inicio);
 	var hasta=$('select#'+Fin);
 	if(!ValidaHorario(desde.val(),hasta.val()))
 		desde[0].value="00:00";
-
 }
+
 /*Falta documentar
 */
-function campoNumerico(id){
+function campoNumerico(id)
+{
 	var ej=$(id);
 	if(!ValidaNumerico(ej.val()))
 			ej.val("");
@@ -183,7 +192,8 @@ function campoNumerico(id){
 *@param {String}  IdElement Id del elemento insertado.
 *@return {Void}
 */
-function MuestraError(TipoCont,Mensaje,DespuesDE,IdElement){
+function MuestraError(TipoCont,Mensaje,DespuesDE,IdElement)
+{
 	var etiq= document.createElement(TipoCont);
 	var mns=document.createTextNode(Mensaje);
 	etiq.appendChild(mns);
@@ -192,19 +202,20 @@ function MuestraError(TipoCont,Mensaje,DespuesDE,IdElement){
 	etiq.setAttribute('style','display: block');
 	document.body.appendChild(etiq);
 	DespuesDE.after(etiq);
-
 }
 /**
 *Funcion para eliminar los elementos que muestrar errores
 *@param {String} IdElement Id del elemento a eliminar*
 *@return {Void}*/
-function Elimina_Error(cad){
+function Elimina_Error(cad)
+{
 	$('#'+cad).remove();
 }
 
 /**
 */
-function NuevaRedSocial(){
+function NuevaRedSocial()
+{
 	var NodoPadre=$('div#EspRedSocial');
 	var NuevoNodo=NodoPadre.clone();
 	NuevoNodo.attr('id','EspRedSocialCopy');
@@ -221,7 +232,8 @@ function NuevaRedSocial(){
 
 /**
 */
-function NuevoTelefono(){
+function NuevoTelefono()
+{
 	var NP=$('#EspTelefono');
 	var NN=NP.clone();
 	NN.attr('id','EspTelefonoCopy');
@@ -250,4 +262,29 @@ function EliminarSubNodoURL(refnod){
 */
 function EliminarSubNodoTel(refnod){
 	 $(refnod).parent().parent().parent().parent().remove();
+}
+
+function ValidaPassword(tipo)
+{
+	console.log("MINIMO ENTRO");
+	var Contrasena = $('input#contrasena_nueva');
+	var ContrasenaConf = $('input#contrasena_confirmacion');
+	var error = true;
+	if (tipo==0) {
+		if(!notEmpty(Contrasena.val()) && !notEmpty(ContrasenaConf.val()))
+				MuestraError('label','Falta Especificar su contraseña',ContrasenaConf,'ErrorContra');
+		else
+		{
+			if(Contrasena.val() == ContrasenaConf.val())
+				error = false;
+			else
+				MuestraError('label','Las contraseñas no coinciden favor de verificar ',ContrasenaConf,'ErrorContra');
+		}
+
+	}
+	//Falta el caso de Perfil que se activa con 1
+	else
+		error=false;
+
+	return error;
 }

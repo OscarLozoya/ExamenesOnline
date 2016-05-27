@@ -28,15 +28,15 @@
 							case 'Modificar'://Llamada del administrador para modificar eltipo de un usuario
 							  	$this->Modificar();
 							  break;
-							case 'verPerfil'://Llamada al perfil de otro usuario sin opcion a modificar antes 'Perfil'
+						/*	case 'verPerfil'://Llamada al perfil de otro usuario sin opcion a modificar antes 'Perfil'
 							    $this->ConsultarPerfil();
-							  break;
-							case 'MostarPerfil'://Llamada al perfil del administrador
+							  break;*/
+							case 'mostrarPerfil'://Llamada al perfil del administrador
 							    $this->MostrarPerfil();
 							  break;
-							case 'ModificarPerfil':
+						/*	case 'ModificarPerfil':
 							 		$this->ModificarPerfil();//Guarda en la BD los campos del perfil modificados se acciona con el boton de actualizar campos
-							 	break;
+							 	break;*/
 							case 'salir':
 								 	$this->salir();
 								 	carga_inicio();
@@ -50,15 +50,15 @@
 					{
 						switch ($_GET['accion']) 
 						{
-							case 'verPerfil'://Llamada al perfil de otro usuario sin opcion a modificar antes 'Perfil'
+						/*	case 'verPerfil'://Llamada al perfil de otro usuario sin opcion a modificar antes 'Perfil'
 						    $this->ConsultarPerfil();
-						    break;
-							case 'MostarPerfil'://Llamada al perfil del usuario
+						    break;*/
+							case 'mostrarPerfil'://Llamada al perfil del usuario
 							    $this->MostrarPerfil();
 							  break;
-							case 'ModificarPerfil':
+							/*case 'actualizaPerfil':
 							 		$this->ModificarPerfil();//Guarda en la BD los campos del perfil modificados se acciona con el boton de actualizar campos
-							 	break;
+							 	break;*/
 						  case 'detalleExamen'://Solo disponible para usuario normal
 						    if(esUsuario())
 						 			$this->detalleExamen();
@@ -134,10 +134,10 @@
 				$tipo = $_POST['tipo'];
 				$estado = "0";
 				$this->modelo->alta($usuario,$correo,$token,$tipo,$estado);
-			//	echo '<p>Se agrego el usuario<p>';
 				require_once("app/vistas/AdminAbcUser.php");
 			}
 		} 
+
     /**
     *Este apartado pre-registra al usuario que lo solicita y envia un email para que termine de registrarse
     *y cambie su estatus a activo pues si no lo esta no podra ingresar al sistema.
@@ -158,7 +158,7 @@
 				$Token .=Time();//Se crea el token para enviar por correo
 				$Tipo = "2";
 				$Estado = "0";
-				echo $result=$this->modelo->registrar($Usuario,$Correo,$Token,$Tipo,$Estado,'none');//Se hace la peticion al modelo para que pre-registre y mande el mail al usuario
+				$result=$this->modelo->registrar($Usuario,$Correo,$Token,$Tipo,$Estado,'none');//Se hace la peticion al modelo para que pre-registre y mande el mail al usuario
 			  if ($result)//Según sea el resultado se muestra una label para dar instrucciones al usuario
 			  	$Dic1 = array('{label_exito}' => '<label class="col-xs-12"> Para completar tu Registro revisa tu correo electronico</label>');
 			  else
@@ -246,7 +246,6 @@
 			$Usuario = $_SESSION['usuario'];
 			if (!empty($_POST)) 
 			{
-				echo var_dump($_SESSION);
 				//Recuperacion de campos para la query de perfil
 				$Nombre = $_POST['Nombre'];
 				$ApellidoP = $_POST['ApellidoP'];
@@ -258,52 +257,68 @@
 				$Porcentaje = $_POST['Porcentaje'];
 				$TiempoRestante = $_POST['TiempoRestante'];
 				$Lapso = $_POST['Lapso'];
-				//Esta query solicita que se inserten los cambios que van en la tabla de  Perfil
-			  $DatosPersonalesAcademicos = $this->modelo->datosPersonales($Usuario,$Nombre,$ApellidoP,$ApellidoM,$Universidad,$Carrera,$Promedio,$Estado,$Porcentaje,$TiempoRestante,$Lapso);
-			  //Recuperacion de datos para la query de telefono y red social
-			  foreach ($_POST as $Tel ) {
-			  	$Telefonos = $Tel.',';
-			  }
-				//$Telefonos = $_POST['Telefonos'];
+				//Recuperacion de datos para la query de telefono y red social
+			  $Telefonos = $_POST["Telefonos"];
 				$Redes_Sociales = $_POST['RedSocial'];
-				//Query Telefono(s)
-				$this->modelo->guardaTelefonos($Usuario,$Telefonos);
+/* Nota sobre _POST['Telefonos'] y _POST['RedSocial']
+Ambas peticiones son especiales pue spost regresa un array y no solo el ultimo cmapo que coincidio
+con esta peticion pues el name de los inputs es Telefonos[] lo que le dice a la variable _POST que 
+lo considere como un arreglo y tome todos los que encuentre no solo el ultimo*/		  	
+				//Recuperacion de los Datos del Horario
+				$LunesDesde = $_POST['LunesDesde'];
+				$LunesHasta = $_POST['LunesHasta'];
+				$MartesDesde = $_POST['MartesDesde'];
+				$MartesHasta = $_POST['MartesHasta'];
+				$MiercolesDesde = $_POST['MiercolesDesde'];
+				$MiercolesHasta = $_POST['MiercolesHasta'];
+				$JuevesDesde = $_POST['JuevesDesde'];
+				$JuevesHasta = $_POST['JuevesHasta'];
+				$ViernesDesde = $_POST['ViernesDesde'];
+				$ViernesHasta = $_POST['ViernesHasta'];
+				$SabadoDesde = $_POST['SabadoDesde'];
+				$SabadoHasta = $_POST['SabadoHasta'];
+				
+			//Se eliminan los datos previos de la bd
+				$this->modelo->eliminaDatosPerfil($Usuario);
+			//Se guardan los resultados de las querys en el array ConsultaRes despues se utiliza la funcion
+			 //Esta query solicita que se inserten los cambios que van en la tabla de  Perfil
+	      $ConsultaRes[0] = $this->modelo->datosPersonales($Usuario,$Nombre,$ApellidoP,$ApellidoM,$Universidad,$Carrera,$Promedio,$Estado,$Porcentaje,$TiempoRestante,$Lapso);
+				//Query Telefono
+	      $ConsultaRes[1] = $this->modelo->guardaTelefonos($Usuario,$Telefonos);
 				//Query Red(es)
-				//Recuperacion de datos para las querys de los telefonos
-			  carga_inicio();
+				$ConsultaRes[2] = $this->modelo->guardaRedes($Usuario,$Redes_Sociales);		
+			  //Querys Para guardar Horario
+				$ConsultaRes[3] = $this->modelo->guardaHorario($Usuario,'Lunes',$LunesDesde,$LunesHasta);
+				$ConsultaRes[4] = $this->modelo->guardaHorario($Usuario,'Martes',$MartesDesde,$MartesHasta);
+				$ConsultaRes[5] = $this->modelo->guardaHorario($Usuario,'Miercoles',$MiercolesDesde,$MiercolesHasta);
+				$ConsultaRes[6] = $this->modelo->guardaHorario($Usuario,'Jueves',$JuevesDesde,$JuevesHasta);
+				$ConsultaRes[7] = $this->modelo->guardaHorario($Usuario,'Viernes',$ViernesDesde,$ViernesHasta);
+				$ConsultaRes[8] = $this->modelo->guardaHorario($Usuario,'Sabado',$SabadoDesde,$SabadoHasta);
+			//	in_array() para buscar un "" que indica que existe un false si es asi se borraran los cambios 
+			//	en la bd de ontra manera se aceptan los cambios
+				if(in_array("", $ConsultaRes))
+					require_once("app/vistas/CompletarRegistro.php");
+				else //Si no hay error se procede si es un nuevo usuario o si es uno ya existente
+				{
+					if (esNoActivo()) 
+					{	//usuario Nuevo
+						if (isset($_POST['NuevaContrasena'])) 
+						{
+							$Contrasena = $_POST['NuevaContrasena'];
+							$this->modelo->NuevaContasena($Usuario,$Contrasena);
+						}
+						$this->modelo->actualizaEstatus($Usuario,1);
+						$_SESSION['nombre'] = $Nombre." ".$ApellidoP." ".$ApellidoM;
+						$_SESSION['estado'] = 1;
+//Hace falta esto$_SESSION['img_ruta']
+						carga_inicio();
+			  	}
+			  	/*
+			  	ADD codigo de cuando no es un NOOB :v
+			  	*/
+				}
 			}
-			
-		/*$Lunesdesde = $_POST['Lunesdesde'];
-			$Luneshasta = $_POST['Luneshasta'];
-			$Martesdesde = $_POST['Martesdesde'];
-			$Marteshasta = $_POST['Marteshasta'];
-			$Miercolesdesde = $_POST['Miercolesdesde'];
-			$Miercoleshasta = $_POST['Miercoleshasta'];
-			$Juevesdesde = $_POST['Juevesdesde'];
-			$Jueveshasta = $_POST['Jueveshasta'];
-			$Viernesdesde = $_POST['Viernesdesde'];
-			$Vierneshasta = $_POST['Vierneshasta'];
-			$Sabadodesde = $_POST['Sabadodesde'];
-			$Sabadohasta = $_POST['Sabadohasta'];*/
-			//Ejecucion de Query de Datos Personales
-			
-			//Querys para guardar los horarios
-			/*$this->modelo->guardaHorario($Usuario,'Lunes',$Lunesdesde,$Luneshasta);
-			$this->modelo->guardaHorario($Usuario,'Martes',$Martesdesde,$Marteshasta);
-			$this->modelo->guardaHorario($Usuario,'Miercoles',$Miercolesdesde,$Miercoleshasta);
-			$this->modelo->guardaHorario($Usuario,'Jueves',$Juevesdesde,$Jueveshasta);
-			$this->modelo->guardaHorario($Usuario,'Viernes',$Viernesdesde,$Vierneshasta);
-			$this->modelo->guardaHorario($Usuario,'Sabado',$Sabadodesde,$Sabadohasta);*/
-			//Query para Guardar los Telefonos
-		//	$this->modelo->guardaTelefonos($Usuario,$Telefonos);
-			//Query para Guardar las Redes Sociales
-		//	$this->modelo->guardaRedes($Usuario,$Telefonos);
-			/*if ($DatosPersonalesAcademicos) {
-				$this->modelo->actualizaEstatus($Usuario,'1');
-				//carga_inicio();
-			}
-			else
-				echo "VALIO VERGA ALGO ";*/
+			carga_inicio();
 		}
 
 		function eventosProximos()
