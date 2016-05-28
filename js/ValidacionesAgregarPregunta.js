@@ -44,13 +44,14 @@ function valAgregarRespuesta()
 	mensajeRespuesta.css('display','none');
 	if(notEmpty(respuesta.val()))
 	{
+		console.log(respuesta.val())
 		$('table#Respuestas').append
 		(
 			$('<tr>').append
 			(
 				$('<td>').append(respuesta.val())
 			).append(
-				$('<td>').append($('<input>').attr('type','checkbox'))
+				$('<td>').append($('<input>').attr('type','radio').attr('name','respuesta'))
 			).append(
 				$('<td>').append($('<input>').attr('type','checkbox'))
 			)
@@ -147,10 +148,11 @@ function ValidaAgregarPregunta()
 					respuestas.focus();
 					return false;
 				}
+				
 				if(CantRespuestas==0)
 				{
 					$('#MensageRespuestaCorrecta').css('display','block');
-					respuesta.focus();
+					respuestas.focus();
 					return false;
 				}
 			}

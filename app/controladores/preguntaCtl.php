@@ -76,7 +76,7 @@
 			$fin_respuesta = strrpos($vista, '{fin_respuesta}')+15;
 			$fila_respuesta = substr($vista, $inicio_respuesta,$fin_respuesta-$inicio_respuesta);
 			$vista = str_replace($fila_respuesta, '', $vista);
-
+			$vista = str_replace('{accion}', 'index.php?controlador=pregunta&accion=agregar', $vista);
 			if(!empty($_POST))
 			{
 				$pregunta = $_POST['Pregunta'];
@@ -91,7 +91,6 @@
 			else
 			{
 				$vista = str_replace($fila, '', $vista);
-				$vista = str_replace('{accion}', 'index.php?controlador=pregunta&accion=agregar', $vista);
 			}
 			$vista = $header . $menu . $vista . $footer;
 			echo $vista;

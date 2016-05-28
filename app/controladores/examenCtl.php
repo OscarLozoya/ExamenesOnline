@@ -176,20 +176,90 @@
 			$vista = $header . $menu . $vista . $footer;
 			echo $vista;
 		}
+
+
 		/*Vista del examen que esta realizando
 		*/
 		function vista()
 		{
-			$vista = file_get_contents("app/vistas/VistaExamen.php");
-			$footer = file_get_contents("app/vistas/Footer.php");
 			if(empty($_POST))
 			{
-				$IDExamen = $_GET['ID'];
+				$vista = file_get_contents("app/vistas/VistaExamen.php");
+				$footer = file_get_contents("app/vistas/Footer.php");
+				if(isset($_GET['ID']))
+				{
+					$IDExamen = $_GET['ID'];
+					$Examen = $this->modelo->Examen($IDExamen);
+					$DetalleExamen = $Examen[0]['Examen'];
+					$Preguntas = $Examen[0]['Preguntas'];
+					$vista = str_replace('{Examen}', $DetalleExamen[0]['Nombre'], $vista);
+					$vista = str_replace('{Tiempo}', $DetalleExamen[0]['Duracion'], $vista);
+					$vista = str_replace('{Total_preguntas}', $DetalleExamen[0]['Num_Preguntas'], $vista);
+
+					$inicio_pregunta = strrpos($vista,'{ini_pregunta}');
+					$fin_pregunta = strrpos($vista, '{fin_pregunta}')+14;
+					$renglonPregunta = substr($vista, $inicio_pregunta,$fin_pregunta-$inicio_pregunta);
+					$TotalPreguntas = '';
+					foreach ($Preguntas as $pregunta) {
+						$newPregunta = $renglonPregunta;
+						$diccionario = array('{Pregunta}' => $pregunta['Descripcion'],
+											'{Respuesta}' => $pregunta['Respuesta']);
+						$newPregunta = strtr($newPregunta, $diccionario);
+						$TotalPreguntas .= $newPregunta;
+					}
+					$vista = str_replace($renglonPregunta, $TotalPreguntas, $vista);
+					$vista = str_replace('{ini_pregunta}', '', $vista);
+					$vista = str_replace('{fin_pregunta}', '', $vista);
+				}
+				else
+				{
+					carga_inicio();
+					return;
+				}
+				echo $vista.$footer;
+			}
+			else
+			{
+				$Respuestas_Correctas = 0;
+				if(isset($_GET['ID']))
+				{
+					$ID = $_GET['ID'];
+					$Num_Preguntas = $this->modelo->numPreguntasExamen($ID);
+					if(is_numeric($Num_Preguntas) && $Num_Preguntas > 0)
+					{
+						for ($i=0; $i < $Num_Preguntas ; $i++) { 
+							if(isset($_POST[$i.'|abierta']))
+							{
+								$ID_Pregunta = $_POST[$i.'|abierta'];
+								$RespuestaAbierta = $_POST[$i];
+								$this->modelo->guardarRespuesta($ID,$ID_Pregunta,$RespuestaAbierta,-1);
+							}
+							else if(isset($_POST[$i]))
+							{
+								$respuestai = $_POST[$i];
+								$array = explode('|', $respuestai);
+								$correcto = $this->modelo->verRespuesta($array[0],$array[1]);
+								if($correcto == 1)
+									$Respuestas_Correctas++;
+								$this->modelo->guardarRespuesta($ID,$array[0],$array[1],$correcto);
+							}
+						}
+						$Promedio = ($Respuestas_Correctas*100)/$Num_Preguntas;
+						$this->modelo->guardarResultadoExamen($ID,$Promedio);
+					}
+					else
+						carga_inicio();
+				}
+				else
+				{
+					carga_inicio();
+					return;
+				}
+				carga_inicio();
 
 			}
-			
 
-			echo $vista.$footer;	
+				
 		}
 
 		/**

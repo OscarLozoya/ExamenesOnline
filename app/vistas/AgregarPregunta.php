@@ -116,7 +116,7 @@
 									{inicia_respuesta}
 									<tr>
 										<td>{respuesta}</td>
-										<td><input type="checkbox" {correcto}></td>
+										<td><input type="radio" name="respuestaCorrecta" {correcto}></td>
 										<td><input type="checkbox"></td>
 									</tr>
 									{fin_respuesta}

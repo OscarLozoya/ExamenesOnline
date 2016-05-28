@@ -100,7 +100,7 @@ function ModificarExamen()
 			if(examen.eq(i).prop("checked"))
 			{
 				ID=examen.eq(i).parent().parent().children('td')[0].innerHTML;
-				window.location="index.php?controlador=examen&accion=modificar&ID="+ID;
+				window.location="index.php?controlador=examen&accion=crear&ID="+ID;
 				findExamen=true;
 			}
 		}

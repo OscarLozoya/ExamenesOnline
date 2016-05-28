@@ -176,7 +176,7 @@ class ExamenMdl
 		$Num_Preguntas = 0;
 		$ID_Categoria = 0;
 		if($stmt = $this->driver->prepare("SELECT ID_Categoria,Nombre,Duracion,Num_Preguntas,Calificacion_Min 
-										FROM Preguntas
+										FROM Examen
 										WHERE ID=?"))
 		{
 			$ID = $this->driver->real_escape_string($ID);
@@ -192,6 +192,8 @@ class ExamenMdl
 							'ID_Categoria' => $ID_Categoria);
 			$stmt->close();
 		}
+		else
+			return "Error al obtener el examen";
 
 		$Preguntas = null;
 		$MaxID = 0;
@@ -204,6 +206,8 @@ class ExamenMdl
 			$stmt->close();
 
 		}
+		else
+			return "Error al obtener el ultimo ID de pregunta";
 
 		for ($i=0; $i < $Num_Preguntas; $i++) 
 		{ 
@@ -221,40 +225,128 @@ class ExamenMdl
 				$stmt->bind_result($Descripcion,$Tipo);
 				if($stmt->fetch())
 				{
+					$stmt->close();
 					if($Tipo==1)
 					{
-						$resp = "";
+						
+						$resp = "";		
 						if($stmt2 = $this->driver->prepare("SELECT r.Descripcion 
 															FROM Detalle_Pregunta r INNER JOIN Pregunta p
 															ON r.ID_Pregunta=p.ID
 															WHERE r.ID_Pregunta=?"))
 						{
 							$ID_Pregunta = $this->driver->real_escape_string($ID_Pregunta);
-							$stmt2->bind_param("i",$bind_param);
+							$stmt2->bind_param("i",$ID_Pregunta);
 							if(!$stmt2->execute())
 								return $stmt2->error;
 							$stmt2->bind_result($DescripcionRespuesta);
 							while ($stmt2->fetch()) {
-								$resp .= '<input type="checkbox" name="'.$ID_Pregunta.'">'.$DescripcionRespuesta.'<br>';
+								$resp .= '<input type="radio" name="'.$i.'"" value="'.$ID_Pregunta.'|'.$DescripcionRespuesta.'">'.$DescripcionRespuesta.'<br>';
 							}
-							$Preguntas[] = array('Descripcion' => $Descripcion,
-											'Respuesta' => $resp);
+							$stmt2->close();
 						}
+						else
+							die("Error en las respuestas");
+						$Preguntas[] = array('Descripcion' => ($i+1).'.-'.$Descripcion,
+											'Respuesta' => $resp);
 					}
 					else
-						$Preguntas[] = array('Descripcion' => $Descripcion,
-											'Respuesta' => '<input name="'.$ID_Pregunta.'">');
+						$Preguntas[] = array('Descripcion' => ($i+1).'.-'.$Descripcion,
+											'Respuesta' => '<input type="hidden" name="'.$i.'|abierta'.'" value="'.$ID_Pregunta.'" class="form-control RespuestasAbiertas">'.'<input name="'.$i.'"  class="form-control RespuestasAbiertas">');
 				}
 				else
 					$i--;
-				$stmt->close();
+				
 			}
+			else
+				return "Error al obtener la pregunta";
 			
 		}
 
 		$array[]=array('Examen' => $DetalleExamen,
 						'Preguntas' =>$Preguntas);
 		return $array;
+	}
+
+	function numPreguntasExamen($ID)
+	{
+		if($this->driver->connect_errno)
+			return false;
+		$Num_Preguntas = 0;
+		if($stmt = $this->driver->prepare("SELECT Num_Preguntas
+										FROM Examen
+										WHERE ID=?"))
+		{
+			$ID = $this->driver->real_escape_string($ID);
+			$stmt->bind_param('i',$ID);
+			if(!$stmt->execute())
+				return $stmt->error;
+			$stmt->bind_result($Num_Preguntas);
+			$stmt->fetch();
+		}
+		else
+			return 'Error';
+		return $Num_Preguntas;
+	}
+
+	function guardarResultadoExamen($ID_Examen,$Calificacion)
+	{
+		if($this->driver->connect_errno)
+			return $this->driver->connect_error;
+		if($stmt = $this->driver->prepare("UPDATE Resultado_Examen 
+											SET Calificacion=?
+											WHERE Usuario=? AND ID_Examen=? AND Calificacion=-1"))
+		{
+			$usuario = $_SESSION['usuario'];
+			$usuario = $this->driver->real_escape_string($usuario);
+			$ID_Examen = $this->driver->real_escape_string($ID_Examen);
+			$Calificacion = $this->driver->real_escape_string($Calificacion);
+			$stmt->bind_param("isi",$Calificacion,$usuario,$ID_Examen);
+			if(!$stmt->execute())
+				return $stmt->error;
+			else
+				return true;
+		}
+	}
+	function guardarRespuesta($ID_Examen,$ID_Pregunta,$Respuesta,$Resultado)
+	{
+		if($this->driver->connect_errno)
+			return $this->driver->connect_error;
+		if($stmt = $this->driver->prepare("INSERT INTO Detalle_Pregunta_Examen
+											(Usuario,ID_Examen,ID_Pregunta,Respuesta,Resultado) 
+											VALUES (?,?,?,?,?)"))
+		{
+			$usuario = $_SESSION['usuario'];
+			$usuario = $this->driver->real_escape_string($usuario);
+			$ID_Examen = $this->driver->real_escape_string($ID_Examen);
+			$ID_Pregunta = $this->driver->real_escape_string($ID_Pregunta);
+			$Respuesta = $this->driver->real_escape_string($Respuesta);
+			$Resultado = $this->driver->real_escape_string($Resultado);
+			$stmt->bind_param("siisi",$usuario,$ID_Examen,$ID_Pregunta,$Respuesta,$Resultado);
+			if(!$stmt->execute())
+				return $stmt->error;
+			else
+				return true;
+		}
+	}
+	function verRespuesta($ID,$Descripcion)
+	{
+		$respuesta = null;
+		if($this->driver->connect_errno)
+			return $this->driver->connect_error;
+		if($stmt = $this->driver->prepare("SELECT Respuesta
+										FROM Detalle_Pregunta
+										WHERE ID_Pregunta=? AND Descripcion=?"))
+		{
+			$ID = $this->driver->real_escape_string($ID);
+			$Descripcion = $this->driver->real_escape_string($Descripcion);
+			$stmt->bind_param("is",$ID,$Descripcion);
+			if(!$stmt->execute())
+				return $stmt->error;
+			$stmt->bind_result($respuesta);
+			$stmt->fetch();
+		}
+		return $respuesta;
 	}
 }
 ?>

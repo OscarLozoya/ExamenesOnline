@@ -182,3 +182,20 @@ textarea{
   filter: progid: DXImageTransform.Microsoft.Alpha(Opacity=100);
   opacity: 1;
 }
+
+.preguntas{
+  position: absolute;
+  top: 100px;
+  width: 100%;
+}
+
+.TiempoRestante{
+  width: 100%;
+  height: 100px;
+  position: fixed;
+  background-color: #204056;
+  color: #ffffff;
+  display: inline;
+  z-index: 2
+}
+
