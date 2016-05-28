@@ -39,7 +39,7 @@
 								<div class="form-group col-xs-12 col-md-8 col-lg-6">
 									<label for="" class="col-xs-12 col-sm-4 control-label">Telefono*:</label>
 									<div id="InBtn"class="col-xs-12 col-sm-6	col-lg-8  input-group">
-										<input class="form-control" id="Telefono" name="Telefonos" placeholder="363636052" type="text" onkeypress="campoNumerico(this)" onchange="Elimina_Error('ErrorTelefono')">
+										<input class="form-control" id="Telefono" name="Telefonos[]" placeholder="363636052" type="text" onkeypress="campoNumerico(this)" onchange="Elimina_Error('ErrorTelefono')">
 										<span id="spanBtn" class="input-group-btn">
 							        <button  id="BtnMoreTel"class="btn btn-default" type="button" data-tooltip="Agregar otro Número" onclick="NuevoTelefono()">
 							        	<i  id="iconBtnMoreTel" class="glyphicon glyphicon-plus"></i></button>
@@ -56,7 +56,7 @@
 								<div class="form-group col-xs-12 col-md-11">
 									<label for="" class="col-xs-2 control-label">URL:</label>
 									<div class="col-xs-12 col-sm-10	col-lg-8  input-group">
-										<input class="form-control" id="URLred" name="RedSocial" placeholder="https://www.facebook.com/" type="text" onchange="Elimina_Error('ErrorRed')">
+										<input class="form-control" id="URLred" name="RedSocial[]" placeholder="https://www.facebook.com/" type="text" onchange="Elimina_Error('ErrorRed')">
 										<span class="input-group-btn">
 							        <button  id="BtnMore"class="btn btn-default" type="button" data-tooltip="Agregar otra Red" onclick="NuevaRedSocial()">
 							        	<i  id="iconBtnMore" class="glyphicon glyphicon-plus"></i></button>
@@ -218,13 +218,13 @@
 						  			</div>
 						  			<div class="col-xs-6 col-md-4">
 					  					<label for="" class="control-label">Desde</label>
-					  					<select name="SabadoDesde" id="SabadoDesde" class="form-control" onchange="Valida_Horario('SabadadoDesde','SabadoHasta')">
+					  					<select name="SabadoDesde" id="SabadoDesde" class="form-control" onchange="Valida_Horario('SabadoDesde','SabadoHasta')">
 					  						<?php include("Valores00.php"); ?>
 					  					</select>
 						  			</div>
 						  			<div class="col-xs-6 col-md-4">
 						  				<label for="" class="control-label">Hasta</label>
-					  					<select name="SabadoHasta" id="SabadoHasta" class="form-control" onchange="Valida_Horario('SabadadoDesde','SabadoHasta')">
+					  					<select name="SabadoHasta" id="SabadoHasta" class="form-control" onchange="Valida_Horario('SabadoDesde','SabadoHasta')">
 					  						<?php include("Valores00.php"); ?>
 					  					</select>
 						  			</div>
@@ -236,29 +236,24 @@
 					<section>
 						<div class="form-horizontal well ">
 							<fieldset>
-							<legend>Cambiar Contraseña</legend>
+							<legend>Contraseña</legend>
 							<div class="form-group">
 								<div class="col-sm-6 col-md-4 col-lg-3">
-									<label for="contrasena_actual">Contraseña Actual</label><br>
-									<input id="contrasena_actual" type="password"  class="form-control">
-								</div>
-								<div class="col-sm-6 col-md-4 col-lg-3">
 									<label for="contrasena_nueva">Nueva Contraseña</label><br>
-									<input id="contrasena_nueva" type="password" class="form-control">
+									<input id="contrasena_nueva" type="password" onchange="Elimina_Error('ErrorContra')" class="form-control">
 								</div>
 								<div class="col-sm-6 col-md-4 col-lg-3">
 									<label for="confirmacion">Confirmar</label><br>
-									<input id="confrimacion" type="password" class="form-control">
+									<input id="contrasena_confirmacion" name="NuevaContrasena" type="password" onchange="Elimina_Error('ErrorContra')" class="form-control">
 								</div>
 							</div>
 							</fieldset>
 						</div>
 					<div class="col-md-2 col-md-offset-10">
-						<button type="submit" class="btn btn-primary form-control" onclick="return Valida_Campos()">Guardar</button>
+						<button type="submit" class="btn btn-primary form-control" onclick="return Valida_Campos(0)">Guardar</button>
 					</div>
 				 </section>
 				</div>
-			
 
 				<!--<button class="btn btn-primary" type="submit" onclick="return Valida_Campos()" >Enviar</button>-->
 			</form>
