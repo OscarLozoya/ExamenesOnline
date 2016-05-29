@@ -254,17 +254,18 @@ class usuarioMdl
 	*
 	*/
 	function recuperaHorario($Usuario){
+		$Resultado = null;
 		if($this->driver->connect_errno)
 			return false;
-		if ($stmt->driver->prepare("SELECT Dia, Desde, Hasta FROM Horario WHERE Usuario = ?")) 
+		if ($stmt = $this->driver->prepare("SELECT Dia, Desde, Hasta FROM Horario WHERE Usuario = ?")) 
 		{
 			$Usuario = $this->driver->real_escape_string($Usuario);
 			$stmt->bind_param("s",$Usuario);
 			if (! $stmt->execute()) 
 				return $stmt->error;
 			$stmt->bind_result($Dia,$Desde,$Hasta);//Se recuperan las columnas de la consulta
-			while ($stmt->fetch) {
-				$Resultado = array('Dia' => $Dia,
+			while ($stmt->fetch()) {
+				$Resultado[$Dia] = array('Dia' => $Dia,
 													 'Desde' => $Desde,
 													 'Hasta' => $Hasta );
 			}
@@ -285,7 +286,6 @@ class usuarioMdl
 			return false;
 		if ($stmt = $this->driver->prepare("SELECT Nombres, Apellido_P,Apellido_M,Universidad,Carrera,Promedio,Estado,Porcentaje,TiempoRestante FROM Perfil WHERE Usuario = ?")) 
 		{
-			echo "VAmos despues del if de stantem";
 			$Usuario = $this->driver->real_escape_string($Usuario);
 			$stmt->bind_param("s",$Usuario);
 			if (! $stmt->execute()) 

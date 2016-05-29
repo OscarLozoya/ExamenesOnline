@@ -224,7 +224,7 @@
 				$vista = file_get_contents("app/vistas/Perfil.php");
 				$footer = file_get_contents("app/vistas/Footer.php");
 				$DatosPersonales = $this->modelo->recuperaDatosPersonales($Usuario);
-				//var_dump($DatosPersonales);
+				//
 				$Diccionario  = array('{Nombre}' => $DatosPersonales['Nombre'],
 															'{ApellidoP}' => $DatosPersonales['Apellido_P'],
 															'{ApellidoM}' => $DatosPersonales['Apellido_M'],
@@ -235,7 +235,13 @@
 															'{selec'.(string)$DatosPersonales['Porcentaje'].'}' => "selected",
 															'{TiempoRestante}' => $DatosPersonales['TiempoRestante']
 														 );
+				$Horarios = $this->modelo->recuperaHorario($Usuario);
+				$DicHorario = $this->creaHorarios($Horarios);
+
+
 				$vista = strtr($vista,$Diccionario);
+				if(isset($DicHorario))
+					$vista = strtr($vista,$DicHorario);
 				echo $header.$menu.$vista.$footer;
 				//require_once("app/vistas/Perfil.php");
 			}
@@ -243,6 +249,56 @@
 				
 			}
 
+		}
+
+		/*
+		*
+		*/
+		function creaHorarios($Horarios)//Crea el Diccionario para sustituir en la vista los horarios del Usuario
+		{
+			if(isset($Horarios))
+			{
+				$Diccionario = null;//Esta Variable sera un array del diccionario
+				$Dias = array( //Este Arreglo es para controlar los dias que estan registrados y los que no 
+												"Lunes" => "Lunes", 
+											 "Martes" => "Martes", 
+											 "Miercoles" => "Miercoles", 
+											 "Jueves" => "Jueves", 
+											 "Viernes" => "Viernes", 
+											 "Sabado" => "Sabado"
+										);
+				foreach ($Horarios as $key) //Del arreglo que se pasa como parametro se hacen las iteraciones
+				{
+					//Se obtiene en cada iteracion los valores para que no exista conflicto
+					$ValorDesde = file_get_contents("app/vistas/Valores00.php");
+					$ValorHasta = file_get_contents("app/vistas/Valores00.php");
+					$DiaConsult = $key['Dia'];//Se Obtiene la llave del Arreglo q se paso como parametro
+					if(in_array($DiaConsult, $Dias))//Si el dia (llave) se encuentra dentro del arreglo de Dias se entiende que tiene valor Desde y Hasta Asignados 
+					{
+						$MiniDics ['{'.$key['Desde'].'}'] =  "selected";//Se hace uso de un MiniDiccionario para poder susbtituir en el texto que se obtuvo 
+						$ValorDesde = strtr($ValorDesde,$MiniDics);//Se remplaza la llave en la cadena de valores por un selected que sera interpretado por el select
+						unset($MiniDics);//Se Borra el Mini Diccionario ya que este solo debe de contener una llave por iteracion
+						$MiniDics2 ['{'.$key['Hasta'].'}'] =  "selected";
+						$ValorHasta = strtr($ValorHasta,$MiniDics2);
+						unset($MiniDics2);
+						unset($Dias[$DiaConsult]);//Se elimina el dia que se encontro para que se reduzca el tamaño del arreglo ya q se ocupara mas adelante 
+						//Ya que se remplazo la llave en las cadenas es momento de crear el diccionario que se retorna
+						$Diccionario['{Valores'.$DiaConsult.'Desde}'] = $ValorDesde;
+						$Diccionario['{Valores'.$DiaConsult.'Hasta}'] = $ValorHasta;
+					}
+				}
+				$ValorDesde = file_get_contents("app/vistas/Valores00.php");
+				$ValorHasta = file_get_contents("app/vistas/Valores00.php");
+				//Los dias que no se encontraron en la consulta se rellenaran en 00:00 a 24:00 es por esto que se deben de eliminar los encontrados
+				foreach ($Dias as $Dia => $val) {
+						$Diccionario['{Valores'.$val.'Desde}'] = $ValorDesde;
+						$Diccionario['{Valores'.$val.'Hasta}'] = $ValorHasta;
+
+				}
+				return $Diccionario;
+			}
+			else
+				return null;
 		}
 
 		function cambioContrasena()
