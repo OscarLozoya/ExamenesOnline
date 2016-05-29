@@ -31,8 +31,12 @@
 						/*	case 'verPerfil'://Llamada al perfil de otro usuario sin opcion a modificar antes 'Perfil'
 							    $this->ConsultarPerfil();
 							  break;*/
-							case 'mostrarPerfil'://Llamada al perfil del administrador
-							    $this->MostrarPerfil();
+							case 'Perfil'://Llamada al perfil del administrador
+							    if (isset($_GET['response']))
+							    	$this->actualizarPerfil();
+							    else
+							    	$this->MostrarPerfil();
+
 							  break;
 						/*	case 'ModificarPerfil':
 							 		$this->ModificarPerfil();//Guarda en la BD los campos del perfil modificados se acciona con el boton de actualizar campos
@@ -53,8 +57,11 @@
 						/*	case 'verPerfil'://Llamada al perfil de otro usuario sin opcion a modificar antes 'Perfil'
 						    $this->ConsultarPerfil();
 						    break;*/
-							case 'mostrarPerfil'://Llamada al perfil del usuario
-							    $this->MostrarPerfil();
+							case 'Perfil'://Llamada al perfil del usuario
+							    if (isset($_GET['response']))
+							    	$this->actualizarPerfil();
+							    else
+							    	$this->MostrarPerfil();
 							  break;
 							/*case 'actualizaPerfil':
 							 		$this->ModificarPerfil();//Guarda en la BD los campos del perfil modificados se acciona con el boton de actualizar campos
@@ -94,17 +101,10 @@
 					 			$this->Registrar();
 					 		break;
 					 	case 'completarRegistro':
-							 	if (isset($_GET['response'])) {
+							 	if (isset($_GET['response'])) 
 							 		$this->completarRegistro();
-							 	}
-							 	else if (esNoActivo()){
+							 	else if (esNoActivo())
 							 		$this->actualizarPerfil();
-							 	} 
-							 		
-							 	else
-							 		echo "Algo anda mal en usuarioCTL";
-							 	/*else
-							 		carga_inicio()*/
 					 		break;
 						default:
 								carga_inicio();
@@ -181,32 +181,124 @@
 			}
 
 		}
-		function ConsultarPerfil()
+		/*function ConsultarPerfil()
 		{
 			if(empty($_POST))
 			{
 				/*Requiere documentar
-				*/
+				
 				require_once("app/vistas/Perfil.php");
 			}
 			else{
 				
 			}
-		}
+		}*/
 
 		function MostrarPerfil()
 		{
 			if(empty($_POST))
 			{
+
+				/*
+				Para telefonos
+						{IniciaTelefono}
+							{valorTelefono}<-ya tiene comillas
+							 en atributo class de los i dentro de botones: {glyIcon}<- necesita comillas
+									valor para el boton plus en Telefono y en Red
+									"glyphicon glyphicon-plus"
+									valor para el boton minus en Telefono y en Red
+									"glyphicon glyphicon-minius"
+						{FinTelefono}
+				Para redes Sociales
+						{InicioRedes}
+										{valorRed}
+										{glyIcon}
+						{FinRedes}
+				*/
 				/*
 				- Requiere documentar
 				*/
-				require_once("app/vistas/Perfil.php");
+				$Usuario = $_SESSION['usuario'];
+				$header = file_get_contents("app/vistas/Header.php");
+				$menu = file_get_contents(devuelveMenu());
+				$vista = file_get_contents("app/vistas/Perfil.php");
+				$footer = file_get_contents("app/vistas/Footer.php");
+				$DatosPersonales = $this->modelo->recuperaDatosPersonales($Usuario);
+				//
+				$Diccionario  = array('{Nombre}' => $DatosPersonales['Nombre'],
+															'{ApellidoP}' => $DatosPersonales['Apellido_P'],
+															'{ApellidoM}' => $DatosPersonales['Apellido_M'],
+															'{valorUniversidad}' => $DatosPersonales['Universidad'],
+															'{valorCarrera}' => $DatosPersonales['Carrera'],
+															'{valorPromedio}' => $DatosPersonales['Promedio'],
+															'{seleccion'.$DatosPersonales['Estado']."}"  => "selected",
+															'{selec'.(string)$DatosPersonales['Porcentaje'].'}' => "selected",
+															'{TiempoRestante}' => $DatosPersonales['TiempoRestante']
+														 );
+				$Horarios = $this->modelo->recuperaHorario($Usuario);
+				$DicHorario = $this->creaHorarios($Horarios);
+
+
+				$vista = strtr($vista,$Diccionario);
+				if(isset($DicHorario))
+					$vista = strtr($vista,$DicHorario);
+				echo $header.$menu.$vista.$footer;
+				//require_once("app/vistas/Perfil.php");
 			}
 			else{
 				
 			}
 
+		}
+
+		/*
+		*
+		*/
+		function creaHorarios($Horarios)//Crea el Diccionario para sustituir en la vista los horarios del Usuario
+		{
+			if(isset($Horarios))
+			{
+				$Diccionario = null;//Esta Variable sera un array del diccionario
+				$Dias = array( //Este Arreglo es para controlar los dias que estan registrados y los que no 
+												"Lunes" => "Lunes", 
+											 "Martes" => "Martes", 
+											 "Miercoles" => "Miercoles", 
+											 "Jueves" => "Jueves", 
+											 "Viernes" => "Viernes", 
+											 "Sabado" => "Sabado"
+										);
+				foreach ($Horarios as $key) //Del arreglo que se pasa como parametro se hacen las iteraciones
+				{
+					//Se obtiene en cada iteracion los valores para que no exista conflicto
+					$ValorDesde = file_get_contents("app/vistas/Valores00.php");
+					$ValorHasta = file_get_contents("app/vistas/Valores00.php");
+					$DiaConsult = $key['Dia'];//Se Obtiene la llave del Arreglo q se paso como parametro
+					if(in_array($DiaConsult, $Dias))//Si el dia (llave) se encuentra dentro del arreglo de Dias se entiende que tiene valor Desde y Hasta Asignados 
+					{
+						$MiniDics ['{'.$key['Desde'].'}'] =  "selected";//Se hace uso de un MiniDiccionario para poder susbtituir en el texto que se obtuvo 
+						$ValorDesde = strtr($ValorDesde,$MiniDics);//Se remplaza la llave en la cadena de valores por un selected que sera interpretado por el select
+						unset($MiniDics);//Se Borra el Mini Diccionario ya que este solo debe de contener una llave por iteracion
+						$MiniDics2 ['{'.$key['Hasta'].'}'] =  "selected";
+						$ValorHasta = strtr($ValorHasta,$MiniDics2);
+						unset($MiniDics2);
+						unset($Dias[$DiaConsult]);//Se elimina el dia que se encontro para que se reduzca el tamaño del arreglo ya q se ocupara mas adelante 
+						//Ya que se remplazo la llave en las cadenas es momento de crear el diccionario que se retorna
+						$Diccionario['{Valores'.$DiaConsult.'Desde}'] = $ValorDesde;
+						$Diccionario['{Valores'.$DiaConsult.'Hasta}'] = $ValorHasta;
+					}
+				}
+				$ValorDesde = file_get_contents("app/vistas/Valores00.php");
+				$ValorHasta = file_get_contents("app/vistas/Valores00.php");
+				//Los dias que no se encontraron en la consulta se rellenaran en 00:00 a 24:00 es por esto que se deben de eliminar los encontrados
+				foreach ($Dias as $Dia => $val) {
+						$Diccionario['{Valores'.$val.'Desde}'] = $ValorDesde;
+						$Diccionario['{Valores'.$val.'Hasta}'] = $ValorHasta;
+
+				}
+				return $Diccionario;
+			}
+			else
+				return null;
 		}
 
 		function cambioContrasena()
@@ -242,7 +334,7 @@
 		*/
 		function actualizarPerfil()
 		{
-			//Se toman todos los valores de los diferentes imputs de la vista completarRegistro/Perfil
+			//Se toman todos los valores de los diferentes inputs de la vista completarRegistro/Perfil
 			$Usuario = $_SESSION['usuario'];
 			if (!empty($_POST)) 
 			{
@@ -297,7 +389,10 @@ lo considere como un arreglo y tome todos los que encuentre no solo el ultimo*/
 			//	in_array() para buscar un "" que indica que existe un false si es asi se borraran los cambios 
 			//	en la bd de ontra manera se aceptan los cambios
 				if(in_array("", $ConsultaRes))
-					require_once("app/vistas/CompletarRegistro.php");
+					if(esNoActivo())
+					   require_once("app/vistas/CompletarRegistro.php");
+					else
+						echo "La actualizacion no se pudo realizar ni pedo la vida sigue vuele a intentarlo si sale en la presentacion poga un 100";
 				else //Si no hay error se procede si es un nuevo usuario o si es uno ya existente
 				{
 					if (esNoActivo()) 
@@ -313,9 +408,13 @@ lo considere como un arreglo y tome todos los que encuentre no solo el ultimo*/
 //Hace falta esto$_SESSION['img_ruta']
 						carga_inicio();
 			  	}
-			  	/*
-			  	ADD codigo de cuando no es un NOOB :v
-			  	*/
+			  	else{
+				  	/*
+				  	ADD codigo de cuando no es un NOOB :v
+				  	*/
+				  	$_SESSION['nombre'] = $Nombre." ".$ApellidoP." ".$ApellidoM;
+				  	carga_inicio();
+			  	}
 				}
 			}
 			carga_inicio();
