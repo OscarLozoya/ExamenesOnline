@@ -48,6 +48,18 @@
 				require_once('app/vistas/index.php');
 		}
 
+		function devuelveMenu()
+		{
+			$ruta = null;
+			if(esUsuario())
+				$ruta = 'app/vistas/MenuUser.php';
+			if(esModerador())
+				$ruta = 'app/vistas/MenuMod.php';
+			if(esAdmin())
+				$ruta = 'app/vistas/MenuAdmin.php';
+			return $ruta;
+		}
+
 		function mostrarUsuario($vista)
 		{
 			$inicio_nombre = strrpos($vista, '<label>');

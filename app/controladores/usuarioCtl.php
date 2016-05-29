@@ -31,8 +31,12 @@
 						/*	case 'verPerfil'://Llamada al perfil de otro usuario sin opcion a modificar antes 'Perfil'
 							    $this->ConsultarPerfil();
 							  break;*/
-							case 'mostrarPerfil'://Llamada al perfil del administrador
-							    $this->MostrarPerfil();
+							case 'Perfil'://Llamada al perfil del administrador
+							    if (isset($_GET['response']))
+							    	$this->actualizarPerfil();
+							    else
+							    	$this->MostrarPerfil();
+
 							  break;
 						/*	case 'ModificarPerfil':
 							 		$this->ModificarPerfil();//Guarda en la BD los campos del perfil modificados se acciona con el boton de actualizar campos
@@ -53,8 +57,11 @@
 						/*	case 'verPerfil'://Llamada al perfil de otro usuario sin opcion a modificar antes 'Perfil'
 						    $this->ConsultarPerfil();
 						    break;*/
-							case 'mostrarPerfil'://Llamada al perfil del usuario
-							    $this->MostrarPerfil();
+							case 'Perfil'://Llamada al perfil del usuario
+							    if (isset($_GET['response']))
+							    	$this->actualizarPerfil();
+							    else
+							    	$this->MostrarPerfil();
 							  break;
 							/*case 'actualizaPerfil':
 							 		$this->ModificarPerfil();//Guarda en la BD los campos del perfil modificados se acciona con el boton de actualizar campos
@@ -94,17 +101,10 @@
 					 			$this->Registrar();
 					 		break;
 					 	case 'completarRegistro':
-							 	if (isset($_GET['response'])) {
+							 	if (isset($_GET['response'])) 
 							 		$this->completarRegistro();
-							 	}
-							 	else if (esNoActivo()){
+							 	else if (esNoActivo())
 							 		$this->actualizarPerfil();
-							 	} 
-							 		
-							 	else
-							 		echo "Algo anda mal en usuarioCTL";
-							 	/*else
-							 		carga_inicio()*/
 					 		break;
 						default:
 								carga_inicio();
@@ -181,27 +181,63 @@
 			}
 
 		}
-		function ConsultarPerfil()
+		/*function ConsultarPerfil()
 		{
 			if(empty($_POST))
 			{
 				/*Requiere documentar
-				*/
+				
 				require_once("app/vistas/Perfil.php");
 			}
 			else{
 				
 			}
-		}
+		}*/
 
 		function MostrarPerfil()
 		{
 			if(empty($_POST))
 			{
+
+				/*
+				Para telefonos
+						{IniciaTelefono}
+							{valorTelefono}<-ya tiene comillas
+							 en atributo class de los i dentro de botones: {glyIcon}<- necesita comillas
+									valor para el boton plus en Telefono y en Red
+									"glyphicon glyphicon-plus"
+									valor para el boton minus en Telefono y en Red
+									"glyphicon glyphicon-minius"
+						{FinTelefono}
+				Para redes Sociales
+						{InicioRedes}
+										{valorRed}
+										{glyIcon}
+						{FinRedes}
+				*/
 				/*
 				- Requiere documentar
 				*/
-				require_once("app/vistas/Perfil.php");
+				$Usuario = $_SESSION['usuario'];
+				$header = file_get_contents("app/vistas/Header.php");
+				$menu = file_get_contents(devuelveMenu());
+				$vista = file_get_contents("app/vistas/Perfil.php");
+				$footer = file_get_contents("app/vistas/Footer.php");
+				$DatosPersonales = $this->modelo->recuperaDatosPersonales($Usuario);
+				//var_dump($DatosPersonales);
+				$Diccionario  = array('{Nombre}' => $DatosPersonales['Nombre'],
+															'{ApellidoP}' => $DatosPersonales['Apellido_P'],
+															'{ApellidoM}' => $DatosPersonales['Apellido_M'],
+															'{valorUniversidad}' => $DatosPersonales['Universidad'],
+															'{valorCarrera}' => $DatosPersonales['Carrera'],
+															'{valorPromedio}' => $DatosPersonales['Promedio'],
+															'{seleccion'.$DatosPersonales['Estado']."}"  => "selected",
+															'{selec'.(string)$DatosPersonales['Porcentaje'].'}' => "selected",
+															'{TiempoRestante}' => $DatosPersonales['TiempoRestante']
+														 );
+				$vista = strtr($vista,$Diccionario);
+				echo $header.$menu.$vista.$footer;
+				//require_once("app/vistas/Perfil.php");
 			}
 			else{
 				
@@ -242,7 +278,7 @@
 		*/
 		function actualizarPerfil()
 		{
-			//Se toman todos los valores de los diferentes imputs de la vista completarRegistro/Perfil
+			//Se toman todos los valores de los diferentes inputs de la vista completarRegistro/Perfil
 			$Usuario = $_SESSION['usuario'];
 			if (!empty($_POST)) 
 			{
@@ -297,7 +333,10 @@ lo considere como un arreglo y tome todos los que encuentre no solo el ultimo*/
 			//	in_array() para buscar un "" que indica que existe un false si es asi se borraran los cambios 
 			//	en la bd de ontra manera se aceptan los cambios
 				if(in_array("", $ConsultaRes))
-					require_once("app/vistas/CompletarRegistro.php");
+					if(esNoActivo())
+					   require_once("app/vistas/CompletarRegistro.php");
+					else
+						echo "La actualizacion no se pudo realizar ni pedo la vida sigue vuele a intentarlo si sale en la presentacion poga un 100";
 				else //Si no hay error se procede si es un nuevo usuario o si es uno ya existente
 				{
 					if (esNoActivo()) 
@@ -313,9 +352,13 @@ lo considere como un arreglo y tome todos los que encuentre no solo el ultimo*/
 //Hace falta esto$_SESSION['img_ruta']
 						carga_inicio();
 			  	}
-			  	/*
-			  	ADD codigo de cuando no es un NOOB :v
-			  	*/
+			  	else{
+				  	/*
+				  	ADD codigo de cuando no es un NOOB :v
+				  	*/
+				  	$_SESSION['nombre'] = $Nombre." ".$ApellidoP." ".$ApellidoM;
+				  	carga_inicio();
+			  	}
 				}
 			}
 			carga_inicio();

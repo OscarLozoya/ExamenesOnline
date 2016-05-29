@@ -266,11 +266,11 @@ function EliminarSubNodoTel(refnod){
 
 function ValidaPassword(tipo)
 {
-	console.log("MINIMO ENTRO");
 	var Contrasena = $('input#contrasena_nueva');
 	var ContrasenaConf = $('input#contrasena_confirmacion');
 	var error = true;
-	if (tipo==0) {
+	if (tipo==0) 
+	{
 		if(!notEmpty(Contrasena.val()) && !notEmpty(ContrasenaConf.val()))
 				MuestraError('label','Falta Especificar su contraseña',ContrasenaConf,'ErrorContra');
 		else
@@ -282,9 +282,8 @@ function ValidaPassword(tipo)
 		}
 
 	}
-	//Falta el caso de Perfil que se activa con 1
-	else
-		error=false;
+	else	//Falta el caso de Perfil que se activa con 1
+		error = false;
 
 	return error;
 }

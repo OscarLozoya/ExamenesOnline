@@ -141,6 +141,13 @@ class usuarioMdl
 				return $stmt->errno;
 			$stmt->close();
 		}
+		if($stmt = $this->driver->prepare("DELETE FROM  Horario WHERE Usuario = ?"))
+		{
+			$stmt->bind_param("s",$Usuario);
+     if(!$stmt->execute())
+				return $stmt->errno;
+			$stmt->close();
+		}
 	}
 	/**
 	*
@@ -209,7 +216,6 @@ class usuarioMdl
 				if ($stmt = $this->driver->prepare("INSERT INTO Telefono VALUES(?,?)")) //Se prepara la consulta
 				{
 					$Tel = $this->driver->real_escape_string($Telefonos[$i]);
-					var_dump($Tel);
 					$stmt->bind_param("ss",$Usuario,$Tel);
 					if(!$stmt->execute())//y se ejecuta
 						return $stmt->errno;
@@ -244,13 +250,72 @@ class usuarioMdl
 		}
 	}
 
+	/*
+	*
+	*/
+	function recuperaHorario($Usuario){
+		if($this->driver->connect_errno)
+			return false;
+		if ($stmt->driver->prepare("SELECT Dia, Desde, Hasta FROM Horario WHERE Usuario = ?")) 
+		{
+			$Usuario = $this->driver->real_escape_string($Usuario);
+			$stmt->bind_param("s",$Usuario);
+			if (! $stmt->execute()) 
+				return $stmt->error;
+			$stmt->bind_result($Dia,$Desde,$Hasta);//Se recuperan las columnas de la consulta
+			while ($stmt->fetch) {
+				$Resultado = array('Dia' => $Dia,
+													 'Desde' => $Desde,
+													 'Hasta' => $Hasta );
+			}
+			$stmt->close();
+			return $Resultado;
+		}
+		else
+			return $stmt->error;
+
+	}
+	/*
+	*
+	*/
+	function recuperaDatosPersonales($Usuario)
+	{ 
+		$Resultado = null;
+		if($this->driver->connect_errno)
+			return false;
+		if ($stmt = $this->driver->prepare("SELECT Nombres, Apellido_P,Apellido_M,Universidad,Carrera,Promedio,Estado,Porcentaje,TiempoRestante FROM Perfil WHERE Usuario = ?")) 
+		{
+			echo "VAmos despues del if de stantem";
+			$Usuario = $this->driver->real_escape_string($Usuario);
+			$stmt->bind_param("s",$Usuario);
+			if (! $stmt->execute()) 
+				return $stmt->error;
+			$stmt->bind_result($Nombre,$Apellido_P,$Apellido_M,$Universidad,$Carrera,$Promedio,$Estado,$Porcentaje,$TiempoRestante);//Se recuperan las columnas de la consulta
+			while ($stmt->fetch()) {
+				$Resultado = array( 'Nombre' => $Nombre, 
+														'Apellido_P' => $Apellido_P,
+														'Apellido_M' => $Apellido_M,
+														'Universidad' => $Universidad,
+														'Carrera' => $Carrera,
+			                      'Promedio' => $Promedio,
+			                      'Estado' => $Estado,
+			                      'Porcentaje' => $Porcentaje,
+			                      'TiempoRestante' => $TiempoRestante);
+			}
+			$stmt->close();
+			return $Resultado;
+		}
+		else
+			return false;
+	}
+
+
 	/**
 	*
 	*/
 	function actualizaEstatus($Usuario,$Estado){
 		if($this->driver->connect_errno)//Se conecta con la BD si no hay error se prosigue
 			return false;
-			echo "string";
 		if($stmt = $this->driver->prepare("UPDATE Usuario SET Estado = ? WHERE Usuario = ?")){
 			$Usuario =  $this->driver->real_escape_string($Usuario);
 			$Estado = $this->driver->real_escape_string($Estado);
@@ -262,6 +327,7 @@ class usuarioMdl
 		}
 
 	}
+
 	function NuevaContasena($Usuario,$Contrasena)
 	{
 		if($this->driver->connect_errno)
