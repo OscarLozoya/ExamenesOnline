@@ -308,5 +308,6 @@ class usuarioMdl
 		return $existe;
 
 	}
+
 }
 ?>

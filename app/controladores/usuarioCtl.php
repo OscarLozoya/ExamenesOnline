@@ -367,5 +367,7 @@ lo considere como un arreglo y tome todos los que encuentre no solo el ultimo*/
 			session_destroy();
 			setcookie(session_name(), '', time()-3600);
 		}
+
+		
 	}
  ?>

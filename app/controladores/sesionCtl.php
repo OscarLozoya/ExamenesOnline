@@ -1,5 +1,6 @@
 <?php
-
+		
+		
 		function inicioSesion(){
 			if( isset($_SESSION['usuario']) && $_SESSION['estado']=='1' )
 				return true;
@@ -37,7 +38,7 @@
 			else if(esModerador())
 				require_once('app/vistas/IndexMod.php');
 			else if(esUsuario())
-				require_once('app/vistas/IndexUser.php');
+				cargarUsuario();
 			else if(isset($_SESSION['usuario'])){
 				session_unset();
 				session_destroy();
@@ -66,5 +67,47 @@
 				$vista = str_replace($nombre,'Nombre Usuario', $vista);
 			}
 			return $vista;
+		}
+
+		function cargarUsuario()
+		{
+			include_once('app/modelos/sesionMdl.php');
+			$modelo = new sesionMdl();
+			$vista = file_get_contents('app/vistas/IndexUser.php');
+			$footer=file_get_contents('app/vistas/Footer.php');
+			$header=file_get_contents('app/vistas/Header.php');
+			$menu = file_get_contents('app/vistas/MenuUser.php');
+			$vista = mostrarUsuario($vista);
+			
+			$Examenes = $modelo->ExamenesPendientes();
+			$ini_Examen = strpos($vista, '{ini_Examen}');
+			$fin_Examen = strrpos($vista, '{fin_Examen}')+12;
+			$fila = substr($vista, $ini_Examen,$fin_Examen-$ini_Examen);
+			$newFila = '';
+			$filas = '';
+			if(isset($Examenes) && is_array($Examenes))
+			{
+				foreach ($Examenes as $examen) {
+					$newFila = $fila;
+					$diccionario = array('{Categoria}' => $examen['Categoria'],
+										'{id-examen}' => $examen['ID_Examen'],
+										'{Examen}' => $examen['Examen'],
+										'{Preguntas}' => $examen['Num_Preguntas'],
+										'{Tiempo}' => $examen['Tiempo']);
+					$newFila = strtr($newFila, $diccionario);
+					$filas .=$newFila;
+				}
+				$vista = str_replace($fila, $filas, $vista);
+				$vista = str_replace('{ini_Examen}', '', $vista);
+				$vista = str_replace('{fin_Examen}', '', $vista);
+			}
+			else
+			{
+				$vista = str_replace($fila, $Examenes, $vista);
+				$vista = str_replace('{ini_Examen}', '', $vista);
+				$vista = str_replace('{fin_Examen}', '', $vista);
+			}
+			$vista = $header.$menu.$vista.$footer;
+			echo $vista;
 		}
 ?>
