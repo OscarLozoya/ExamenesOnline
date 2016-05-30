@@ -28,7 +28,24 @@ class ExamenMdl
 			$cantidadPreguntas = $this->driver->real_escape_string($cantidadPreguntas);
 			$calificacionMinima = $this->driver->real_escape_string($calificacionMinima);
 
-			$stmt->bind_param("isiii",$categoria,$nombreExamen,$tiempoLimite,$cantidadPreguntas,$calificacionMinima);
+			if($tiempoLimite >= 60)
+			{
+				$tiempoHoras = floor($tiempoLimite/60);
+				$tiempoMinutos = $tiempoLimite%60;
+				$tiempoSegundos = '00';
+
+				$tiempoBD = $tiempoHoras.$tiempoMinutos.$tiempoSegundos;
+			}
+			else if($tiempoLimite >= 0)
+			{
+				$tiempoHoras = '00';
+				$tiempoMinutos = $tiempoLimite;
+				$tiempoSegundos = '00';
+
+				$tiempoBD = $tiempoHoras.$tiempoMinutos.$tiempoSegundos;
+			}
+			var_dump($tiempoBD);
+			$stmt->bind_param("isiii",$categoria,$nombreExamen,$tiempoBD,$cantidadPreguntas,$calificacionMinima);
 			if($stmt->execute())
 				return true;
 			$stmt->close();
@@ -389,8 +406,9 @@ class ExamenMdl
 		if($this->driver->connect_errno)
 			return false;
 		//Se prepara el Query, los signos ? se sustituyen por las variables
-		if($stmt = $this->driver->prepare("SELECT distinct Usuario, Nombres, Apellido_P, Apellido_M, Universidad 
-			FROM Perfil WHERE Usuario like ? OR Nombres like ? OR Apellido_P like ? OR Apellido_M like ?;"))
+		if($stmt = $this->driver->prepare("SELECT DISTINCT p.Usuario, p.Nombres, p.Apellido_P, p.Apellido_M, p.Universidad 
+			FROM Perfil p JOIN Usuario u ON u.Usuario = p.Usuario
+			WHERE (p.Usuario LIKE ? OR p.Nombres LIKE ? OR p.Apellido_P LIKE ? OR p.Apellido_M LIKE ?) AND u.Tipo = '2';"))
 		{
 			//Se limpian las variables para evitar inyecciones de SQL
 			$nombreUsuario = $this->driver->real_escape_string($nombreUsuario);
