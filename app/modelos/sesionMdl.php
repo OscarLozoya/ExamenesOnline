@@ -39,6 +39,29 @@ class sesionMdl
 		}
 		return $array;
 	}
+
+	function respuestasPendientesRevisar()
+	{
+		$array = null;
+		if($this->driver->connect_errno)
+			return false;
+		if($stmt = $this->driver->prepare("SELECT r.Usuario,r.ID_Examen,r.ID_Pregunta,r.Respuesta,p.Descripcion
+											FROM Detalle_Pregunta_Examen r INNER JOIN Pregunta p ON r.ID_Pregunta=p.ID
+											WHERE r.Resultado=-1"))
+		{
+			if(!$stmt->execute())
+				return $stmt->error;
+			$stmt->bind_result($usuario,$ID_Examen,$ID_Pregunta,$Respuesta,$Descripcion);
+			while ($stmt->fetch()) {
+				$array[] = array('usuario' => $usuario,
+								'ID_Examen' => $ID_Examen,
+								'ID_Pregunta' => $ID_Pregunta,
+								'Respuesta' => $Respuesta,
+								'Descripcion' => $Descripcion);
+			}
+		}
+		return $array;
+	}
 }
 
  ?>

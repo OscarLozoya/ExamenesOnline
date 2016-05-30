@@ -386,7 +386,8 @@ class usuarioMdl
 	/**
 	*
 	*/
-	function actualizaEstatus($Usuario,$Estado){
+	function actualizaEstatus($Usuario,$Estado)
+	{
 		if($this->driver->connect_errno)//Se conecta con la BD si no hay error se prosigue
 			return false;
 		if($stmt = $this->driver->prepare("UPDATE Usuario SET Estado = ? WHERE Usuario = ?")){
@@ -410,8 +411,31 @@ class usuarioMdl
 			$Contrasena = $this->driver->real_escape_string($Contrasena);
 			$Usuario = $this->driver->real_escape_string($Usuario);
 			$stmt->bind_param("ss",$Contrasena,$Usuario);
-			$stmt->execute();
+			if(!$stmt->execute())
+				return false;
+			$stmt->close();
+			return true;
 		}
+	}
+	function recuperaContrasena($Usuario)
+	{
+		//$Resultado=null;
+		if($this->driver->connect_errno)//Se conecta con la BD si no hay error se prosigue
+			return false;
+		if($stmt = $this->driver->prepare("SELECT Contrasena FROM Usuario WHERE Usuario = ?"))
+		{
+			$Usuario =  $this->driver->real_escape_string($Usuario);
+			$stmt->bind_param("s",$Usuario);
+			if(!$stmt->execute())
+				return $stmt->error;
+			$stmt->bind_result($pass);
+			while ($stmt->fetch())
+				$Resultado = $pass;
+			$stmt->close();
+
+			return $Resultado;
+		}
+
 	}
 	//
 	function eventosProximos()
@@ -420,7 +444,33 @@ class usuarioMdl
 	}
 	function detalleExamen()
 	{
-		
+		$array = null;
+		if($this->driver->connect_errno)//Se conecta con la BD si no hay error se prosigue
+			return false;
+		if($stmt = $this->driver->prepare("SELECT c.Nombre,e.Nombre,e.Num_Preguntas,count(d.Resultado),r.Calificacion,e.Calificacion_Min 
+											FROM Categoria c INNER JOIN Examen e ON c.ID=e.ID_Categoria INNER JOIN Resultado_Examen r ON e.ID=r.ID_Examen INNER JOIN Detalle_Pregunta_Examen d ON r.ID_Examen=d.ID_Examen
+											WHERE r.Usuario=? AND d.Resultado=1"))
+		{
+			$usuario = $_SESSION['usuario'];
+			$usuario = $this->driver->real_escape_string($usuario);
+			$stmt->bind_param("s",$usuario);
+			if(!$stmt->execute())
+				return $stmt->error;
+			$stmt->bind_result($Categoria,$Examen,$Num_Preguntas,$aciertos,$Calificacion,$Calificacion_Min);
+			while ($stmt->fetch()) {
+				$estado = 'Aprobado';
+				if($Calificacion < $Calificacion_Min)
+					$estado = 'Reprobado';
+				$array[] = array('Categoria' => $Categoria,
+								'Examen' => $Examen,
+								'Num_Preguntas' => $Num_Preguntas,
+								'Aciertos' => $aciertos,
+								'Calificacion' => $Calificacion,
+								'Estado' => $estado);
+			}
+			$stmt->close();
+		}
+		return $array;
 	}
 	function ingresar($usuario,$contrasena)
 	{

@@ -28,9 +28,6 @@
 							case 'Modificar'://Llamada del administrador para modificar eltipo de un usuario
 							  	$this->Modificar();
 							  break;
-						/*	case 'verPerfil'://Llamada al perfil de otro usuario sin opcion a modificar antes 'Perfil'
-							    $this->ConsultarPerfil();
-							  break;*/
 							case 'Perfil'://Llamada al perfil del administrador
 							    if (isset($_GET['response']))
 							    	$this->actualizarPerfil();
@@ -43,6 +40,8 @@
 						/*	case 'ModificarPerfil':
 							 		$this->ModificarPerfil();//Guarda en la BD los campos del perfil modificados se acciona con el boton de actualizar campos
 							 	break;*/
+							    	$this->MostrarPerfil(1);
+							  break;
 							case 'salir':
 								 	$this->salir();
 								 	carga_inicio();
@@ -60,11 +59,14 @@
 							    if (isset($_GET['response']))
 							    	$this->actualizarPerfil();
 							    else
-							    	$this->MostrarPerfil();
+							    	$this->MostrarPerfil(1);
 							  break;
 							case 'Buscar':
 							 		$this->buscar();
 							 	break;
+					  	case 'cambioContrasena':
+					 			  $this->cambioContrasena();
+					 		  break;
 						  case 'detalleExamen'://Solo disponible para usuario normal
 						    if(esUsuario())
 						 			$this->detalleExamen();
@@ -93,8 +95,8 @@
 						case 'ingresar':
 						 		$this->ingresar();
 						 	break;
-						case 'cambioContrasena':
-					 			$this->cambioContrasena();
+						case 'restablecerContrasena':
+					 			$this->restablecerContrasena();
 					 		break;
 					 	case 'Registro':
 					 			$this->Registrar();
@@ -180,20 +182,8 @@
 			}
 
 		}
-		/*function ConsultarPerfil()
-		{
-			if(empty($_POST))
-			{
-				/*Requiere documentar
-				
-				require_once("app/vistas/Perfil.php");
-			}
-			else{
-				
-			}
-		}*/
 
-		function MostrarPerfil()
+		function MostrarPerfil($opc)
 		{
 			/*if(empty($_POST))
 			{*/
@@ -204,6 +194,24 @@
 				$footer = file_get_contents("app/vistas/Footer.php");
 				$DatosPersonales = $this->modelo->recuperaDatosPersonales($Usuario);
 				//
+				switch ($opc) {
+					case '1':
+						$ErrorCon = "";
+						$Notificacion = "";
+						break;
+					case '2':
+						$ErrorCon = "<label class='Warning' style='display: block'>La contraseña actual no coincide</label>";
+						$Notificacion = "<label class='Warning text-center' style='display: block'> No se Actualizo la contraseña</label>";
+						break;
+					case '3':
+					  $ErrorCon = "";
+						$Notificacion = "<label class='text-center' style='display: block'>La contraseña fue Actualizada</label>";
+						break;
+					default:
+						$ErrorCon="";
+						$Notificacion = "";
+						break;
+				}
 				$Diccionario  = array('{Nombre}' => $DatosPersonales['Nombre'],
 															'{ApellidoP}' => $DatosPersonales['Apellido_P'],
 															'{ApellidoM}' => $DatosPersonales['Apellido_M'],
@@ -212,7 +220,10 @@
 															'{valorPromedio}' => $DatosPersonales['Promedio'],
 															'{seleccion'.$DatosPersonales['Estado']."}"  => "selected",
 															'{selec'.(string)$DatosPersonales['Porcentaje'].'}' => "selected",
-															'{TiempoRestante}' => $DatosPersonales['TiempoRestante']
+															'{TiempoRestante}' => $DatosPersonales['TiempoRestante'],
+															'{ErrorContra}'=> $ErrorCon,
+															'{Notificacion}'=> $Notificacion,
+															'{Nombre Del Usuario}' => $_SESSION['usuario']
 														 );
 				$Horarios = $this->modelo->recuperaHorario($Usuario);
 				$DicHorario = $this->creaHorarios($Horarios);
@@ -335,7 +346,8 @@
 			return $vista;
 		}
 
-		function creaTelefonos($Resultados, $vista){
+		function creaTelefonos($Resultados, $vista)
+		{
 			$inicioTelefono = strpos($vista, "{IniciaEspTelefono}");
 			$finTelefono = strpos($vista, "{FinEspTelefono}") + 16;
 			$EspTelefono = substr($vista, $inicioTelefono,$finTelefono - $inicioTelefono);
@@ -378,6 +390,36 @@
 		}
 
 		function cambioContrasena()
+		{ 
+			$contrasena_actual = $_POST['contrasena_actual'];
+			$nueva_contrasena = $_POST['contrasena_confirmacion'];
+			if(isset($contrasena_actual) && isset($nueva_contrasena))
+			{
+				$Usuario = $_SESSION['usuario'];
+				$contrasenaBD = $this->modelo->recuperaContrasena($Usuario);
+				if(isset($contrasenaBD))
+				{
+					if ($contrasenaBD == $contrasena_actual) {
+						$Resultado = $this->modelo->NuevaContasena($Usuario,$nueva_contrasena);
+						if($Resultado)
+							$this->MostrarPerfil(3);
+						else
+							$this->MostrarPerfil(2);
+					}
+					else
+						$this->MostrarPerfil(2);
+				}
+				else{
+							$this->MostrarPerfil(2);
+				}
+
+			}
+			else{
+				$this->MostrarPerfil(2);
+			}
+		}
+
+		function restablecerContrasena()
 		{
 			if(empty($_POST))
 			{
@@ -492,7 +534,7 @@ lo considere como un arreglo y tome todos los que encuentre no solo el ultimo*/
 				}
 			}
 			//carga_inicio();
-			$this->MostrarPerfil();
+			$this->MostrarPerfil(1);
 		}
 
 		function eventosProximos()
@@ -511,16 +553,39 @@ lo considere como un arreglo y tome todos los que encuentre no solo el ultimo*/
 
 		function detalleExamen()
 		{
-			if(empty($_POST))
+			$vista = file_get_contents("app/vistas/DetalleExamenes.php");
+			$header = file_get_contents("app/vistas/Header.php");
+			$menu = file_get_contents(devuelveMenu());
+			$footer = file_get_contents("app/vistas/Footer.php"); 
+
+			$inicio_fila = strrpos($vista,'<tr>');
+			$fin_fila = strrpos($vista, '</tr>')+5;
+			$fila = substr($vista,$inicio_fila,$fin_fila-$inicio_fila);
+
+			$Examenes = $this->modelo->detalleExamen();
+
+			$filas = '';
+			$newFila = '';
+			if(isset($Examenes)&&is_array($Examenes))
 			{
-				/*
-				- Requiere documentar
-				*/
-				require_once("app/vistas/DetalleExamenes.php");
+				foreach ($Examenes as $examen) {
+					$newFila = $fila;
+					$diccionario = array('{Categoria}' => $examen['Categoria'],
+										'{Examen}' => $examen['Examen'],
+										'{Num_Preguntas}' => $examen['Num_Preguntas'],
+										'{Aciertos}' => $examen['Aciertos'],
+										'{Estado}' => $examen['Estado'],
+										'{Calificacion}' => $examen['Calificacion']);
+					$newFila = strtr($newFila, $diccionario);
+					$filas .= $newFila;
+				}
+				$vista = str_replace($fila, $filas, $vista);
 			}
-			else{
-				
-			}
+			else
+				$vista = str_replace($fila, '', $vista);
+
+			$vista = $header.$menu.$vista.$footer;
+			echo $vista;
 		}
 		function ingresar()
 		{

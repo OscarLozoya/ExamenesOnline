@@ -39,6 +39,9 @@
 						case 'vista':
 							$this->vista();
 							break;
+						case 'calificar':
+							$this->calificar();
+							break;
 						default:
 							carga_inicio();
 							break;
@@ -455,6 +458,20 @@
 				$vista = str_replace($input,'', $vista);
 			}
 			return $vista;
+		}
+
+		function calificar()
+		{
+			if(!empty($_POST))
+			{
+				$usuario = $_POST['usuario'];
+				$ID_Examen = $_POST['ID_Examen'];
+				$ID_Pregunta = $_POST['ID_Pregunta'];
+				$respuesta = $_POST['respuesta'];
+				$resultado = $_POST['resultado'];
+				$this->modelo->respuestasAbiertas($usuario,$ID_Examen,$ID_Pregunta,$respuesta,$resultado);
+			}
+			carga_inicio();
 		}
 	}
  ?>

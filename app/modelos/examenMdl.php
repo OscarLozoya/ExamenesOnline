@@ -434,5 +434,64 @@ class ExamenMdl
 		//$this->driver->close();
 		return $array;
 	}
+
+	function respuestasAbiertas($usuario,$ID_Examen,$ID_Pregunta,$respuesta,$Resultado)
+	{
+		if($this->driver->connect_errno)
+			return false;
+		if($stmt = $this->driver->prepare("UPDATE Detalle_Pregunta_Examen 
+											SET Resultado=? 
+											WHERE Usuario=? AND ID_Examen=? AND ID_Pregunta=? AND Respuesta=?"))
+		{
+			$usuario = $this->driver->real_escape_string($usuario);
+			$ID_Examen = $this->driver->real_escape_string($ID_Examen);
+			$ID_Pregunta = $this->driver->real_escape_string($ID_Pregunta);
+			$respuesta = $this->driver->real_escape_string($respuesta);
+			$Resultado = $this->driver->real_escape_string($Resultado);
+			$stmt->bind_param("isiis",$Resultado,$usuario,$ID_Examen,$ID_Pregunta,$respuesta);
+			if(!$stmt->execute())
+				return false;
+			$stmt->close();
+		}
+		if($this->actualizarPromedio($usuario,$ID_Examen))
+			return true;
+		else
+			return false;
+	}
+
+	function actualizarPromedio($usuario,$ID_Examen)
+	{
+		$Num_Preguntas = $this->numPreguntasExamen($ID_Examen);
+		$correctos = 0;
+		if($this->driver->connect_errno)
+			return false;
+		if($stmt = $this->driver->prepare("SELECT COUNT(Resultado) 
+											FROM Detalle_Pregunta_Examen 
+											WHERE Resultado=1 AND Usuario =? AND ID_Examen=?"))
+		{
+			$usuario = $this->driver->real_escape_string($usuario);
+			$ID_Examen = $this->driver->real_escape_string($ID_Examen);
+			$stmt->bind_param("si",$usuario,$ID_Examen);
+			if(!$stmt->execute())
+				return false;
+			$stmt->bind_result($correctos);
+			$stmt->fetch();
+			$stmt->close();
+		}
+		$Promedio = ($correctos*100)/$Num_Preguntas;
+		if($stmt = $this->driver->prepare("UPDATE Resultado_Examen
+											SET Calificacion=?
+											WHERE Usuario=? AND ID_Examen=?"))
+		{
+			$usuario = $this->driver->real_escape_string($usuario);
+			$ID_Examen = $this->driver->real_escape_string($ID_Examen);
+			$Promedio = $this->driver->real_escape_string($Promedio);
+			$stmt->bind_param("isi",$Promedio,$usuario,$ID_Examen);
+			if(!$stmt->execute())
+				return false;
+			$stmt->close();
+		}
+		return true;
+	}
 }
 ?>
