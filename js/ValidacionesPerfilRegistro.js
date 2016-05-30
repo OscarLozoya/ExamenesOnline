@@ -1,7 +1,7 @@
 /**
-*@fileoverviewe Script para validar los formularios de Completar Registro y posible compatibilidad con Perfil
+*@fileoverviewe Script para validar los formularios de Completar Registro y Perfil
 *@autor Oscar Ivan Lozoya Rodriguez
-*@version 1.3
+*@version 1.4
 */
 
 /**
