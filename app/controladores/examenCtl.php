@@ -44,6 +44,17 @@
 							break;
 					}
 				}
+				else if(esUsuario())
+				{
+					switch ($_GET['accion']) {
+						case 'vista':
+							$this->vista();
+							break;
+						default:
+							carga_inicio();
+							break;
+					}
+				}
 				else
 				{
 					carga_inicio();

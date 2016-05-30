@@ -447,5 +447,6 @@ class usuarioMdl
 		return $existe;
 
 	}
+
 }
 ?>
