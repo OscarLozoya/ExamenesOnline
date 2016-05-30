@@ -34,6 +34,9 @@
 						case 'modificar':
 							$this->modificar();
 							break;
+						case 'actualizar':
+							$this->actualizar();
+							break;
 						default:
 							carga_inicio();
 							break;
@@ -50,12 +53,12 @@
 			}
 		}
 		function buscar(){
-			$Parametro = $_POST['parametro'];
+			
 			$Resultado = null;
-			if (isset($Parametro)) 
+			if (isset($_POST['parametro'])) 
 			{
+				$Parametro = $_POST['parametro'];
 				 $Resultado = $this->modelo->buscaCategoria($Parametro);
-				 var_dump($Resultado);
 				 if(isset($Resultado))
 				 { 	
 					$header = file_get_contents("app/vistas/Header.php"); 
@@ -72,6 +75,7 @@
 						$nodoFila = $Fila;
 						$dic = array('{ID_Categoria}' => $result['Id'],
 												 '{Nombre}' => $result['Nombre'],
+												 '{valorRadio}' => $result['Id'],
 												 '{inicia_FilaTabla}' => '',
 												 '{fin_FilaTabla}' => ''
 							          );
@@ -95,9 +99,9 @@
 		}
 
 		function agregar(){
-			$NombreCat =$_POST['nombreCategoria'];
-			if(isset($NombreCat))
+			if(isset($_POST['nombreCategoria']))
 			{	
+				$NombreCat =$_POST['nombreCategoria'];
 				$Resultado = $this->modelo->AgregarCategoria($NombreCat);
 				if ($Resultado)
 					$this->muestraPanel(1);
@@ -107,24 +111,76 @@
 			else
 				$this->muestraPanel(0);
 		}
-		function crear()
-		{
-			if(empty($_POST))
-				require_once('app/vistas/AdministrarCategoria.php');
-		}
-
+		
 		function eliminar()
 		{
-			if(empty($_POST))
-				require_once('app/vistas/AdministrarCategoria.php');
+			if (isset($_POST['categoria'])) 
+			{
+				$Id_Cat = $_POST['categoria'];
+				$Resultado = $this->modelo->eliminaCategoria($Id_Cat);
+				if ($Resultado) 
+					$this->muestraPanel(4);
+				else
+					$this->muestraPanel(5);
+			}
+			else
+				$this->muestraPanel(0);
 		}
 
 		function modificar()
 		{
-			if(empty($_POST))
-				require_once('app/vistas/AdministrarCategoria.php');
+			if (isset($_POST['categoria'])) 
+			{
+				$Id_Cat = $_POST['categoria'];
+				$Resultado = $this->modelo->buscaCategoriaE($Id_Cat);
+				if (isset($Resultado)) 
+				{
+					$header = file_get_contents("app/vistas/Header.php"); 
+					$menu = file_get_contents(devuelveMenu());
+					$vista = file_get_contents("app/vistas/AdministrarCategoria.php");
+					$footer = file_get_contents("app/vistas/Footer.php");
+					
+					$Notificacion = $this->devNotificacion(6);
+					$inicioFila = strrpos($vista, '{inicia_FilaTabla}');
+					$finFila = strrpos($vista, '{fin_FilaTabla}')+15;
+					$Fila = substr($vista, $inicioFila,$finFila-$inicioFila);
+					$newFilas ='';
+					$vista = str_replace($Fila, $newFilas, $vista);
+					$Diccionario = array('{inicia_FilaTabla}' => '',
+																'{ID_Categoria}' => '',
+																'{Nombre}' =>'',
+																'{fin_FilaTabla}'=> '',
+																'{valorID}' => $Resultado['Id'],
+																'{valorCategoria}' => $Resultado['Nombre'],
+																'{Notificacion}' =>$Notificacion,
+																'<form action="index.php?controlador=categoria&accion=agregar" method="post">' => '<form action="index.php?controlador=categoria&accion=actualizar" method="post">',
+																'>Agregar</button>' => '>Actualizar</button>'
+															);
+					$vista = strtr($vista,$Diccionario);
+					echo $header.$menu.$vista.$footer;
+				}
+				else
+					$this->muestraPanel(7);
+			}
+			else
+				$this->muestraPanel(7);
+			
 		}
 
+		function actualizar(){
+			if(isset($_POST['nombreCategoria']))
+			{	
+				$NombreCat =$_POST['nombreCategoria'];
+				$IdCat =$_POST['idCat'];
+				$Resultado = $this->modelo->actualizaCategoria($IdCat,$NombreCat);
+				if ($Resultado)
+					$this->muestraPanel(8);
+				else
+					$this->muestraPanel(7);
+			}
+			else
+				$this->muestraPanel(7);
+		}
 		function muestraPanel($tipo)
 		{
 			if (isset($tipo)) {
@@ -134,14 +190,19 @@
 				$footer = file_get_contents("app/vistas/Footer.php");
 				$Ultimo_ID = $this->modelo->buscaUltimo();
 				$Notificacion = $this->devNotificacion($tipo);
-					$Diccionario = array('{inicia_FilaTabla}' => '',
-																'{ID_Categoria}' => '',
-																'{Nombre}' =>'',
-																'{fin_FilaTabla}'=> '',
-																'{valorID}' => $Ultimo_ID,
-																'{valorCategoria}' => '',
-																'{Notificacion}' =>$Notificacion
-															);
+				$inicioFila = strrpos($vista, '{inicia_FilaTabla}');
+				$finFila = strrpos($vista, '{fin_FilaTabla}')+15;
+				$Fila = substr($vista, $inicioFila,$finFila-$inicioFila);
+				$newFilas ='';
+				$vista = str_replace($Fila, $newFilas, $vista);
+				$Diccionario = array('{inicia_FilaTabla}' => '',
+															'{ID_Categoria}' => '',
+															'{Nombre}' =>'',
+															'{fin_FilaTabla}'=> '',
+															'{valorID}' => $Ultimo_ID,
+															'{valorCategoria}' => '',
+															'{Notificacion}' =>$Notificacion
+														);
 				$vista = strtr($vista,$Diccionario);
 				echo $header.$menu.$vista.$footer;
 			}
@@ -163,6 +224,21 @@
 					break;
 				case '3':
 					$Notificacion = "<label class='text-center Warning' style='display: block'>No se encontraron coincidencias</label>";
+					break;
+				case '4':
+					$Notificacion = "<label class='text-center' style='display: block'>Se elimino la Categoria</label>";
+					break;
+				case '5':
+					$Notificacion = "<label class='text-center Warning' style='display: block'>No se elimino la Categoria</label>";
+					break;
+				case '6':
+					$Notificacion = "<label class='text-center Warning' style='display: block'>Para actualizar es necesario presionar el boton actualizar</label>";
+					break;
+				case '7':
+					$Notificacion = "<label class='text-center Warning' style='display: block'>Ha ocurrido un error</label>";
+					break;
+				case '8':
+					$Notificacion = "<label class='text-center' style='display: block'>Se ha actualizado la categoria</label>";
 					break;
 				default:
 					$Notificacion = null;
