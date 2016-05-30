@@ -54,18 +54,12 @@
 					{
 						switch ($_GET['accion']) 
 						{
-						/*	case 'verPerfil'://Llamada al perfil de otro usuario sin opcion a modificar antes 'Perfil'
-						    $this->ConsultarPerfil();
-						    break;*/
 							case 'Perfil'://Llamada al perfil del usuario
 							    if (isset($_GET['response']))
 							    	$this->actualizarPerfil();
 							    else
 							    	$this->MostrarPerfil();
 							  break;
-							/*case 'actualizaPerfil':
-							 		$this->ModificarPerfil();//Guarda en la BD los campos del perfil modificados se acciona con el boton de actualizar campos
-							 	break;*/
 						  case 'detalleExamen'://Solo disponible para usuario normal
 						    if(esUsuario())
 						 			$this->detalleExamen();
@@ -196,28 +190,8 @@
 
 		function MostrarPerfil()
 		{
-			if(empty($_POST))
-			{
-
-				/*
-				Para telefonos
-						{IniciaTelefono}
-							{valorTelefono}<-ya tiene comillas
-							 en atributo class de los i dentro de botones: {glyIcon}<- necesita comillas
-									valor para el boton plus en Telefono y en Red
-									"glyphicon glyphicon-plus"
-									valor para el boton minus en Telefono y en Red
-									"glyphicon glyphicon-minius"
-						{FinTelefono}
-				Para redes Sociales
-						{InicioRedes}
-										{valorRed}
-										{glyIcon}
-						{FinRedes}
-				*/
-				/*
-				- Requiere documentar
-				*/
+			/*if(empty($_POST))
+			{*/
 				$Usuario = $_SESSION['usuario'];
 				$header = file_get_contents("app/vistas/Header.php");
 				$menu = file_get_contents(devuelveMenu());
@@ -242,12 +216,18 @@
 				$vista = strtr($vista,$Diccionario);
 				if(isset($DicHorario))
 					$vista = strtr($vista,$DicHorario);
+
+				$Redes = $this->modelo->recuperaRedes($Usuario);
+				$vista = $this->creaRedes($Redes,$vista);
+
+				$Telefonos = $this->modelo->recuperaTelefonos($Usuario);
+				$vista = $this->creaTelefonos($Telefonos ,$vista);
+
 				echo $header.$menu.$vista.$footer;
 				//require_once("app/vistas/Perfil.php");
-			}
-			else{
-				
-			}
+			/*}
+			else
+				carga_inicio();*/
 
 		}
 
@@ -290,7 +270,8 @@
 				$ValorDesde = file_get_contents("app/vistas/Valores00.php");
 				$ValorHasta = file_get_contents("app/vistas/Valores00.php");
 				//Los dias que no se encontraron en la consulta se rellenaran en 00:00 a 24:00 es por esto que se deben de eliminar los encontrados
-				foreach ($Dias as $Dia => $val) {
+				foreach ($Dias as $Dia => $val) 
+				{
 						$Diccionario['{Valores'.$val.'Desde}'] = $ValorDesde;
 						$Diccionario['{Valores'.$val.'Hasta}'] = $ValorHasta;
 
@@ -299,6 +280,96 @@
 			}
 			else
 				return null;
+		}
+
+		/**
+		*
+		*/
+		function creaRedes($Redes,$vista)
+		{
+			$inicioRed = strrpos($vista, '{InicioRedes}');
+			$finRed = strrpos($vista, '{FinRedes}') + 10;
+			$EspRed= substr($vista, $inicioRed,$finRed-$inicioRed);
+			$Urls = '';
+   		if(isset($Redes))
+			{
+				foreach ($Redes as $fila) 
+				{
+					$NodoRed = $EspRed;
+					$Diccionario = array('{valorRed}' => $fila['Url'],
+															 '{glyIcon}' => $fila['Icon'],
+															 '{idEsp}' => $fila['IdEsp'],
+															 '{InicioRedes}' =>'',
+															 '{FinRedes}' => '',
+															  '{BtnAddRed}' => $fila['ClassBtn'],
+																'{BtnRedClick}' => $fila['FunctionBtn'],
+																'{toolTipRed}' => $fila['toolTip']
+															);
+					$NodoRed = strtr($NodoRed,$Diccionario);
+					$Urls .= $NodoRed; 
+				}
+				$vista = str_replace($EspRed, $Urls, $vista);
+			}
+			else
+			{
+				$Diccionario = array(
+														'{valorRed}' => "",
+														'{glyIcon}' => "glyphicon glyphicon-plus",
+														'{idEsp}' => "EspRedSocial",
+														'{toolTipRed}' => "Agregar otra Red",
+														'{BtnAddRed}' => "",
+														'{BtnRedClick}' =>"NuevaRedSocial()",
+														'{InicioRedes}' =>'',
+														'{FinRedes}' => ''
+														);
+
+				$NodoRed = $EspRed;
+			  $NodoRed = strtr($NodoRed,$Diccionario);
+				$vista = str_replace($EspRed, $NodoRed, $vista);
+			}
+			return $vista;
+		}
+
+		function creaTelefonos($Resultados, $vista){
+			$inicioTelefono = strpos($vista, "{IniciaEspTelefono}");
+			$finTelefono = strpos($vista, "{FinEspTelefono}") + 16;
+			$EspTelefono = substr($vista, $inicioTelefono,$finTelefono - $inicioTelefono);
+			$newTelefonos = '';
+			if (isset($Resultados))
+			{
+				foreach ($Resultados as $fila) 
+				{
+					$NodoTel = $EspTelefono;
+					$Diccionario = array( '{valorTelefono}' => $fila['Tel'],
+																'{glyIconT}' => $fila['Icon'],
+																'{idEspTel}' => $fila['IdEsp'],
+																'{BtnAddTel}' => $fila['ClassBtn'],
+																'{BtnTelClick}'	=> $fila['BtnFunction'],
+																'{toolTipTel}' => $fila['toolTip'],
+																'{IniciaEspTelefono}' => '',
+																'{FinEspTelefono}' => ''
+															);
+					$NodoTel = strtr($NodoTel,$Diccionario);
+					$newTelefonos .= $NodoTel;
+				}
+				$vista = str_replace($EspTelefono, $newTelefonos, $vista);
+			}
+			else
+			{
+				$Diccionario = array( '{valorTelefono}' => "",
+																'{glyIconT}' => "glyphicon-plus",
+																'{idEspTel}' => "EspTelefono",
+																'{BtnAddTel}' => "",
+																'{BtnTelClick}'	=> "NuevoTelefono()",
+																'{toolTipTel}' => "Agregar otro Número",
+																'{IniciaEspTelefono}' => '',
+																'{FinEspTelefono}' => ''
+															);
+				$NodoTel = $EspTelefono;
+				$NodoTel = strtr($NodoTel, $Diccionario);
+				$vista = str_replace($EspTelefono, $NodoTel, $vista);
+			}
+			return $vista;
 		}
 
 		function cambioContrasena()
@@ -329,6 +400,7 @@
 			else
 				carga_inicio();
 		}
+
 		/**
 		*
 		*/
@@ -406,18 +478,16 @@ lo considere como un arreglo y tome todos los que encuentre no solo el ultimo*/
 						$_SESSION['nombre'] = $Nombre." ".$ApellidoP." ".$ApellidoM;
 						$_SESSION['estado'] = 1;
 //Hace falta esto$_SESSION['img_ruta']
-						carga_inicio();
+						//carga_inicio();
 			  	}
 			  	else{
-				  	/*
-				  	ADD codigo de cuando no es un NOOB :v
-				  	*/
 				  	$_SESSION['nombre'] = $Nombre." ".$ApellidoP." ".$ApellidoM;
-				  	carga_inicio();
+				  	//carga_inicio();
 			  	}
 				}
 			}
-			carga_inicio();
+			//carga_inicio();
+			$this->MostrarPerfil();
 		}
 
 		function eventosProximos()

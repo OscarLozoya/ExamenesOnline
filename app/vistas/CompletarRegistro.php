@@ -30,7 +30,7 @@
 									<input name="ApellidoP" id="ApeP" type="text" placeholder="Perez" class="form-control" onchange="Elimina_Error('ErrorApeP')">
 								</div>
 								<div class="col-sm-6 col-md-4">
-									<label for="ApeM">Apellido Materno:</label>
+									<label for="ApeM">Apellido Materno: *</label>
 									<br>
 									<input name="ApellidoM" id="ApeM" type="text" placeholder="Suarez" class="form-control" onchange="Elimina_Error('ErrorApeM')">
 								</div>
@@ -51,7 +51,7 @@
 					</section>
 					<section class="form-horizontal well">
 						<fieldset>
-							<legend>Redes Sociales:</legend>
+							<legend>Redes Sociales *:</legend>
 							<div id="EspRedSocial">
 								<div class="form-group col-xs-12 col-md-11">
 									<label for="" class="col-xs-2 control-label">URL:</label>
@@ -68,7 +68,7 @@
 					</section>
 					<section class="form-horizontal well">
 						<fieldset>
-							<legend>Datos Academicos:</legend>
+							<legend>Datos Academicos*:</legend>
 							<div class="form-group">
 									<label for="uni" class="col-md-2 control-label">Universidad</label>
 									<div class="col-md-8">
@@ -86,14 +86,14 @@
 									</div>	
 							</div>
 							<div class="form-group">
-								<label for="estado" class="col-xs-6 col-sm-2 col-lg-1 control-label">Estado: </label>
+								<label for="estado" class="col-xs-6 col-sm-2 col-lg-1 control-label">Estado*: </label>
 								<div class="col-xs-6 col-sm-3 col-md-3 col-lg-2">
 									<select class="form-control" name='Estado'>
 										<option>Terminada</option>
 										<option>En Proceso</option>
 									</select>
 								</div>
-								<label for="porcentaje" class="col-xs-6  col-sm-4 col-md-3 col-lg-2 control-label">Porcentaje: </label>
+								<label for="porcentaje" class="col-xs-6  col-sm-4 col-md-3 col-lg-2 control-label">Porcentaje*: </label>
 								<div class="col-xs-6  col-sm-3 col-lg-2">
 									<select class="form-control" name='Porcentaje'>
 										<option value="10%">10%</option>
@@ -108,7 +108,7 @@
 										<option value="100%">100%</option>
 									</select>
 								</div>
-								<label for="T" class="col-xs-6 col-sm-3  col-md-2 col-lg-1 control-label">Tiempo Restante: </label>
+								<label for="T" class="col-xs-6 col-sm-3  col-md-2 col-lg-1 control-label">Tiempo Restante*: </label>
 								<div class="col-xs-3 col-lg-2">
 									<input id="Tiempo"name="TiempoRestante" type="number" placeholder="2" class="form-control" onchange="ValidaTiempo()">
 								</div>
