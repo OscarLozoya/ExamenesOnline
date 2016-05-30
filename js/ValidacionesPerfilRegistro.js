@@ -269,9 +269,10 @@ function ValidaPassword(tipo)
 	var Contrasena = $('input#contrasena_nueva');
 	var ContrasenaConf = $('input#contrasena_confirmacion');
 	var error = true;
+	Elimina_Error('ErrorContra');
 	if (tipo==0) 
 	{
-		if(!notEmpty(Contrasena.val()) && !notEmpty(ContrasenaConf.val()))
+		if(!notEmpty(Contrasena.val()) || !notEmpty(ContrasenaConf.val()))
 				MuestraError('label','Falta Especificar su contraseña',ContrasenaConf,'ErrorContra');
 		else
 		{
@@ -282,8 +283,20 @@ function ValidaPassword(tipo)
 		}
 
 	}
+	else if(tipo==2)
+	{
+		error = false;
+		if(!notEmpty(Contrasena.val()) || !notEmpty(ContrasenaConf.val()))
+				MuestraError('label','Falta Especificar su contraseña',ContrasenaConf,'ErrorContra');
+		else
+		{
+			if(Contrasena.val() == ContrasenaConf.val())
+				error = true;
+			else
+				MuestraError('label','Las contraseñas no coinciden favor de verificar ',ContrasenaConf,'ErrorContra');
+		}
+	}
 	else	//Falta el caso de Perfil que se activa con 1
 		error = false;
-
 	return error;
 }

@@ -386,7 +386,8 @@ class usuarioMdl
 	/**
 	*
 	*/
-	function actualizaEstatus($Usuario,$Estado){
+	function actualizaEstatus($Usuario,$Estado)
+	{
 		if($this->driver->connect_errno)//Se conecta con la BD si no hay error se prosigue
 			return false;
 		if($stmt = $this->driver->prepare("UPDATE Usuario SET Estado = ? WHERE Usuario = ?")){
@@ -410,8 +411,31 @@ class usuarioMdl
 			$Contrasena = $this->driver->real_escape_string($Contrasena);
 			$Usuario = $this->driver->real_escape_string($Usuario);
 			$stmt->bind_param("ss",$Contrasena,$Usuario);
-			$stmt->execute();
+			if(!$stmt->execute())
+				return false;
+			$stmt->close();
+			return true;
 		}
+	}
+	function recuperaContrasena($Usuario)
+	{
+		//$Resultado=null;
+		if($this->driver->connect_errno)//Se conecta con la BD si no hay error se prosigue
+			return false;
+		if($stmt = $this->driver->prepare("SELECT Contrasena FROM Usuario WHERE Usuario = ?"))
+		{
+			$Usuario =  $this->driver->real_escape_string($Usuario);
+			$stmt->bind_param("s",$Usuario);
+			if(!$stmt->execute())
+				return $stmt->error;
+			$stmt->bind_result($pass);
+			while ($stmt->fetch())
+				$Resultado = $pass;
+			$stmt->close();
+
+			return $Resultado;
+		}
+
 	}
 	//
 	function eventosProximos()

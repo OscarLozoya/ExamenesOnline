@@ -1,4 +1,5 @@
 <?php include("Header.php"); ?>
+{Notificacion}
 	<section class="container-fluid lines">
     <article class="col-xs-12 col-sm-2 col-md-2 col-lg-2 formulario text-center">
       <div class="form-horizontal">
@@ -18,7 +19,7 @@
     </article>
 		<article class="col-xs-12 col-sm-10 col-md-10 col-lg-10 ">
 			<div class="jumbotron">
-				<h2 class="text-center">Nombre Del Usuario</h2>
+				<h2 class="text-center">{Nombre Del Usuario}</h2>
 				<span class="help-block">* Campos necesarios.</span>
 				<form name="creandoperfil" action="index.php?controlador=usuario&accion=Perfil&response=1" method="POST">
 					<div class="form-horizontal well">
@@ -239,30 +240,41 @@
 							</div>
 						</fieldset>
 						</div>
-						<div class="form-horizontal well ">
-							<fieldset>
-							<legend>Cambiar Contraseña</legend>
-							<div class="form-group">
-								<div class="col-sm-6 col-md-4 col-lg-3">
-									<label for="contrasena_actual">Contraseña Actual</label><br>
-									<input id="contrasena_actual" type="password"  class="form-control">
-								</div>
-								<div class="col-sm-6 col-md-4 col-lg-3">
-									<label for="contrasena_nueva">Nueva Contraseña</label><br>
-									<input id="contrasena_nueva" type="password" class="form-control">
-								</div>
-								<div class="col-sm-6 col-md-4 col-lg-3">
-									<label for="confirmacion">Confirmar</label><br>
-									<input id="confrimacion" type="password" class="form-control">
-								</div>
-							</div>
-							</fieldset>
-						</div>
+						
 					<div class="col-md-offset-5 col-md-2">
 						<button type="submit" class="btn btn-primary form-control" onclick="return Valida_Campos(1)">Actualizar</button>
 					</div>
 				</form>
+				
 			</div>
+			<div class="jumbotron">
+				<form action="index.php?controlador=usuario&accion=cambioContrasena" method="post">
+					<div class="form-horizontal well ">
+						<fieldset>
+						<legend>Cambiar Contraseña</legend>
+							<div class="form-group">
+								<div class="col-sm-6 col-md-4 col-lg-3">
+									<label for="contrasena_actual">Contraseña Actual</label><br>
+									<input id="contrasena_actual" name="contrasena_actual" type="password"  class="form-control">
+							{ErrorContra}
+								</div>
+								<div class="col-sm-6 col-md-4 col-lg-3">
+									<label for="contrasena_nueva">Nueva Contraseña</label><br>
+									<input id="contrasena_nueva" name="contrasena_nueva" type="password" class="form-control">
+								</div>
+								<div class="col-sm-6 col-md-4 col-lg-3">
+									<label for="confirmacion">Confirmar</label><br>
+									<input id="contrasena_confirmacion"  name="contrasena_confirmacion" type="password" class="form-control" onchange="Elimina_Error('ErrorContra')">
+								</div>
+							</div>
+							<div class="col-md-offset-4 col-md-4">
+								<button type="submit" class="btn btn-primary form-control" onclick="return ValidaPassword(2)">Actualizar Contraseña</button>
+							</div>
+							</div>
+						</fieldset>
+				</form>
+			</div>
+			
 		</article>
 	</section>
 <?php include("Footer.php");?>

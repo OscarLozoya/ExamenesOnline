@@ -26,7 +26,7 @@
 				</div>
 
 				<div class="form-group container">
-					<a href="index.php?controlador=usuario&accion=cambioContrasena">¿Olvido su contraseña?</a>
+					<a href="index.php?controlador=usuario&accion=restablecerContrasena">¿Olvido su contraseña?</a>
 				</div>
 
 				<div class="form-group row">
