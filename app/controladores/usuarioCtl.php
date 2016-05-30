@@ -685,7 +685,7 @@ lo considere como un arreglo y tome todos los que encuentre no solo el ultimo*/
 				if (in_array($_FILES['foto']['type'], $permitidos))
 				{
 					//Ruta donde se guardara la foto del usuario
-					$ruta = "uploads/" . $_FILES['foto']['name'];
+					$ruta = "uploads/" . $_SESSION['usuario'];
 					//Movemos el archivo de la ruta temporal a la ruta de las fotos de perfil
 					$resultado = move_uploaded_file($_FILES["foto"]["tmp_name"], $ruta);
 					if ($resultado){
@@ -704,6 +704,8 @@ lo considere como un arreglo y tome todos los que encuentre no solo el ultimo*/
 					echo "Tipo de archivo no soportado";
 				}
 			}
+			var_dump($_SESSION['img_ruta']);
+			$this->MostrarPerfil(1);
 		}
 	}
  ?>
