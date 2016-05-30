@@ -542,16 +542,39 @@ lo considere como un arreglo y tome todos los que encuentre no solo el ultimo*/
 
 		function detalleExamen()
 		{
-			if(empty($_POST))
+			$vista = file_get_contents("app/vistas/DetalleExamenes.php");
+			$header = file_get_contents("app/vistas/Header.php");
+			$menu = file_get_contents(devuelveMenu());
+			$footer = file_get_contents("app/vistas/Footer.php"); 
+
+			$inicio_fila = strrpos($vista,'<tr>');
+			$fin_fila = strrpos($vista, '</tr>')+5;
+			$fila = substr($vista,$inicio_fila,$fin_fila-$inicio_fila);
+
+			$Examenes = $this->modelo->detalleExamen();
+
+			$filas = '';
+			$newFila = '';
+			if(isset($Examenes)&&is_array($Examenes))
 			{
-				/*
-				- Requiere documentar
-				*/
-				require_once("app/vistas/DetalleExamenes.php");
+				foreach ($Examenes as $examen) {
+					$newFila = $fila;
+					$diccionario = array('{Categoria}' => $examen['Categoria'],
+										'{Examen}' => $examen['Examen'],
+										'{Num_Preguntas}' => $examen['Num_Preguntas'],
+										'{Aciertos}' => $examen['Aciertos'],
+										'{Estado}' => $examen['Estado'],
+										'{Calificacion}' => $examen['Calificacion']);
+					$newFila = strtr($newFila, $diccionario);
+					$filas .= $newFila;
+				}
+				$vista = str_replace($fila, $filas, $vista);
 			}
-			else{
-				
-			}
+			else
+				$vista = str_replace($fila, '', $vista);
+
+			$vista = $header.$menu.$vista.$footer;
+			echo $vista;
 		}
 		function ingresar()
 		{

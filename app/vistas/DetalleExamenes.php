@@ -1,56 +1,28 @@
 <?php include("Header.php"); ?>
 
-	<section class="container-fluid">
-		<aside class="col-xs-12 col-sm-3 aside lines">
-			<br>
-			<form action="" class="form-horizontal">
-				<div class="form-group">
-					<div class="col-md-6">
-						<img src="images/logo_user.gif" alt="Icon-user" class="userLogo"></img>
-					</div>
-					<div class="col-md-6">
-						<label for="Nombre_completo" class="control-label">Nombre Completo</label><br>
-						<a href="Perfil.php" class="control-label">Ver Perfil</a>
-					</div>
-				</div>
-				<div class="form-group col-md-12">
-					<label for="Examenes_pendientes" class="control-label">Exámenes pendientes</label>
-					<select class="form-control input-sm">
-						<option>Categoría 1</option>
-						<option>Categoría 2</option>
-						<option>Categoría 3</option>
-						<option>Categoría 4</option>
-					</select>
-				</div>
-				<div class="form-group col-md-12">
-					<label for="Categoria" class="control-label text-center">Categoría</label><br>
-					<label for="duracion" class="control-label">Duración<label>
-				</div>
-
-				<div class="form-group">
-					<div class="col-xs-6">
-						<button class="btn btn-primary btn-block">Ir al Examen</button>
-					</div>
-					<div class="col-xs-6">
-						<button class="btn btn-warning btn-block">Salir</button>
-					</div>
-				</div>
-			</form>
-		</aside>
-
-		<article class="col-xs-12 col-sm-9 container-fluid content lines">
+	<section class="container-fluid row">
+		<article class="col-xs-12  container-fluid content lines">
 			<h1 class="text-center">Detalle Exámenes</h1>
-			<table class="table table-responsive">
-				<tr>
-					<th>Fecha</th>
-					<th>Categoría</th>
-					<th>Título</th>
-					<th>No. Preguntas</th>
-					<th>Aciertos</th>
-					<th>Estado</th>
-					<th>Calificacion</th>
-				</tr>
-			</table>
+			<div class="table-responsive">
+				<table class="table table-hover">
+					<tr>
+						<th>Categoría</th>
+						<th>Título</th>
+						<th>No. Preguntas</th>
+						<th>Aciertos</th>
+						<th>Estado</th>
+						<th>Calificacion</th>
+					</tr>
+					<tr>
+						<td>{Categoria}</td>
+						<td>{Examen}</td>
+						<td>{Num_Preguntas}</td>
+						<td>{Aciertos}</td>
+						<td>{Estado}</td>
+						<td>{Calificacion}</td>
+					</tr>
+				</table>
+			</div>
 		</article>
 	</section>
 <?php include("Footer.php");?>
