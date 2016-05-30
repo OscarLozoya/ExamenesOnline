@@ -34,9 +34,9 @@
 		function carga_inicio()
 		{
 			if(esAdmin())
-				require_once('app/vistas/IndexAdmin.php');
+				cargarAdmin();
 			else if(esModerador())
-				require_once('app/vistas/IndexMod.php');
+				cargarMod();
 			else if(esUsuario())
 				cargarUsuario();
 			else if(isset($_SESSION['usuario'])){
@@ -110,15 +110,99 @@
 					$filas .=$newFila;
 				}
 				$vista = str_replace($fila, $filas, $vista);
-				$vista = str_replace('{ini_Examen}', '', $vista);
-				$vista = str_replace('{fin_Examen}', '', $vista);
 			}
 			else
 			{
 				$vista = str_replace($fila, $Examenes, $vista);
-				$vista = str_replace('{ini_Examen}', '', $vista);
-				$vista = str_replace('{fin_Examen}', '', $vista);
 			}
+			$vista = str_replace('{ini_Examen}', '', $vista);
+			$vista = str_replace('{fin_Examen}', '', $vista);
+			$vista = $header.$menu.$vista.$footer;
+			echo $vista;
+		}
+
+		function cargarAdmin()
+		{
+			include_once('app/modelos/sesionMdl.php');
+			$modelo = new sesionMdl();
+			$vista = file_get_contents('app/vistas/IndexAdmin.php');
+			$footer=file_get_contents('app/vistas/Footer.php');
+			$header=file_get_contents('app/vistas/Header.php');
+			$menu = file_get_contents('app/vistas/MenuAdmin.php');
+
+			$vista = mostrarUsuario($vista);
+
+			$Pendientes = $modelo->respuestasPendientesRevisar();
+
+			$ini_pregunta = strpos($vista, '{ini_pregunta}');
+			$fin_pregunta = strpos($vista, '{fin_pregunta}')+14;
+			$pregunta = substr($vista, $ini_pregunta,$fin_pregunta-$ini_pregunta);
+
+			$newPregunta = '';
+			$preguntas = '';
+			if(isset($Pendientes) && is_array($Pendientes))
+			{
+				foreach ($Pendientes as $pendiente) {
+					$newPregunta = $pregunta;
+					$diccionario = array('{usuario}' => $pendiente['usuario'],
+										'{ID_Examen}' => $pendiente['ID_Examen'],
+										'{ID_Pregunta}' => $pendiente['ID_Pregunta'],
+										'{pregunta}' => $pendiente['Descripcion'],
+										'{respuesta}' => $pendiente['Respuesta']);
+					$newPregunta = strtr($newPregunta, $diccionario);
+					$preguntas .= $newPregunta;
+				}
+				$vista = str_replace($pregunta, $preguntas, $vista);
+			}
+			else
+			{
+				$vista = str_replace($pregunta, $Pendientes, $vista);
+			}
+			$vista = str_replace('{ini_pregunta}', '', $vista);
+			$vista = str_replace('{fin_pregunta}', '', $vista);
+			$vista = $header.$menu.$vista.$footer;
+			echo $vista;
+		}
+
+		function cargarMod()
+		{
+			include_once('app/modelos/sesionMdl.php');
+			$modelo = new sesionMdl();
+			$vista = file_get_contents('app/vistas/IndexMod.php');
+			$footer=file_get_contents('app/vistas/Footer.php');
+			$header=file_get_contents('app/vistas/Header.php');
+			$menu = file_get_contents('app/vistas/MenuMod.php');
+
+			$vista = mostrarUsuario($vista);
+
+			$Pendientes = $modelo->respuestasPendientesRevisar();
+
+			$ini_pregunta = strpos($vista, '{ini_pregunta}');
+			$fin_pregunta = strpos($vista, '{fin_pregunta}')+14;
+			$pregunta = substr($vista, $ini_pregunta,$fin_pregunta-$ini_pregunta);
+
+			$newPregunta = '';
+			$preguntas = '';
+			if(isset($Pendientes) && is_array($Pendientes))
+			{
+				foreach ($Pendientes as $pendiente) {
+					$newPregunta = $pregunta;
+					$diccionario = array('{usuario}' => $pendiente['usuario'],
+										'{ID_Examen}' => $pendiente['ID_Examen'],
+										'{ID_Pregunta}' => $pendiente['ID_Pregunta'],
+										'{pregunta}' => $pendiente['Descripcion'],
+										'{respuesta}' => $pendiente['Respuesta']);
+					$newPregunta = strtr($newPregunta, $diccionario);
+					$preguntas .= $newPregunta;
+				}
+				$vista = str_replace($pregunta, $preguntas, $vista);
+			}
+			else
+			{
+				$vista = str_replace($pregunta, $Pendientes, $vista);
+			}
+			$vista = str_replace('{ini_pregunta}', '', $vista);
+			$vista = str_replace('{fin_pregunta}', '', $vista);
 			$vista = $header.$menu.$vista.$footer;
 			echo $vista;
 		}
