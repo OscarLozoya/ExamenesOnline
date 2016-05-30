@@ -36,8 +36,10 @@
 							    	$this->actualizarPerfil();
 							    else
 							    	$this->MostrarPerfil();
-
 							  break;
+							case 'Buscar':
+							 		$this->buscar();
+							 	break;
 						/*	case 'ModificarPerfil':
 							 		$this->ModificarPerfil();//Guarda en la BD los campos del perfil modificados se acciona con el boton de actualizar campos
 							 	break;*/
@@ -60,6 +62,9 @@
 							    else
 							    	$this->MostrarPerfil();
 							  break;
+							case 'Buscar':
+							 		$this->buscar();
+							 	break;
 						  case 'detalleExamen'://Solo disponible para usuario normal
 						    if(esUsuario())
 						 			$this->detalleExamen();
@@ -536,7 +541,59 @@ lo considere como un arreglo y tome todos los que encuentre no solo el ultimo*/
 			session_destroy();
 			setcookie(session_name(), '', time()-3600);
 		}
+		function buscar()
+		{
+			//Cargamos el menú según sea el tipo de usuario 
+			if(esAdmin())
+				$menu=file_get_contents('app/vistas/MenuAdmin.php');
+			else if(esModerador())
+				$menu=file_get_contents('app/vistas/MenuMod.php');
+			else if(esUsuario())
+				$menu=file_get_contents('app/vistas/MenuUser.php');
+			//Cargamos los archivos necesarios para la vista
+			$footer=file_get_contents('app/vistas/Footer.php');
+			$header=file_get_contents('app/vistas/Header.php');
+			$vista=file_get_contents('app/vistas/BusquedaGeneral.php');
 
+			//Buscamos la fila en la tabla para mostrar posibles mensajes del modelo
+			$inicio_fila = strrpos($vista,'{iniciaUsuario}');
+			$fin_fila = strrpos($vista, '{terminaUsuario}')+16;
+			$fila = substr($vista,$inicio_fila,$fin_fila-$inicio_fila);
+			$filas = "";
+
+			$busca = $_POST['busca'];
+			$Usuarios = $this->modelo->buscar($busca);
+			if(isset($Usuarios))
+			{
+				$new_fila="";
+				foreach ($Usuarios as $row) {
+					$new_fila = $fila;
+					$diccionario = array('{Usuario}' => $row['Usuario'],
+										'{Correo}' => $row['Correo'],
+										'{Nombre}' => $row['Nombres'],
+										'{Universidad}' => $row['Universidad'],
+										'{Carrera}' => $row['Carrera'],
+										'{Promedio}' => $row['Promedio'],
+										'{Estado}' => $row['Estado'],
+										'{Porcentaje}' => $row['Porcentaje']);
+					//var_dump($diccionario);
+					$new_fila = strtr($new_fila,$diccionario);
+					$filas .= $new_fila;
+				}
+				$vista = str_replace($fila, $filas, $vista);
+			}
+			else
+			{
+				//Si no mostramos un mensaje
+				$vista = str_replace($fila, '<p>No se encontró el usuario</p>', $vista);
+			}
+			//Concatenamos los archivos necesarios para la ventana y mostramos la vista
+			$vista=str_replace('{iniciaUsuario}', '', $vista);
+			$vista=str_replace('{terminaUsuario}', '', $vista);
+			
+			$vista = $header . $menu . $vista . $footer;
+			echo $vista;
+		}
 		
 	}
  ?>

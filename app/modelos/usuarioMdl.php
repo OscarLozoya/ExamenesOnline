@@ -447,6 +447,43 @@ class usuarioMdl
 		return $existe;
 
 	}
-
+	function buscar($busca)
+	{
+		$array=null;
+		if($this->driver->connect_errno)
+			return false;
+		//Se prepara el Query, los signos ? se sustituyen por las variables
+		if($stmt = $this->driver->prepare("SELECT p.Usuario, p.Nombres, p.Apellido_P, p.Apellido_M, p.Universidad, p.Carrera, p.Promedio, p.Estado, p.Porcentage, u.Correo_Elec FROM Perfil p INNER JOIN Usuario u ON p.Usuario = u.Usuario
+		WHERE (p.Usuario LIKE ? OR p.Nombres LIKE ? OR p.Apellido_P LIKE ? OR p.Apellido_M LIKE ? OR p.Universidad LIKE ? OR p.Carrera LIKE ?) AND u.Tipo = '2';"))
+		{
+			//Se limpian las variables para evitar inyecciones de SQL
+			$busca = $this->driver->real_escape_string($busca);
+			//se agrega los % para usar la función like de SQL
+			$busca='%'.$busca.'%';
+			//se sustituye los ? por las variables, especificando el tipo de dato, i=integer,s=string, etc.
+			$stmt->bind_param("ssssss",$busca,$busca,$busca,$busca,$busca,$busca);
+			//se ejecuta el query
+			$stmt->execute();
+			//se establecen las variables donde se guardan los resultados de la ejecución, deben de coincidir con el numero de columnas que te devuelve el query
+			$stmt->bind_result($Usuario, $Nombres, $Apellido_P, $Apellido_M, $Universidad, $Carrera, $Promedio, $Estado, $Porcentaje,$Correo);
+			//se setean las variables con los valores obtenidos, se hace fila por fila, si es que esperan mas
+			
+			while ($stmt->fetch()) {
+				$array[] = array(
+							'Usuario' => $Usuario,
+							'Nombres' => $Nombres.' '.$Apellido_P.' '.$Apellido_M,
+							'Universidad' => $Universidad,
+							'Carrera' => $Carrera,
+							'Promedio' => $Promedio,
+							'Estado' => $Estado,
+							'Porcentaje' => $Porcentaje,
+							'Correo' => $Correo
+							);
+			}
+			$stmt->close();
+		}
+		//$this->driver->close();
+		return $array;
+	}
 }
 ?>
