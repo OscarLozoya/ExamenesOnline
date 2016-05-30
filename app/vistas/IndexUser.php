@@ -20,17 +20,49 @@
     </aside>
 
 
-    <section class="col-xs-12 col-sm-6 content lines">
+    <section class="col-xs-12 col-sm-9 content lines">
             <div class="text-center">
-                <h1>Categorias</h1>
+                <h1>Examenes Pendientes</h1>
             </div>
-            <a href=""><h3>Programación</h3></a>
-            <hr noshade="noshade" />
-            <a href=""><h3>Web</h3></a>
-            <hr noshade="noshade" />
-            <a href=""><h3>Algortimos</h3></a>
+            <div class="jumbotron">
+                {ini_Examen}
+                <div class="form-horizontal well">
+                    <div class="form-group row">
+                            <input type="hidden" id="id-examen" value="{id-examen}">
+                            <div class="col-xs-12 col-md-2">
+                                <label class="col-md-3">Categoria:</label>
+                            </div>
+                            <div class="col-xs-12 col-md-9">
+                                <label class="col-md-3">{Categoria}</label>
+                            </div>
+                            <div class="col-xs-12 col-md-2">
+                                <label class="col-md-3">Examen:</label>
+                            </div>
+                            <div class="col-xs-12 col-md-9">
+                                <label class="col-md-3">{Examen}</label>
+                            </div>
+                            <div class="col-xs-12 col-md-2">
+                                <label class="col-md-3">Preguntas:</label>
+                            </div>
+                            <div class="col-xs-12 col-md-9">
+                                <label class="col-md-3">{Preguntas}</label>
+                            </div>
+                            <div class="col-xs-12 col-md-2">
+                                <label class="col-md-3">Tiempo:</label>
+                            </div>
+                            <div class="col-xs-12 col-md-9">
+                                <label class="col-md-3">{Tiempo}</label>
+                            </div>
+                            <div class="col-xs-12 col-md-6">
+                                <button class="btn btn-primary" onclick="irExamen()">Ir al Exámen</button>
+                            </div>
+                    </div>
+                </div>
+                {fin_Examen}
+            </div>
             <hr noshade="noshade" />
     </section>
 </section>
 <div class="clear-fix visible-sm-block"></div>
+<script type="text/javascript" src="js/ValidacionesIndexUser.js"></script>
 <?php include("Footer.php");?>

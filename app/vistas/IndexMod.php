@@ -1,32 +1,51 @@
 <?php include("Header.php"); ?>
 <?php include("MenuMod.php"); ?>
-	<section class="container-fluid">
-		<aside class="col-xs-12 col-sm-3 aside lines">
-			<div class="form-group">
-				<div class="col-xs-12">
-					<figure>
-	                    <img src="images/logo_user.gif" alt="Icon-user" class="userLogo"></img>
-	                </figure>
-				</div>
-				<div class="col-xs-12">
-					<label class="control-label">{Nombre_usuario}</label>
-				</div>
-				<div class="col-xs-12">
-					<a href="Perfil.php">Ver Perfil</a>
-				</div>
-			</div>
-		</aside>
+<secction class="container-fluid row">
+    <aside class="col-xs-12 col-sm-3 lines aside">
+        <div class="form-group row">
+            <br>
+            <div class="col-xs-12 col-sm-6">
+                <figure>
+                    <img class="img-responsive" src="images/logo_user.gif">
+                </figure>
+            </div>
+            <div class="col-xs-12 col-sm-6">
+                <label class="control-label">{Nombre_usuario}</label>
+                <a href="index.php?controlador=usuario&accion=Perfil">Ver Perfil</a>
+            </div>
+        </div>
+    </aside>
 
-		<article class="col-xs-12 col-sm-9 content lines">
+
+    <section class="col-xs-12 col-sm-9 content lines">
             <div class="text-center">
-				<h1>Notificaciones</h1>
-			</div>
-			<div class="container">
-				<p>ID del Examen</p>
-				<p>Pregunta</p>
-				<button class="btn btn-primary">Calificar</button>
-			</div>
-			<hr noshade="noshade" />
-    </article>
-	</section>
+                <h1>Pendientes</h1>
+            </div>
+            {ini_pregunta}
+            <form method="POST" action="index.php?controlador=examen&accion=calificar">
+            	<input type="hidden" value="{usuario}">
+            	<input type="hidden" value="{ID_Examen}">
+            	<input type="hidden" value="{ID_Pregunta}">
+            	<input type="hidden" value="{pregunta}">
+            	<input type="hidden" value="{respuesta}">
+            	<div class="form-group row">
+            		<div class="col-xs-12">
+            			<label class="control-label" >{pregunta}</label>
+            		</div>
+            		<div class="col-xs-12">
+            			<label class="control-label">{respuesta}</label>
+            		</div>
+            		<div class="col-xs-12">
+            			<input type="radio"  name="resultado" value="1">Correcto
+            			<input type="radio"  name="resultado" value="0">Incorrecto
+            		</div>
+            		<div class="col-xs-12">
+            			<button class="btn btn-primary" type="submit">Calificar</button>
+            		</div>
+            	</div>
+            </form>
+            {fin_pregunta}
+    </section>
+</section>
+<div class="clear-fix visible-sm-block"></div>
 <?php include("Footer.php"); ?>
