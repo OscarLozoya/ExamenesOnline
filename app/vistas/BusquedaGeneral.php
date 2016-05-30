@@ -5,7 +5,7 @@
 			<div class="col-xs-12 col-sm-2 col-md-2 col-lg-2">
 				<div class="form-horizontal">
 					<div>
-						<img src="images/logo_user.gif" alt="Icon-user" class="userLogo col-md-offset-2">
+						{iniciaFoto}<img src="{Foto}" alt="Icon-user" class="userLogo col-md-offset-2">{terminaFoto}
 					</div>
 				</div>
 			</div>

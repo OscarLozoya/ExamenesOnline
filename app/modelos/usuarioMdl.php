@@ -477,19 +477,23 @@ class usuarioMdl
 		$existe=false;
 		if($this->driver->connect_errno)
 			return false;
-		if($stmt = $this->driver->prepare("SELECT * FROM Usuario WHERE Usuario=? and Contrasena=?")) 
+		if($stmt = $this->driver->prepare("SELECT u.Usuario, u.Correo_Elec, u.Contrasena, u.Tipo, u.Estado, u.Imagen_Perfil, p.Nombres, p.Apellido_P 
+			FROM Usuario u INNER JOIN Perfil p  ON u.Usuario = p.Usuario 
+			WHERE u.Usuario=? AND u.Contrasena=?")) 
 		{
 			$usuario = $this->driver->real_escape_string($usuario);
 			$contrasena = $this->driver->real_escape_string($contrasena);
 			$stmt->bind_param("ss",$usuario,$contrasena);
 			$stmt->execute();
-			$stmt->bind_result($usuario_consulta,$correo_consulta,$contrasena_consulta,$tipo_consulta,$status_consulta,$Ruta_imagen);
+			$stmt->bind_result($usuario_consulta,$correo_consulta,$contrasena_consulta,$tipo_consulta,$status_consulta,$Ruta_imagen,$nombres_consulta,$apellidop_consulta);
 			while ($stmt->fetch()) {
 				$_SESSION['usuario'] = $usuario_consulta;
 				$_SESSION['tipo'] = $tipo_consulta;
 //falta un selec o algo para hacer este campo$_SESSION['nombre']=
 				$_SESSION['estado'] = $status_consulta;
 				$_SESSION['img_ruta'] = $Ruta_imagen;
+				$_SESSION['Nombres'] = $nombres_consulta;
+				$_SESSION['Apellido_P'] = $apellidop_consulta;
 				$existe = true;
 			}
 			$stmt->close();
@@ -503,7 +507,7 @@ class usuarioMdl
 		if($this->driver->connect_errno)
 			return false;
 		//Se prepara el Query, los signos ? se sustituyen por las variables
-		if($stmt = $this->driver->prepare("SELECT p.Usuario, p.Nombres, p.Apellido_P, p.Apellido_M, p.Universidad, p.Carrera, p.Promedio, p.Estado, p.Porcentage, u.Correo_Elec FROM Perfil p INNER JOIN Usuario u ON p.Usuario = u.Usuario
+		if($stmt = $this->driver->prepare("SELECT p.Usuario, p.Nombres, p.Apellido_P, p.Apellido_M, p.Universidad, p.Carrera, p.Promedio, p.Estado, p.Porcentage, u.Correo_Elec, u.Imagen_Perfil FROM Perfil p INNER JOIN Usuario u ON p.Usuario = u.Usuario
 		WHERE (p.Usuario LIKE ? OR p.Nombres LIKE ? OR p.Apellido_P LIKE ? OR p.Apellido_M LIKE ? OR p.Universidad LIKE ? OR p.Carrera LIKE ?) AND u.Tipo = '2';"))
 		{
 			//Se limpian las variables para evitar inyecciones de SQL
@@ -515,7 +519,7 @@ class usuarioMdl
 			//se ejecuta el query
 			$stmt->execute();
 			//se establecen las variables donde se guardan los resultados de la ejecución, deben de coincidir con el numero de columnas que te devuelve el query
-			$stmt->bind_result($Usuario, $Nombres, $Apellido_P, $Apellido_M, $Universidad, $Carrera, $Promedio, $Estado, $Porcentaje,$Correo);
+			$stmt->bind_result($Usuario, $Nombres, $Apellido_P, $Apellido_M, $Universidad, $Carrera, $Promedio, $Estado, $Porcentaje,$Correo,$Imagen_Perfil);
 			//se setean las variables con los valores obtenidos, se hace fila por fila, si es que esperan mas
 			
 			while ($stmt->fetch()) {
@@ -527,13 +531,34 @@ class usuarioMdl
 							'Promedio' => $Promedio,
 							'Estado' => $Estado,
 							'Porcentaje' => $Porcentaje,
-							'Correo' => $Correo
+							'Correo' => $Correo,
+							'Foto' => $Imagen_Perfil
 							);
 			}
 			$stmt->close();
 		}
 		//$this->driver->close();
 		return $array;
+	}
+	function asignarFoto($ruta)
+	{
+		$guardado = false;
+		if($this->driver->connect_errno)
+			return false;
+		if($stmt = $this->driver->prepare("UPDATE Usuario SET Imagen_Perfil = ? WHERE Usuario = ?"))
+		{
+			//Se limpian las variables para evitar inyecciones de SQL
+			$usuario = $_SESSION['usuario'];
+			//se sustituye los ? por las variables, especificando el tipo de dato, i=integer,s=string, etc.
+			$stmt->bind_param("ss",$ruta,$usuario);
+			//se ejecuta el query
+			$stmt->execute();
+			//se establecen las variables donde se guardan los resultados de la ejecución, deben de coincidir con el numero de columnas que te devuelve el query
+			$stmt->close();
+			$guardado = true;
+			$_SESSION['img_ruta'] = $ruta;
+		}
+		return $guardado;
 	}
 }
 ?>
