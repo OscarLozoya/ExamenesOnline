@@ -13,31 +13,33 @@
 					</div>
 				</div><!--DIV BARRA DE BUSQUEDA TERMINA-->
       </form>
-			<div class="form-group "><!--DIV TABLA RESULTADO INICIA-->
-				<div class="col-xs-12 col-sm-10 col-sm-offset-1">
-					<div class="table-responsive">
-						<table class="table table-hover">
-							<tr>
-								<th>ID</th>
-								<th>NOMBRE</th>
-							</tr>
-							{inicia_FilaTabla}
+			<form id="formDefineAccion"  method="post">	
+				<div class="form-group "><!--DIV TABLA RESULTADO INICIA-->
+					<div class="col-xs-12 col-sm-10 col-sm-offset-1">
+						<div class="table-responsive">
+							<table class="table table-hover">
 								<tr>
-									<td>{ID_Categoria}</td>
-									<td>{Nombre}</td>
-									<td><input type="radio" name="categorias"></td>
+									<th>ID</th>
+									<th>NOMBRE</th>
 								</tr>
-								{fin_FilaTabla}
-						</table>
+								{inicia_FilaTabla}
+									<tr>
+										<td>{ID_Categoria}</td>
+										<td>{Nombre}</td>
+										<td><input type="radio" name="categoria" value="{valorRadio}"></td>
+									</tr>
+									{fin_FilaTabla}
+							</table>
+						</div>
 					</div>
-				</div>
-			</div><!--DIV TABLA RESULTADO TERMINA-->
-			<div class="form-group"><!--DIV BOTONES RESULTADOS INICIA-->
-				<div class="col-xs-12 col-sm-10 col-sm-offset-1">
-					<button class="btn btn-primary">Eliminar</button>
-					<button class="btn btn-primary">Modificar</button>
-				</div>
-			</div><!--DIV BOTONES RESULTADOS termina-->
+				</div><!--DIV TABLA RESULTADO TERMINA-->
+				<div id="esp_botones" class="form-group"><!--DIV BOTONES RESULTADOS INICIA-->
+					<div class="col-xs-12 col-sm-10 col-sm-offset-1">
+						<button class="btn btn-primary" type="submit" onclick="return ValidaEliminar()">Eliminar</button>
+						<button class="btn btn-primary" type="submit" onclick="return ValidaModificar()">Modificar</button>
+					</div>
+				</div><!--DIV BOTONES RESULTADOS termina-->
+			</form>
 			<div class="form-group"><!--DIV DATOS CATEGORIA INICIA-->
 				<div class="col-xs-12 col-sm-10 col-sm-offset-1">
 					<section class="well">
@@ -54,7 +56,8 @@
 								<div class="form-group col-xs-10 col-sm-5">
 									<label for="" class="control-label col-xs-2 col-sm-1">ID</label>
 									<div class="col-xs-8 col-sm-8">
-										<input class="form-control" type="text" disabled value="{valorID}">
+										<input  class="form-control" type="text" disabled value="{valorID}">
+										<input name="idCat" class="form-control visibility: hidden" type="text"  value="{valorID}">
 									</div>
 								</div>
 								<button class="btn btn-primary" type="submit" onclick="return ValidaAgregar()">Agregar</button>

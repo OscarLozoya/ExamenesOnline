@@ -65,6 +65,37 @@ function MuestraError(TipoCont,Mensaje,DespuesDE,IdElement)
 	document.body.appendChild(etiq);
 	DespuesDE.after(etiq);
 }
+ function opcSelect(){
+ 	var R = $('div#esp_botones');
+ 	Elimina_Error('ErrorSelect');
+ 	var Probando =$('input:radio[name=categoria]');
+  if (Probando.is(':checked'))
+  	return true;
+  else{
+		MuestraError('label','Seleccione una categoria para proceder',R,'ErrorSelect');
+  	return false;
+  }
+ }
+
+ function ValidaEliminar(){
+  if (opcSelect()){
+  	var Formul = $("#formDefineAccion");
+  	Formul.attr("action","index.php?controlador=categoria&accion=eliminar");
+ 		return true;
+ 	}
+ 	else
+		return false;
+ }
+ function ValidaModificar(){
+  if (opcSelect()){
+  	var Formul = $("#formDefineAccion");
+  	Formul.attr("action","index.php?controlador=categoria&accion=modificar");
+ 		return true;
+ 	}
+ 	else
+		return false;
+
+ }
 /**
 *Funcion para eliminar los elementos que muestrar errores
 *@param {String} IdElement Id del elemento a eliminar*
