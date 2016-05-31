@@ -157,7 +157,11 @@
 		{
 			//Cargamos los archivos necesarios para la vista 
 			$vista=file_get_contents('app/vistas/ModElimExamen.php');
-			$menu=file_get_contents('app/vistas/MenuAdmin.php');
+			//Cargamos el menú según sea el tipo de usuario 
+				if(esAdmin())
+					$menu=file_get_contents('app/vistas/MenuAdmin.php');
+				else if(esModerador())
+					$menu=file_get_contents('app/vistas/MenuMod.php');
 			$header=file_get_contents('app/vistas/Header.php');
 			$footer=file_get_contents('app/vistas/Footer.php');
 
@@ -198,7 +202,11 @@
 		{
 			//Cargamos los archivos necesarios para la vista 
 			$vista=file_get_contents('app/vistas/ModElimExamen.php');
-			$menu=file_get_contents('app/vistas/MenuAdmin.php');
+			//Cargamos el menú según sea el tipo de usuario 
+			if(esAdmin())
+				$menu=file_get_contents('app/vistas/MenuAdmin.php');
+			else if(esModerador())
+				$menu=file_get_contents('app/vistas/MenuMod.php');
 			$header=file_get_contents('app/vistas/Header.php');
 			$footer=file_get_contents('app/vistas/Footer.php');
 
