@@ -37,6 +37,9 @@
 							case 'Buscar':
 							 		$this->buscar();
 							 	break;
+							case 'cambiarFoto':
+							 		$this->cambiarFoto();
+							 	break;
 						/*	case 'ModificarPerfil':
 							 		$this->ModificarPerfil();//Guarda en la BD los campos del perfil modificados se acciona con el boton de actualizar campos
 							 	break;*/
@@ -64,9 +67,15 @@
 							case 'Buscar':
 							 		$this->buscar();
 							 	break;
+							 case 'cambiarFoto':
+							 		$this->cambiarFoto();
+							 	break;
 					  	case 'cambioContrasena':
 					 			  $this->cambioContrasena();
 					 		  break;
+					 		case 'cambiarFoto':
+							 		$this->cambiarFoto();
+							 	break;
 						  case 'detalleExamen'://Solo disponible para usuario normal
 						    if(esUsuario())
 						 			$this->detalleExamen();
@@ -292,6 +301,7 @@
 				$Telefonos = $this->modelo->recuperaTelefonos($Usuario);
 				$vista = $this->creaTelefonos($Telefonos ,$vista);
 
+				$vista = mostrarFoto($vista);
 				echo $header.$menu.$vista.$footer;
 				//require_once("app/vistas/Perfil.php");
 			/*}
@@ -688,6 +698,7 @@ lo considere como un arreglo y tome todos los que encuentre no solo el ultimo*/
 					$new_fila = $fila;
 					$diccionario = array('{Usuario}' => $row['Usuario'],
 										'{Correo}' => $row['Correo'],
+										'{Foto}' => $row['Foto'],
 										'{Nombre}' => $row['Nombres'],
 										'{Universidad}' => $row['Universidad'],
 										'{Carrera}' => $row['Carrera'],
@@ -708,10 +719,46 @@ lo considere como un arreglo y tome todos los que encuentre no solo el ultimo*/
 			//Concatenamos los archivos necesarios para la ventana y mostramos la vista
 			$vista=str_replace('{iniciaUsuario}', '', $vista);
 			$vista=str_replace('{terminaUsuario}', '', $vista);
+			$vista=str_replace('{iniciaFoto}', '', $vista);
+			$vista=str_replace('{terminaFoto}', '', $vista);
 			
 			$vista = $header . $menu . $vista . $footer;
 			echo $vista;
 		}
-		
+		function cambiarFoto()
+		{
+			//comprobamos si ha ocurrido un error.
+			if ($_FILES["foto"]["error"] > 0)
+				echo "ha ocurrido un error";
+			else
+			{
+				//ahora vamos a verificar si el tipo de archivo es un tipo de imagen permitido.
+				$permitidos = array("image/jpg", "image/jpeg", "image/gif", "image/png");
+
+				if (in_array($_FILES['foto']['type'], $permitidos))
+				{
+					//Ruta donde se guardara la foto del usuario
+					$ruta = "uploads/" . $_SESSION['usuario'];
+					//Movemos el archivo de la ruta temporal a la ruta de las fotos de perfil
+					$resultado = move_uploaded_file($_FILES["foto"]["tmp_name"], $ruta);
+					if ($resultado){
+						$Guardado = $this->modelo->asignarFoto($ruta);
+						if($Guardado)
+							echo "La foto se ha actualizado correctamente.";
+						else
+							echo "Ocurrio un error al actualizar la foto.";
+					} 
+					else {
+						echo "Ocurrio un error al actualizar la foto.";
+					}
+				}
+				else
+				{
+					echo "Tipo de archivo no soportado";
+				}
+			}
+			var_dump($_SESSION['img_ruta']);
+			$this->MostrarPerfil(1);
+		}
 	}
  ?>

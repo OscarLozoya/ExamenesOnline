@@ -407,7 +407,7 @@ class ExamenMdl
 			return false;
 		//Se prepara el Query, los signos ? se sustituyen por las variables
 		if($stmt = $this->driver->prepare("SELECT DISTINCT p.Usuario, p.Nombres, p.Apellido_P, p.Apellido_M, p.Universidad 
-			FROM Perfil p JOIN Usuario u ON u.Usuario = p.Usuario
+			FROM Perfil p INNER JOIN Usuario u ON u.Usuario = p.Usuario
 			WHERE (p.Usuario LIKE ? OR p.Nombres LIKE ? OR p.Apellido_P LIKE ? OR p.Apellido_M LIKE ?) AND u.Tipo = '2';"))
 		{
 			//Se limpian las variables para evitar inyecciones de SQL

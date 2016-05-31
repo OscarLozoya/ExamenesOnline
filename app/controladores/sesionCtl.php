@@ -69,7 +69,8 @@
 			if(isset($_SESSION['usuario']))
 			{
 				$nuevoUsuario=$nombre;
-				$diccionario= array('{Nombre_usuario}' => $_SESSION['usuario']);
+				$nombre_apellido = $_SESSION['Nombres'].' '.$_SESSION['Apellido_P'];
+				$diccionario= array('{Nombre_usuario}' => $nombre_apellido);
 				$nuevoUsuario=strtr($nuevoUsuario, $diccionario);
 				
 				$vista = str_replace($nombre, $nuevoUsuario, $vista);
@@ -78,6 +79,29 @@
 			{
 				$vista = str_replace($nombre,'Nombre Usuario', $vista);
 			}
+			return $vista;
+		}
+		function mostrarFoto($vista)
+		{
+			$iniciaFoto = strrpos($vista, '{iniciaFoto}');
+			$finFoto = strrpos($vista, '{terminaFoto}') + 13;
+			$Foto = substr($vista, $iniciaFoto,$finFoto-$iniciaFoto);
+			if(isset($_SESSION['img_ruta']))
+			{
+				$nuevaFoto=$Foto;
+				$diccionario = array('{Foto}' => $_SESSION['img_ruta']);
+				$nuevaFoto=strtr($nuevaFoto, $diccionario);
+				
+				$vista = str_replace($Foto, $nuevaFoto, $vista);
+			}
+			else
+			{
+				$vista = str_replace($Foto,'images/logo_user.gif', $vista);
+			}
+
+			$vista=str_replace('{iniciaFoto}', '', $vista);
+			$vista=str_replace('{terminaFoto}', '', $vista);
+
 			return $vista;
 		}
 
@@ -89,8 +113,10 @@
 			$footer=file_get_contents('app/vistas/Footer.php');
 			$header=file_get_contents('app/vistas/Header.php');
 			$menu = file_get_contents('app/vistas/MenuUser.php');
+
 			$vista = mostrarUsuario($vista);
-			
+			$vista = mostrarFoto($vista);
+
 			$Examenes = $modelo->ExamenesPendientes();
 			$ini_Examen = strpos($vista, '{ini_Examen}');
 			$fin_Examen = strrpos($vista, '{fin_Examen}')+12;
@@ -131,6 +157,7 @@
 			$menu = file_get_contents('app/vistas/MenuAdmin.php');
 
 			$vista = mostrarUsuario($vista);
+			$vista = mostrarFoto($vista);
 
 			$Pendientes = $modelo->respuestasPendientesRevisar();
 
@@ -174,6 +201,7 @@
 			$menu = file_get_contents('app/vistas/MenuMod.php');
 
 			$vista = mostrarUsuario($vista);
+			$vista = mostrarFoto($vista);
 
 			$Pendientes = $modelo->respuestasPendientesRevisar();
 
