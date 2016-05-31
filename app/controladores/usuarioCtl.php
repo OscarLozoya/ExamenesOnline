@@ -606,7 +606,6 @@ lo considere como un arreglo y tome todos los que encuentre no solo el ultimo*/
 				$usuario = $_POST['usuario'];
 				$contrasena = $_POST['contrasena'];				
 				$registrado = $this->modelo->ingresar($usuario,$contrasena);
-				var_dump($registrado);
 				carga_inicio();
 			}
 		}
