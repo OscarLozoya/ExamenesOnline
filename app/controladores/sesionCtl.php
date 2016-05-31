@@ -86,7 +86,7 @@
 			$iniciaFoto = strrpos($vista, '{iniciaFoto}');
 			$finFoto = strrpos($vista, '{terminaFoto}') + 13;
 			$Foto = substr($vista, $iniciaFoto,$finFoto-$iniciaFoto);
-			if(isset($_SESSION['img_ruta']))
+			if(isset($_SESSION['img_ruta'])&&$_SESSION['img_ruta']!="")
 			{
 				$nuevaFoto=$Foto;
 				$diccionario = array('{Foto}' => $_SESSION['img_ruta']);
@@ -94,9 +94,14 @@
 				
 				$vista = str_replace($Foto, $nuevaFoto, $vista);
 			}
-			else
+			if($_SESSION['img_ruta']=="")
 			{
-				$vista = str_replace($Foto,'images/logo_user.gif', $vista);
+				$fotoDefecto = 'images/logo_user.gif';
+				$nuevaFoto=$Foto;
+				$diccionario = array('{Foto}' => $fotoDefecto);
+				$nuevaFoto=strtr($nuevaFoto, $diccionario);
+
+				$vista = str_replace($Foto,$nuevaFoto, $vista);
 			}
 
 			$vista=str_replace('{iniciaFoto}', '', $vista);
