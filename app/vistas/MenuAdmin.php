@@ -29,7 +29,6 @@
             <a class="dropdown-toggle" data-toggle="dropdown" href="#">Examenes <span class="caret"></span></a>
             <ul class="dropdown-menu">
               <li><a href="index.php?controlador=examen&accion=crear">Nuevo</a></li>
-              <li><a href="index.php?controlador=examen&accion=eliminar">Modificar</a></li>
               <li><a href="index.php?controlador=examen&accion=eliminar">Eliminar</a></li>
             </ul>
           </li>

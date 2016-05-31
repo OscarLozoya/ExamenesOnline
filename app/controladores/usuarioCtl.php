@@ -107,6 +107,12 @@
 						case 'restablecerContrasena':
 					 			$this->restablecerContrasena();
 					 		break;
+					 	case 'CambioContrasenaNueva':
+					 	    if (isset($_GET['response'])) 
+							 		$this->irasetearContrasena();
+							 	else 
+							 		$this->setearContrasena();
+				      break;
 					 	case 'Registro':
 					 			$this->Registrar();
 					 		break;
@@ -733,6 +739,47 @@ lo considere como un arreglo y tome todos los que encuentre no solo el ultimo*/
 				}
 			}
 			$this->MostrarPerfil(1);
+		}
+		function irasetearContrasena(){
+			if(isset($_GET['response']))
+			{
+				$Token = $_GET['response'];
+				$resultado = $this->modelo->comprobarDesactivado($Token);
+				if ($resultado) 
+				{
+					$vista = file_get_contents("app/vistas/CambiarContrasena.php");
+					$header = file_get_contents("app/vistas/Header.php");
+					$footer = file_get_contents("app/vistas/Footer.php");
+
+					$dir = array('{label_exito}' => "", );
+					$vista =strtr($vista, $dir);
+					echo $header.$vista.$footer;
+				}
+				else
+					carga_inicio();
+			}
+			else
+				carga_inicio();
+		}
+		function setearContrasena()
+		{
+			$contrasena_actual = $_POST['contrasena_nueva'];
+			$nueva_contrasena = $_POST['contrasena_confirmacion'];
+			if(isset($contrasena_actual) && isset($nueva_contrasena))
+			{
+				$Usuario = $_SESSION['usuario'];
+				session_unset();
+			session_destroy();
+			setcookie(session_name(), '', time()-3600);
+				$Resultado = $this->modelo->NuevaContasenaEstado($Usuario,$nueva_contrasena);
+				if($Resultado)
+					require_once('app/vistas/index.php');
+				else
+					$this->irasetearContrasena();
+			}
+			else
+				carga_inicio();
+		
 		}
 	}
  ?>

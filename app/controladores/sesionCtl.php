@@ -2,7 +2,7 @@
 		
 		
 		function inicioSesion(){
-			if( isset($_SESSION['usuario']) && $_SESSION['estado']=='1' )
+			if( isset($_SESSION['usuario']) && isset($_SESSION['estado']) && $_SESSION['estado']=='1' )
 				return true;
 			return false;
 		}

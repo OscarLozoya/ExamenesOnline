@@ -130,6 +130,30 @@ class usuarioMdl
 	  }
 	}
 
+	  function comprobarDesactivado($Token)
+	  {
+			$Activo=true;//Variable para verificar que la cuenta este activa o no
+			if($this->driver->connect_errno)//Se conecta con la BD si no hay error se prosigue
+				return false;
+		  if($stmt = $this->driver->prepare("SELECT Estado,Usuario FROM Usuario WHERE Contrasena=?"))
+		  {//Se busca que el token este asignado a un usuario
+		  	$Token = $this->driver->real_escape_string($Token);
+		  	$stmt->bind_param("s",$Token);
+		  	if($stmt->execute()){
+		  		$stmt->bind_result($Estado,$Usuario);
+		  		while ($stmt->fetch()) {
+		  			if($Estado==0){//Si no esta activa el estado sera 0 y tenemos que regrsar que puede y debe completar el Regitro
+							$_SESSION['usuario']=$Usuario;
+							$Activo = true;//En este caso false es lo que se busca para tener acceso a la vista Completar Registro
+		  			}
+		  			else
+		  				$Activo = false;//Si esta Activo el link sera no valido
+		  		}
+		  	}
+		  	return $Activo;
+		  }
+	  }
+
 	/*
 	*
 	*/
@@ -435,6 +459,24 @@ class usuarioMdl
 			return true;
 		}
 	}
+
+	function NuevaContasenaEstado($Usuario,$Contrasena)
+	{
+		if($this->driver->connect_errno)
+			return false;
+		if($stmt = $this->driver->prepare("UPDATE Usuario SET Contrasena = ?,Estado = ? WHERE Usuario=?")) 
+		{
+			$Contrasena = $this->driver->real_escape_string($Contrasena);
+			$Usuario = $this->driver->real_escape_string($Usuario);
+			$Estado = 1;
+			$stmt->bind_param("sis",$Contrasena,$Estado,$Usuario);
+			if(!$stmt->execute())
+				return false;
+			$stmt->close();
+			return true;
+		}
+	}
+
 	function recuperaContrasena($Usuario)
 	{
 		//$Resultado=null;
@@ -455,11 +497,7 @@ class usuarioMdl
 		}
 
 	}
-	//
-	function eventosProximos()
-	{
-		
-	}
+
 	function detalleExamen()
 	{
 		$array = null;
@@ -605,6 +643,7 @@ class usuarioMdl
 		else
 			return false;
 	}
+
 	function desactivaCuenta($Usuario,$Correo,$Token)
 	{
 		if($this->driver->connect_errno)
@@ -620,7 +659,7 @@ class usuarioMdl
 				$stmt->close();
 			date_default_timezone_set ('America/Mexico_City');//se establece la zona horaria para la funcion mail
 	  		//Se crea el enlace que guiara al usuario a  completar su registro
-		  	$enlace = "http://examenesonline.no-ip.org/index.php?controlador=usuario&accion=CambioContrasena&response=".$Token;
+		  	$enlace = "http://examenesonline.no-ip.org/index.php?controlador=usuario&accion=CambioContrasenaNueva&response=".$Token;
 		  	//Las siguientes variables son parametros para la funcion mail() de php que permite enviar emails
 		    $From = 'From: "Team Dead Developers" deaddevelopers@gmail.com';//Esta linea modifica el remitente se debe de poner por que sino el remitente sera el servidor interprete de php
 				$asunto="Restablecer Contraseña de ExamenesOnline";

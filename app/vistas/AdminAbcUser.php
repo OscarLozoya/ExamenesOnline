@@ -41,7 +41,7 @@
 							<button type="button" class="btn btn-primary" onclick="return Cancelar()">Limpiar</button>
 						</div>
 						<div class="col-xs-12 col-md-6 form-group">
-							<button type="submit" class="btn btn-primary" onclick="return ValidaRegistro()">Agregar/Buscar</button>
+							<button type="submit" class="btn btn-primary" onclick="return ValidaRegistro()">Agregar</button>
 						</div>
 					</div>	
 				  {label_exito}	
