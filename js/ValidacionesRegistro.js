@@ -58,6 +58,8 @@ function Cancelar()
 {
 	$('input#CorreoElec').val('');	
 	$('input#CorreoElec').val('');
+	
+	window.location="index.php";
 }
 /**
 *Oculta el mensaje de error de que no ingreso el nombre de usuario

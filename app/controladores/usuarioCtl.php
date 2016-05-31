@@ -430,14 +430,36 @@
 
 		function restablecerContrasena()
 		{
-			if(empty($_POST))
+			if(empty($_POST['usuario']))
 			{
-				/*
-				- Requiere documentar
-				*/
-				require_once("app/vistas/RestContrasena.php");
+				$header = file_get_contents("app/vistas/Header.php");
+				$vista = file_get_contents("app/vistas/RestContrasena.php");
+				$footer = file_get_contents("app/vistas/Footer.php");
+				$dir = array('{etiqControl}' => "", );
+				$vista =strtr($vista, $dir);
+				echo $header.$vista.$footer;
 			}
 			else{
+				$header = file_get_contents("app/vistas/Header.php");
+				$vista = file_get_contents("app/vistas/RestContrasena.php");
+				$footer = file_get_contents("app/vistas/Footer.php");
+				$resultado = $this->modelo->buscaUsuario($_POST['usuario']);
+				if (isset($resultado)) 
+				{
+					$Usuario = $resultado['usuario'];
+					$Correo = $resultado['correo'];
+					$Token = hash("sha256",$Correo);
+					$Token .=Time();//Se crea el token para enviar por correo
+					$result=$this->modelo->desactivaCuenta($Usuario,$Correo,$Token);
+					if ($result)
+						$dir = array('{etiqControl}' => "<label class='text-center' style='display: block'>Revisa tu correo electronico y sigue los paso, tu cuenta ha sido desactivada </label>", );
+					else
+						$dir = array('{etiqControl}' => "<label class='text-center Warning' style='display: block'>Ha ocurrido un error vuelve a intentarlo</label>", );
+				}
+				else 
+					$dir = array('{etiqControl}' => "<label class='text-center Warning' style='display: block'>No se encontraron coincidencias</label>", );
+				$vista =strtr($vista, $dir);
+				echo $header.$vista.$footer;
 				
 			}
 		}
