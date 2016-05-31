@@ -704,7 +704,6 @@ lo considere como un arreglo y tome todos los que encuentre no solo el ultimo*/
 					echo "Tipo de archivo no soportado";
 				}
 			}
-			var_dump($_SESSION['img_ruta']);
 			$this->MostrarPerfil(1);
 		}
 	}
