@@ -91,6 +91,13 @@
 			$vista=str_replace('{inicio_idExamen}', '', $vista);
 			$vista=str_replace('{fin_idExamen}', '', $vista);
 
+			$vista=str_replace('{Usuario}', '', $vista);
+			$vista=str_replace('{Nombre}', '', $vista);
+			$vista=str_replace('{Apellido Paterno}', '', $vista);
+			$vista=str_replace('{Apellido Materno}', '', $vista);
+			$vista=str_replace('{Universidad}', '', $vista);
+			$vista=str_replace('<td><input name="seleccion" type="checkbox"></td>', '', $vista);
+
 			//Buscamos la fila en la tabla para mostrar posibles mensajes del modelo
 			$inicio_fila = strrpos($vista,'<tr>');
 			$fin_fila = strrpos($vista, '</tr>')+5;
@@ -120,33 +127,6 @@
 						$vista = str_replace($fila, '<p>Se creo y asigno correctamente</p>', $vista);
 					else
 						$vista = str_replace($fila, $result, $vista);
-				}
-			}
-			else
-			{
-				$nombreUsuario = ""; 
-				$Usuarios= $this->modelo->buscarUsuario($nombreUsuario);
-				//Buscamos la fila en la tabla para mostrar lo obtenido del modelo
-				$inicio_fila = strrpos($vista,'<tr>');
-				$fin_fila = strrpos($vista, '</tr>')+5;
-				$fila = substr($vista,$inicio_fila,$fin_fila-$inicio_fila);
-				$filas = "";
-				//Si nos regresó algo el modelo lo mostramos
-				if(isset($Usuarios))
-				{
-					$new_fila="";
-					foreach ($Usuarios as $row) {
-						$new_fila = $fila;
-						$diccionario = array('{Usuario}' => $row['Usuario'],
-											'{Nombre}' => $row['Nombres'],
-											'{Apellido Paterno}' => $row['Apellido_P'],
-											'{Apellido Materno}' => $row['Apellido_M'],
-											'{Universidad}' => $row['Universidad']);
-						//var_dump($diccionario);
-						$new_fila = strtr($new_fila,$diccionario);
-						$filas .= $new_fila;
-					}
-					$vista = str_replace($fila, $filas, $vista);
 				}
 			}
 			//Concatenamos los archivos necesarios para la ventana y mostramos la vista
