@@ -37,24 +37,6 @@
 						<button class="btn btn-primary" type="submit">Ingresar</button>
 					</div>
 				</div>
-
-				<div class="form-group row">
-					<div class="col-xs-12">
-						<button class="btn btn-lg btn-block buton"><i class="fa fa-facebook-official"></i> Registrarse con Facebook</button>
-					</div>
-				</div>
-				<div class="form-group row">
-					<div class="col-xs-12">
-						<button class="btn btn-lg btn-block buton"><i class="fa fa-twitter-square"></i> Registrarse con Twitter</button>
-					</div>
-				</div>
-				<div class="form-group row">
-					<div class="col-xs-12">
-						<button class="btn btn-lg btn-block buton"><i class="fa fa-google-plus-square"></i> Registrarse con Google Plus</button>
-					</div>
-				</div>
-					
-					
 			</form>
 		</aside>
 

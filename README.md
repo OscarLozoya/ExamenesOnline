@@ -29,7 +29,7 @@ Este usuario utilizara la plataforma para contestar los exámenes que se le han 
 El rol de moderador podrá gestionar la creación y asignación de exámenes, administrar el banco de reactivos, administrando las preguntas (creación, modificación y eliminación de reactivos) y solucionar conflictos de reactivos (**apartado Examen**). 
 
 ####Administrador:
-Este usuario estará en la administración backend del sistema podrá dar de alta a usuarios de cualquier rol, asignar exámenes, administrar el banco de reactivos, categorías, resolución de conflictos de reactivos, así como la administración del slider de la página.
+Este usuario estará en la administración backend del sistema podrá dar de alta a usuarios de cualquier rol, asignar exámenes, administrar el banco de reactivos, categorías así como la resolución de conflictos de reactivos.
 
 ###Examen
 ***
@@ -38,7 +38,6 @@ Cuando el moderador/administrador crea un examen para un usuario lo único que h
 
 ####Calificación de exámenes:
 Los exámenes se califican solo para las preguntas de opción múltiple, las preguntas con respuesta abierta tendrán que ser calificadas por el administrador o moderador.
-Cuando un examen es calificado como aprobatorio le llega al usuario un correo de notificación felicitándole porque ha obtenido un puntaje aprobatorio en el examen.
 El definir si un examen es o no aprobatorio se hará de manera general en la plataforma aunque por examen por usuario puede definir el mínimo puntaje para que sea aprobatorio.
 
 ####Preguntas:

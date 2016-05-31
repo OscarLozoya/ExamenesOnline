@@ -476,15 +476,18 @@ class usuarioMdl
 				return $stmt->error;
 			$stmt->bind_result($Categoria,$Examen,$Num_Preguntas,$aciertos,$Calificacion,$Calificacion_Min);
 			while ($stmt->fetch()) {
-				$estado = 'Aprobado';
-				if($Calificacion < $Calificacion_Min)
-					$estado = 'Reprobado';
-				$array[] = array('Categoria' => $Categoria,
-								'Examen' => $Examen,
-								'Num_Preguntas' => $Num_Preguntas,
-								'Aciertos' => $aciertos,
-								'Calificacion' => $Calificacion,
-								'Estado' => $estado);
+				if(isset($Examen))
+				{
+					$estado = 'Aprobado';
+					if($Calificacion < $Calificacion_Min)
+						$estado = 'Reprobado';
+					$array[] = array('Categoria' => $Categoria,
+									'Examen' => $Examen,
+									'Num_Preguntas' => $Num_Preguntas,
+									'Aciertos' => $aciertos,
+									'Calificacion' => $Calificacion,
+									'Estado' => $estado);
+				}
 			}
 			$stmt->close();
 		}

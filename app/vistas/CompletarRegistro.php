@@ -5,9 +5,6 @@
         <div class="form-group">
             <img src="images/logo_user.gif" alt="Icon-user" class="userLogo"></img>
         </div>
-        <div class="form-group">
-            <button class="btn btn-primary btn-small">Cambiar Imagen</button>
-        </div>
       </div>
     </article>
 		<article class="col-xs-12 col-sm-10 col-md-10 col-lg-10">

@@ -44,7 +44,6 @@ class ExamenMdl
 
 				$tiempoBD = $tiempoHoras.$tiempoMinutos.$tiempoSegundos;
 			}
-			var_dump($tiempoBD);
 			$stmt->bind_param("isiii",$categoria,$nombreExamen,$tiempoBD,$cantidadPreguntas,$calificacionMinima);
 			if($stmt->execute())
 				return true;
