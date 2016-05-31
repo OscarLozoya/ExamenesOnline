@@ -7,7 +7,7 @@
             <br>
             <div class="col-xs-12 col-sm-6">
                 <figure>
-                    <img class="img-responsive" src="images/logo_user.gif">
+                    {iniciaFoto}<img class="img-responsive" src="{Foto}">{terminaFoto}
                 </figure>
             </div>
             <div class="col-xs-12 col-sm-6">
