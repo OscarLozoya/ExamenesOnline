@@ -3,11 +3,15 @@
 		<article class="col-xs-12 col-sm-2 col-md-2 col-lg-2 formulario text-center">
       <div class="form-horizontal">
         <div class="form-group">
-            <img src="images/logo_user.gif" alt="Icon-user" class="userLogo"></img>
+            {iniciaFoto}<img src="{Foto}" alt="Icon-user" class="userLogo"></img>{terminaFoto}
         </div>
-        <div class="form-group">
-            <button class="btn btn-primary btn-small">Cambiar Imagen</button>
-        </div>
+        <form action="index.php?controlador=usuario&accion=cambiarFoto" method="POST" enctype="multipart/form-data">
+	        <div class="form-group">
+	        	<button class="file-upload btn btn-primary"> 
+	            	<input class="file-input" name="foto" type="file">Cambiar Imagen</button>
+	            <button class="btn btn-primary" type="submit">Guardar</button>
+	        </div>
+		</form>
       </div>
     </article>
 		<article class="col-xs-12 col-sm-10 col-md-10 col-lg-10">

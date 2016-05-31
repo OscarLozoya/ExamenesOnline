@@ -94,7 +94,7 @@
 				
 				$vista = str_replace($Foto, $nuevaFoto, $vista);
 			}
-			if($_SESSION['img_ruta']=="")
+			if(($_SESSION['img_ruta']=="none")||($_SESSION['img_ruta']==""))
 			{
 				$fotoDefecto = 'images/logo_user.gif';
 				$nuevaFoto=$Foto;
