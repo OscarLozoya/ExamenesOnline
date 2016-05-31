@@ -672,7 +672,7 @@ lo considere como un arreglo y tome todos los que encuentre no solo el ultimo*/
 				$new_fila="";
 				foreach ($Usuarios as $row) {
 					$new_fila = $fila;
-					if($row['Foto']=='none')
+					if($row['Foto']=='none'||$row['Foto']=='')
 						$fotoDefecto = 'images/logo_user.gif';
 					else
 						$fotoDefecto = $row['Foto'];
