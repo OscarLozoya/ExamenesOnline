@@ -69,7 +69,10 @@
 			if(isset($_SESSION['usuario']))
 			{
 				$nuevoUsuario=$nombre;
-				$nombre_apellido = $_SESSION['Nombres'].' '.$_SESSION['Apellido_P'];
+				if(isset($_SESSION['Nombres']))
+				   $nombre_apellido = $_SESSION['Nombres'].' '.$_SESSION['Apellido_P'];
+				else
+					$nombre_apellido = $_SESSION['usuario'];
 				$diccionario= array('{Nombre_usuario}' => $nombre_apellido);
 				$nuevoUsuario=strtr($nuevoUsuario, $diccionario);
 				

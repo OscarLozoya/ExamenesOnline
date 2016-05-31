@@ -43,8 +43,8 @@
 						/*	case 'ModificarPerfil':
 							 		$this->ModificarPerfil();//Guarda en la BD los campos del perfil modificados se acciona con el boton de actualizar campos
 							 	break;*/
-							    	$this->MostrarPerfil(1);
-							  break;
+						/*	    	$this->MostrarPerfil(1);
+							  break;*/
 							case 'salir':
 								 	$this->salir();
 								 	carga_inicio();
@@ -243,14 +243,15 @@
 															'{Notificacion}'=> $Notificacion,
 															'{Nombre Del Usuario}' => $_SESSION['usuario']
 														 );
-				$Horarios = $this->modelo->recuperaHorario($Usuario);
-				$DicHorario = $this->creaHorarios($Horarios);
 
+				$Horarios = $this->modelo->recuperaHorario($Usuario);
+				
+				$DicHorario = $this->creaHorarios($Horarios);
 
 				$vista = strtr($vista,$Diccionario);
 				if(isset($DicHorario))
 					$vista = strtr($vista,$DicHorario);
-
+				
 				$Redes = $this->modelo->recuperaRedes($Usuario);
 				$vista = $this->creaRedes($Redes,$vista);
 
@@ -267,9 +268,6 @@
 		*/
 		function creaHorarios($Horarios)//Crea el Diccionario para sustituir en la vista los horarios del Usuario
 		{
-			if(isset($Horarios))
-			{
-				$Diccionario = null;//Esta Variable sera un array del diccionario
 				$Dias = array( //Este Arreglo es para controlar los dias que estan registrados y los que no 
 												"Lunes" => "Lunes", 
 											 "Martes" => "Martes", 
@@ -278,6 +276,9 @@
 											 "Viernes" => "Viernes", 
 											 "Sabado" => "Sabado"
 										);
+			if(isset($Horarios))
+			{
+				$Diccionario = null;//Esta Variable sera un array del diccionario
 				foreach ($Horarios as $key) //Del arreglo que se pasa como parametro se hacen las iteraciones
 				{
 					//Se obtiene en cada iteracion los valores para que no exista conflicto
@@ -310,6 +311,16 @@
 				return $Diccionario;
 			}
 			else
+				$ValorDesde = file_get_contents("app/vistas/Valores00.php");
+				$ValorHasta = file_get_contents("app/vistas/Valores00.php");
+				//Los dias que no se encontraron en la consulta se rellenaran en 00:00 a 24:00 es por esto que se deben de eliminar los encontrados
+				foreach ($Dias as $Dia => $val) 
+				{
+						$Diccionario['{Valores'.$val.'Desde}'] = $ValorDesde;
+						$Diccionario['{Valores'.$val.'Hasta}'] = $ValorHasta;
+
+				}
+				return $Diccionario;
 				return null;
 		}
 
