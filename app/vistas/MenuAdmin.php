@@ -14,8 +14,6 @@
             <a class="dropdown-toggle" data-toggle="dropdown" href="#">Usuario <span class="caret"></span></a>
             <ul class="dropdown-menu">
               <li><a href="index.php?controlador=usuario&accion=Alta">Nuevo</a></li>
-              <li><a href="index.php?controlador=usuario&accion=Modificar">Modificar</a></li>
-              <li><a href="index.php?controlador=usuario&accion=Baja">Dar de baja</a></li>
             </ul>
           </li>
           <li><a href="index.php?controlador=categoria&accion=panel">Categorias </a></li> 

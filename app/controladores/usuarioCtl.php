@@ -32,7 +32,7 @@
 							    if (isset($_GET['response']))
 							    	$this->actualizarPerfil();
 							    else
-							    	$this->MostrarPerfil();
+							    	$this->MostrarPerfil(1);
 							  break;
 							case 'Buscar':
 							 		$this->buscar();
