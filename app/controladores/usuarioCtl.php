@@ -32,7 +32,7 @@
 							    if (isset($_GET['response']))
 							    	$this->actualizarPerfil();
 							    else
-							    	$this->MostrarPerfil();
+							    	$this->MostrarPerfil(1);
 							  break;
 							case 'Buscar':
 							 		$this->buscar();
@@ -120,10 +120,37 @@
 				*/
 		public function Alta()
 		{
+
+				echo "TUTUO VBENE";
+			$header = file_get_contents("app/vistas/Header.php");
+			$menu = file_get_contents(devuelveMenu());
+			$vista = file_get_contents("app/vistas/AdminAbcUser.php");
+			$footer = file_get_contents("app/vistas/Footer.php");
+			if(!isset($_POST['Usuario']) || !isset($_POST['correoElectronico']))//Verificacion de que los campos no esten vacios
+				$Dic1 = array('{label_exito}' => '<label type="hidden"></label>');//Si estan vacios los campos se muestra la vista y se oculta una label de control
+			else if(isset($_POST['Usuario']) || isset($_POST['correoElectronico']))
+			{//Si se reciben datos por POST se ejecuta el proceso de registro recuperando los datos para enviar al modelo
+				$Usuario = $_POST['Usuario'];
+				$Correo = $_POST['correoElectronico'];
+				$Token = hash("sha256",$Correo);
+				$Token .=Time();//Se crea el token para enviar por correo
+				$Tipo = $_POST['tipo'];
+				$Estado = "0";
+				echo "TUTUO VBENE2";
+				$result=$this->modelo->registrar($Usuario,$Correo,$Token,$Tipo,$Estado,'none');//Se hace la peticion al modelo para que pre-registre y mande el mail al usuario
+			  if ($result)//Según sea el resultado se muestra una label para dar instrucciones al usuario
+			  	$Dic1 = array('{label_exito}' => '<label class="col-xs-12"> Para completar tu Registro revisa tu correo electronico</label>');
+			  else
+			  	$Dic1 = array('{label_exito}' => '<label class="col-xs-12"> El usuario ya fue registrado revisa tu correo o vuelve a intentarlo</label>');
+			}
+			$vista = strtr($vista, $Dic1);//se reemplaza el cambio en la etiqueta de control
+			echo $header.$menu.$vista.$footer;//Se muestra la vista
+
+
+
+			/*
 			if(!isset($_POST['usuario'])||!isset($_POST['correo'])||!isset($_POST['tipo'])) //Comprobar si el formulario para dar de alta ya se lleno, si no es asi muestra la vista para ser completado
 			{
-				/*Requiere documentar
-				*/
 				require_once("app/vistas/AdminAbcUser.php");
 			}
 			else // Si el formulario ya se lleno crea el token y guarda el registro en la base de datos
@@ -135,8 +162,34 @@
 				$tipo = $_POST['tipo'];
 				$estado = "0";
 				$this->modelo->alta($usuario,$correo,$token,$tipo,$estado);
-				require_once("app/vistas/AdminAbcUser.php");
+				//require_once("app/vistas/AdminAbcUser.php");
 			}
+*/
+			/*
+			$header = file_get_contents("app/vistas/Header.php");
+			$menu = file_get_contents(devuelveMenu());
+			$vista = file_get_contents("app/vistas/Registro.php");
+			$footer = file_get_contents("app/vistas/Footer.php");
+			if(!isset($_POST['Usuario']) || !isset($_POST['correoElectronico']))
+			{//Verificacion de que los campos no esten vacios
+				$Dic1 = array('{label_exito}' => '<label type="hidden"></label>');//Si estan vacios los campos se muestra la vista y se oculta una label de control
+			}
+			else if(isset($_POST['Usuario']) || isset($_POST['correoElectronico'])){//Si se reciben datos por POST se ejecuta el proceso de registro recuperando los datos para enviar al modelo
+				$Usuario = $_POST['Usuario'];
+				$Correo = $_POST['correoElectronico'];
+				$Token = hash("sha256",$Correo);
+				$Token .=Time();//Se crea el token para enviar por correo
+				$Tipo = "2";
+				$Estado = "0";
+				$result=$this->modelo->registrar($Usuario,$Correo,$Token,$Tipo,$Estado,'none');//Se hace la peticion al modelo para que pre-registre y mande el mail al usuario
+			  if ($result)//Según sea el resultado se muestra una label para dar instrucciones al usuario
+			  	$Dic1 = array('{label_exito}' => '<label class="col-xs-12"> Para completar tu Registro revisa tu correo electronico</label>');
+			  else
+			  	$Dic1 = array('{label_exito}' => '<label class="col-xs-12"> El usuario ya fue registrado revisa tu correo o vuelve a intentarlo</label>');
+			}
+			$vista = strtr($vista, $Dic1);//se reemplaza el cambio en la etiqueta de control
+			echo $header.$vista.$footer;//Se muestra la vista
+			*/
 		} 
 
     /**
