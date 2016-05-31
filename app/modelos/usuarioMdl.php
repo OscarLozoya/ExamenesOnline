@@ -528,7 +528,7 @@ class usuarioMdl
 		if($this->driver->connect_errno)
 			return false;
 		//Se prepara el Query, los signos ? se sustituyen por las variables
-		if($stmt = $this->driver->prepare("SELECT p.Usuario, p.Nombres, p.Apellido_P, p.Apellido_M, p.Universidad, p.Carrera, p.Promedio, p.Estado, p.Porcentage, u.Correo_Elec, u.Imagen_Perfil FROM Perfil p INNER JOIN Usuario u ON p.Usuario = u.Usuario
+		if($stmt = $this->driver->prepare("SELECT p.Usuario, p.Nombres, p.Apellido_P, p.Apellido_M, p.Universidad, p.Carrera, p.Promedio, p.Estado, p.Porcentaje, u.Correo_Elec, u.Imagen_Perfil FROM Perfil p INNER JOIN Usuario u ON p.Usuario = u.Usuario
 		WHERE (p.Usuario LIKE ? OR p.Nombres LIKE ? OR p.Apellido_P LIKE ? OR p.Apellido_M LIKE ? OR p.Universidad LIKE ? OR p.Carrera LIKE ?) AND u.Tipo = '2';"))
 		{
 			//Se limpian las variables para evitar inyecciones de SQL

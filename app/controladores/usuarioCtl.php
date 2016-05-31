@@ -447,6 +447,8 @@
 			if(isset($_GET['response'])){
 				$Token = $_GET['response'];
 				$resultado = $this->modelo->comprobarRegistro($Token);
+
+
 				if(!$resultado){//Si el modelo nos devulve un false podra seguir el proceso de otra manera no sera posible
 					require_once("app/vistas/CompletarRegistro.php");
 				}
@@ -642,9 +644,14 @@ lo considere como un arreglo y tome todos los que encuentre no solo el ultimo*/
 				$new_fila="";
 				foreach ($Usuarios as $row) {
 					$new_fila = $fila;
+					if($row['Foto']=='none')
+						$fotoDefecto = 'images/logo_user.gif';
+					else
+						$fotoDefecto = $row['Foto'];
+
 					$diccionario = array('{Usuario}' => $row['Usuario'],
 										'{Correo}' => $row['Correo'],
-										'{Foto}' => $row['Foto'],
+										'{Foto}' => $fotoDefecto,
 										'{Nombre}' => $row['Nombres'],
 										'{Universidad}' => $row['Universidad'],
 										'{Carrera}' => $row['Carrera'],
