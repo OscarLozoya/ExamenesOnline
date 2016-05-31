@@ -122,6 +122,32 @@
 						$vista = str_replace($fila, $result, $vista);
 				}
 			}
+			else
+			{
+				$Usuarios= $this->modelo->buscarUsuario($nombreUsuario);
+				//Buscamos la fila en la tabla para mostrar lo obtenido del modelo
+				$inicio_fila = strrpos($vista,'<tr>');
+				$fin_fila = strrpos($vista, '</tr>')+5;
+				$fila = substr($vista,$inicio_fila,$fin_fila-$inicio_fila);
+				$filas = "";
+				//Si nos regresó algo el modelo lo mostramos
+				if(isset($Usuarios))
+				{
+					$new_fila="";
+					foreach ($Usuarios as $row) {
+						$new_fila = $fila;
+						$diccionario = array('{Usuario}' => $row['Usuario'],
+											'{Nombre}' => $row['Nombres'],
+											'{Apellido Paterno}' => $row['Apellido_P'],
+											'{Apellido Materno}' => $row['Apellido_M'],
+											'{Universidad}' => $row['Universidad']);
+						//var_dump($diccionario);
+						$new_fila = strtr($new_fila,$diccionario);
+						$filas .= $new_fila;
+					}
+					$vista = str_replace($fila, $filas, $vista);
+				}
+			}
 			//Concatenamos los archivos necesarios para la ventana y mostramos la vista
 			$vista = $header . $menu . $vista . $footer;
 			echo $vista;
