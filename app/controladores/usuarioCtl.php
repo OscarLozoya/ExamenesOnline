@@ -199,8 +199,6 @@
 
 		function MostrarPerfil($opc)
 		{
-			/*if(empty($_POST))
-			{*/
 				$Usuario = $_SESSION['usuario'];
 				$header = file_get_contents("app/vistas/Header.php");
 				$menu = file_get_contents(devuelveMenu());
@@ -255,10 +253,6 @@
 
 				$vista = mostrarFoto($vista);
 				echo $header.$menu.$vista.$footer;
-				//require_once("app/vistas/Perfil.php");
-			/*}
-			else
-				carga_inicio();*/
 
 		}
 
@@ -612,6 +606,7 @@ lo considere como un arreglo y tome todos los que encuentre no solo el ultimo*/
 				$usuario = $_POST['usuario'];
 				$contrasena = $_POST['contrasena'];				
 				$registrado = $this->modelo->ingresar($usuario,$contrasena);
+				var_dump($registrado);
 				carga_inicio();
 			}
 		}

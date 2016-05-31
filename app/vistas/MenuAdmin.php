@@ -33,7 +33,6 @@
               <li><a href="index.php?controlador=examen&accion=eliminar">Eliminar</a></li>
             </ul>
           </li>
-          <li><a href="index.php?controlador=slider&accion=crear">Slide </a></li> 
         </ul>
         <ul class="nav navbar-nav navbar-right">
               <li><a href="index.php?controlador=usuario&accion=salir"><span class="glyphicon glyphicon-log-out"></span> Salir</a></li>

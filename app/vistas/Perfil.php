@@ -7,17 +7,18 @@
             {iniciaFoto}<img src="{Foto}" alt="Icon-user" class="userLogo"></img>{terminaFoto}
         </div>
         <form action="index.php?controlador=usuario&accion=cambiarFoto" method="POST" enctype="multipart/form-data">
-        <div class="form-group">
-        	<button class="file-upload btn btn-primary"> 
-            	<input class="file-input" name="foto" type="file">Cambiar Imagen</button>
-            <button class="btn btn-primary" type="submit">Guardar</button>
-        </div>
-        <div class="form-group">
-            <a href="index.php?controlador=usuario&accion=cambioContrasena">Cambio contraseña</a>
-        </div>
-        <div class="form-group">
-            <a href="index.php?controlador=usuario&accion=detalleExamen">Detalle exámenes</a>
-        </div>
+	        <div class="form-group">
+	        	<button class="file-upload btn btn-primary"> 
+	            	<input class="file-input" name="foto" type="file">Cambiar Imagen</button>
+	            <button class="btn btn-primary" type="submit">Guardar</button>
+	        </div>
+		      <div class="form-group">
+		          <a href="#cont">Cambio contraseña</a>
+		      </div>
+		      <div class="form-group">
+		          <a href="index.php?controlador=usuario&accion=detalleExamen">Detalle exámenes</a>
+		      </div>
+		    </form>
       </div>
     </article>
 		<article class="col-xs-12 col-sm-10 col-md-10 col-lg-10 ">
@@ -253,7 +254,7 @@
 			<div class="jumbotron">
 				<form action="index.php?controlador=usuario&accion=cambioContrasena" method="post">
 					<div class="form-horizontal well ">
-						<fieldset>
+						<fieldset id="cont">
 						<legend>Cambiar Contraseña</legend>
 							<div class="form-group">
 								<div class="col-sm-6 col-md-4 col-lg-3">
