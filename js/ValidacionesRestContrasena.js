@@ -12,16 +12,7 @@ function ValidacionCorreo()
 	var correo=$('#CorreoElec');
 	if(notEmpty(correo.val()))
 	{
-		if(ValidaCorreo(correo.val()))
-		{
 			return true;
-		}
-		else
-		{
-			var MensajeCorreo=$("#MensajeCorreo");
-			MensajeCorreo.css('display','block');
-			return false;
-		}
 	}
 	else
 	{
@@ -35,6 +26,7 @@ function ValidacionCorreo()
 */
 function Cancelar()
 {
+	window.location="index.php";
 	$('input#CorreoElec').val('');	
 }
 /**

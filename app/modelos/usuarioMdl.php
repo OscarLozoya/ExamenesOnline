@@ -493,6 +493,7 @@ class usuarioMdl
 		}
 		return $array;
 	}
+
 	function ingresar($usuario,$contrasena)
 	{
 		$existe=false;
@@ -580,6 +581,62 @@ class usuarioMdl
 			$_SESSION['img_ruta'] = $ruta;
 		}
 		return $guardado;
+	}
+
+	function buscaUsuario($User)
+	{
+   	$Resultado=null;
+		if($this->driver->connect_errno)
+			return false;
+		if($stmt = $this->driver->prepare("SELECT Usuario,Correo_Elec FROM Usuario WHERE Usuario = ?"))
+		{
+			$User = $this->driver->real_escape_string($User);
+			$stmt->bind_param("s",$User);
+			if (!$stmt->execute()) 
+				return $stmt->errno;
+			$stmt->bind_result($consulta,$ccorreo);
+			while ($stmt->fetch())
+				$Resultado = array('usuario' => $consulta,
+														'correo' => $ccorreo);
+			$stmt->close();
+			return $Resultado;
+
+		}
+		else
+			return false;
+	}
+	function desactivaCuenta($Usuario,$Correo,$Token)
+	{
+		if($this->driver->connect_errno)
+			return false;
+		if($stmt = $this->driver->prepare("UPDATE  Usuario SET Contrasena = ?, Estado = ? WHERE Usuario = ?"))
+		{
+			$Estado = 0;
+			$Usuario = $this->driver->real_escape_string($Usuario);
+			$Token = $this->driver->real_escape_string($Token);
+			$stmt->bind_param("sis",$Token,$Estado,$Usuario);
+			if ($stmt->execute()) 
+			{
+				$stmt->close();
+			date_default_timezone_set ('America/Mexico_City');//se establece la zona horaria para la funcion mail
+	  		//Se crea el enlace que guiara al usuario a  completar su registro
+		  	$enlace = "http://examenesonline.no-ip.org/index.php?controlador=usuario&accion=CambioContrasena&response=".$Token;
+		  	//Las siguientes variables son parametros para la funcion mail() de php que permite enviar emails
+		    $From = 'From: "Team Dead Developers" deaddevelopers@gmail.com';//Esta linea modifica el remitente se debe de poner por que sino el remitente sera el servidor interprete de php
+				$asunto="Restablecer Contraseña de ExamenesOnline";
+				$mensaje="Hola ".$Usuario.": \n\nSigue el enlace para que restablescar tu contraseña: \n\n"
+				         .$enlace."\n\n Si tu navegador no te redirecciona por favor copia elenlace en la barra de busqueda.";
+	      if(mail($Correo,$asunto,$mensaje,$From))
+	        return true;
+	      else
+	        return false;//Si el mensaje no se puede enviar se retorna un false para que elcontrolador muestre un mensaje
+				
+			}
+				return false;
+
+		}
+		else
+			return false;
 	}
 }
 ?>
