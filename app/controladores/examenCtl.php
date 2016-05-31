@@ -124,6 +124,7 @@
 			}
 			else
 			{
+				$nombreUsuario = ""; 
 				$Usuarios= $this->modelo->buscarUsuario($nombreUsuario);
 				//Buscamos la fila en la tabla para mostrar lo obtenido del modelo
 				$inicio_fila = strrpos($vista,'<tr>');
