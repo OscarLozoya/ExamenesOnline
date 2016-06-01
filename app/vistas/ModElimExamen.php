@@ -71,9 +71,6 @@
 			<div class="col-xs-6 col-sm-2 col-sm-offset-8">
 				<button class="btn btn-primary" type="submit">Eliminar</button>
 			</div>
-			<div class="col-xs-6 col-sm-2">
-				<button class="btn btn-primary" type="button" onclick="ModificarExamen()">Modificar</button>
-			</div>
 		</div>
 	</form>
 </section>

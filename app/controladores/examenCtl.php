@@ -319,6 +319,7 @@
 				//Cargamos los archivos necesarios para la vista 
 				$vista=file_get_contents('app/vistas/ModElimExamen.php');
 				$header=file_get_contents('app/vistas/Header.php');
+				$menu = file_get_contents(devuelveMenu());
 				$footer=file_get_contents('app/vistas/Footer.php');
 				//Guardamos los valores obtenidos por POST 
 				$ID = $_POST['id'];
@@ -357,7 +358,7 @@
 					//Si no mostramos un mensaje
 					$vista = str_replace($fila, '<p>No se encontro el examen</p>', $vista);
 				}
-				$vista = $header.$vista.$footer;
+				$vista = $header.$menu.$vista.$footer;
 				echo $vista;
 			}
 		}
